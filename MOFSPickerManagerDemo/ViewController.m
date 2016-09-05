@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "MOFSPickerManager.h"
 
 @interface ViewController ()
 
@@ -23,5 +24,32 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)lbClick:(UITapGestureRecognizer *)sender {
+    UILabel *lb = (UILabel *)(sender.view);
+    NSDateFormatter *df = [NSDateFormatter new];
+    df.dateFormat = @"yyyy-MM-dd";
+    if (lb.tag == 1) {
+        [[MOFSPickerManager shareManger] showDatePickerWithTag:1 commitBlock:^(NSDate *date) {
+            lb.text = [df stringFromDate:date];
+        } cancelBlock:^{
+            
+        }];
+    } else if (lb.tag == 2) {
+        [[MOFSPickerManager shareManger] showPickerViewWithDataArray:@[@"疾风剑豪",@"刀锋意志",@"诡术妖姬",@"狂战士"] tag:1 title:nil cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString *string) {
+            lb.text = string;
+        } cancelBlock:^{
+            
+        }];
+    } else if (lb.tag == 3) {
+        [[MOFSPickerManager shareManger] showMOFSAddressPickerWithTitle:nil cancelTitle:@"取消" commitTitle:@"完成" commitBlock:^(NSString *address, NSString *zipcode) {
+            lb.text = address;
+        } cancelBlock:^{
+            
+        }];
+    }
+    
+}
+
 
 @end
