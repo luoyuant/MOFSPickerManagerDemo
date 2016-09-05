@@ -69,6 +69,6 @@
 
     }];
     
-    #详情请查看
-    http://www.jianshu.com/p/578065eab5ab
+    
+#详情请查看http://www.jianshu.com/p/578065eab5ab
     
