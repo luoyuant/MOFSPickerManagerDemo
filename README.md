@@ -72,3 +72,6 @@
     
 #详情请查看http://www.jianshu.com/p/578065eab5ab
     
+如果发现有bug，call me！
+晚上睡不着？？ call me！
+luoyuant@163.com
