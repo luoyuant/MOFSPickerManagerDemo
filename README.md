@@ -1,4 +1,4 @@
-#均为一句话调用
+#均为一句话调用 iOS PickerView整合，一行代码调用（省市区三级联动+日期选择+普通选择）
 # 预览图
 
 ![image](https://github.com/memoriesofsnows/MOFSPickerManagerDemo/blob/master/images/tap9.gif)
