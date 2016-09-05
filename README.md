@@ -1,3 +1,4 @@
+#均为一句话调用
 # 预览图
 
 ![image](https://github.com/memoriesofsnows/MOFSPickerManagerDemo/blob/master/images/tap9.gif)
@@ -67,3 +68,7 @@
     NSLog(@"%@",zipcode);
 
     }];
+    
+    #详情请查看
+    http://www.jianshu.com/p/578065eab5ab
+    
