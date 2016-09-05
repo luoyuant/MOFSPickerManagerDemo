@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>MOFSPickerManagerDemo.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>BFE28A911D7D9B7400C87B7D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BFE28AAA1D7D9B7400C87B7D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BFE28AB51D7D9B7400C87B7D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
