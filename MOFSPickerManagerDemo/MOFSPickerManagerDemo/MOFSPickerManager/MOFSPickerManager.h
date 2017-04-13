@@ -2,7 +2,7 @@
 //  MOFSPickerManager.h
 //  MOFSPickerManager
 //
-//  Created by lzqhoh@163.com on 16/8/26.
+//  Created by luoyuan on 16/8/26.
 //  Copyright © 2016年 luoyuan. All rights reserved.
 //
 
@@ -45,7 +45,7 @@ typedef void (^PickerViewCancelBlock)();
  * default commitTitle : "确定".
  * default title : "".
  * @param tag : will remeber the last date you had select.
- * @param model : UIDatePickerMode
+ * @param mode : UIDatePickerMode
  */
 - (void)showDatePickerWithTag:(NSInteger)tag datePickerMode:(UIDatePickerMode)mode commitBlock:(DatePickerCommitBlock)commitBlock cancelBlock:(DatePickerCancelBlock)cancelBlock;
 
@@ -55,7 +55,7 @@ typedef void (^PickerViewCancelBlock)();
  * @param title : toolbar title
  * @param cancelTitle : "".
  * @param commitTitle : "".
- * @param model : UIDatePickerMode.
+ * @param mode : UIDatePickerMode.
  */
 - (void)showDatePickerWithTag:(NSInteger)tag title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle datePickerMode:(UIDatePickerMode)mode commitBlock:(DatePickerCommitBlock)commitBlock cancelBlock:(DatePickerCancelBlock)cancelBlock;
 
@@ -64,7 +64,7 @@ typedef void (^PickerViewCancelBlock)();
  * @param firstDate : show date.
  * @param minDate : minimumDate.
  * @param maxDate : maximumDate.
- * @param model : UIDatePickerMode.
+ * @param mode : UIDatePickerMode.
  */
 - (void)showDatePickerWithTag:(NSInteger)tag firstDate:(NSDate *)firstDate minDate:(NSDate *)minDate maxDate:(NSDate *)maxDate datePickerMode:(UIDatePickerMode)mode commitBlock:(DatePickerCommitBlock)commitBlock cancelBlock:(DatePickerCancelBlock)cancelBlock;
 
@@ -76,7 +76,7 @@ typedef void (^PickerViewCancelBlock)();
  * @param firstDate : show date.
  * @param minDate : minimumDate.
  * @param maxDate : maximumDate.
- * @param model : UIDatePickerMode.
+ * @param mode : UIDatePickerMode.
  * @param tag : will remeber the last date you had select.
  */
 - (void)showDatePickerWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle firstDate:(NSDate *)firstDate minDate:(NSDate *)minDate maxDate:(NSDate *)maxDate datePickerMode:(UIDatePickerMode)mode tag:(NSInteger)tag commitBlock:(DatePickerCommitBlock)commitBlock cancelBlock:(DatePickerCancelBlock)cancelBlock;
@@ -98,28 +98,67 @@ typedef void (^PickerViewCancelBlock)();
  *  @param title       your custom title
  *  @param cancelTitle your custom cancelTitle
  *  @param commitTitle your custom commitTitle
- *  @param commitBlock
- *  @param cancelBlock
+ *  @param commitBlock commitBlock
+ *  @param cancelBlock cancelBlock
  */
 - (void)showMOFSAddressPickerWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)())cancelBlock;
 
 /**
+ *  show addressPicker with your custom title, cancelTitle, commitTitle
+ *
+ *  @param title       your custom title
+ *  @param address     default address
+ *  @param cancelTitle your custom cancelTitle
+ *  @param commitTitle your custom commitTitle
+ *  @param commitBlock commitBlock
+ *  @param cancelBlock cancelBlock
+ */
+- (void)showMOFSAddressPickerWithDefaultAddress:(NSString *)address numberOfComponents:(NSInteger)numberOfComponents title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)())cancelBlock;
+
+/**
+ *  show addressPicker with your custom title, cancelTitle, commitTitle
+ *
+ *  @param zipcode     default zipcode
+ *  @param title       your custom title
+ *  @param cancelTitle your custom cancelTitle
+ *  @param commitTitle your custom commitTitle
+ *  @param commitBlock commitBlock
+ *  @param cancelBlock cancelBlock
+ */
+- (void)showMOFSAddressPickerWithDefaultZipcode:(NSString *)zipcode numberOfComponents:(NSInteger)numberOfComponents title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)())cancelBlock;
+
+/**
  *  searchAddressByZipcode
  *
- *  @param zipcode
- *  @param block
+ *  @param zipcode zipcode
+ *  @param block block
  */
 - (void)searchAddressByZipcode:(NSString *)zipcode block:(void(^)(NSString *address))block;
 
 /**
  *  searchZipCodeByAddress
  *
- *  @param address
- *  @param block
+ *  @param address address
+ *  @param block block
  */
 - (void)searchZipCodeByAddress:(NSString *)address block:(void(^)(NSString *zipcode))block;
 
 
+/**
+ *  searchIndexByAddress
+ *
+ *  @param address address
+ *  @param block block
+ */
+- (void)searchIndexByAddress:(NSString *)address block:(void(^)(NSString *address))block;
 
+
+/**
+ *  searchIndexByZipCode
+ *
+ *  @param zipcode address
+ *  @param block block
+ */
+- (void)searchIndexByZipCode:(NSString *)zipcode block:(void(^)(NSString *address))block;
 
 @end

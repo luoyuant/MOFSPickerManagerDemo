@@ -2,7 +2,7 @@
 //  MOFSPickerManager.m
 //  MOFSPickerManager
 //
-//  Created by lzqhoh@163.com on 16/8/26.
+//  Created by luoyuan on 16/8/26.
 //  Copyright © 2016年 luoyuan. All rights reserved.
 //
 
@@ -182,6 +182,113 @@
     }];
 }
 
+- (void)showMOFSAddressPickerWithDefaultAddress:(NSString *)address numberOfComponents:(NSInteger)numberOfComponents title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void (^)(NSString *, NSString *))commitBlock cancelBlock:(void (^)())cancelBlock {
+    self.addressPicker.componentNumber = numberOfComponents;
+    self.addressPicker.toolBar.titleBarTitle = title;
+    self.addressPicker.toolBar.cancelBarTitle = cancelTitle;
+    self.addressPicker.toolBar.commitBarTitle = commitTitle;
+    
+    [self.addressPicker showMOFSAddressPickerCommitBlock:^(NSString *address, NSString *zipcode) {
+        if (commitBlock) {
+            commitBlock(address, zipcode);
+        }
+    } cancelBlock:^{
+        if (cancelBlock) {
+            cancelBlock();
+        }
+    }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self searchIndexByAddress:address block:^(NSString *address) {
+            if (![address containsString:@"error"]) {
+                NSArray *indexArr = [address componentsSeparatedByString:@"-"];
+                for (int i = 0; i < indexArr.count; i++) {
+                    @try {
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            if (i < self.addressPicker.numberOfComponents) {
+                                
+                                [self.addressPicker selectRow:[indexArr[i] integerValue] inComponent:i animated:NO];
+                            }
+                            
+                            
+                            if (i < indexArr.count - 1) {
+                                
+                                if (i + 1 < self.addressPicker.numberOfComponents) {
+                                    [self.addressPicker reloadComponent:i + 1];
+                                }
+                                
+                            }
+                        });
+                        
+                    } @catch (NSException *exception) {
+                        
+                    } @finally {
+                        
+                    }
+                    
+                }
+            }
+        }];
+
+    });
+    
+    
+}
+
+- (void)showMOFSAddressPickerWithDefaultZipcode:(NSString *)zipcode numberOfComponents:(NSInteger)numberOfComponents title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void (^)(NSString *, NSString *))commitBlock cancelBlock:(void (^)())cancelBlock {
+    self.addressPicker.componentNumber = numberOfComponents;
+    self.addressPicker.toolBar.titleBarTitle = title;
+    self.addressPicker.toolBar.cancelBarTitle = cancelTitle;
+    self.addressPicker.toolBar.commitBarTitle = commitTitle;
+    
+    [self.addressPicker showMOFSAddressPickerCommitBlock:^(NSString *address, NSString *zipcode) {
+        if (commitBlock) {
+            commitBlock(address, zipcode);
+        }
+    } cancelBlock:^{
+        if (cancelBlock) {
+            cancelBlock();
+        }
+    }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self searchIndexByZipCode:zipcode block:^(NSString *address) {
+            if (![address containsString:@"error"]) {
+                NSArray *indexArr = [address componentsSeparatedByString:@"-"];
+                for (int i = 0; i < indexArr.count; i++) {
+                    @try {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            if (i < self.addressPicker.numberOfComponents) {
+                                
+                                [self.addressPicker selectRow:[indexArr[i] integerValue] inComponent:i animated:NO];
+                            }
+                            
+                            
+                            if (i < indexArr.count - 1) {
+                                
+                                if (i + 1 < self.addressPicker.numberOfComponents) {
+                                    [self.addressPicker reloadComponent:i + 1];
+                                }
+                                
+                            }
+                            
+                        });
+                    } @catch (NSException *exception) {
+                        
+                    } @finally {
+                        
+                    }
+                    
+                }
+            }
+        }];
+
+    });
+    
+    
+}
+
 - (void)searchAddressByZipcode:(NSString *)zipcode block:(void(^)(NSString *address))block {
     [self.addressPicker searchType:SearchTypeAddress key:zipcode block:^(NSString *result) {
         if (block) {
@@ -192,6 +299,22 @@
 
 - (void)searchZipCodeByAddress:(NSString *)address block:(void(^)(NSString *zipcode))block {
     [self.addressPicker searchType:SearchTypeZipcode key:address block:^(NSString *result) {
+        if (block) {
+            block(result);
+        }
+    }];
+}
+
+- (void)searchIndexByAddress:(NSString *)address block:(void(^)(NSString *address))block {
+    [self.addressPicker searchType:SearchTypeAddressIndex key:address block:^(NSString *result) {
+        if (block) {
+            block(result);
+        }
+    }];
+}
+
+- (void)searchIndexByZipCode:(NSString *)zipcode block:(void (^)(NSString *))block {
+    [self.addressPicker searchType:SearchTypeZipcodeIndex key:zipcode block:^(NSString *result) {
         if (block) {
             block(result);
         }

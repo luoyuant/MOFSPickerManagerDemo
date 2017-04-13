@@ -1,22 +1,34 @@
 //
-//  MOFSDatePicker.m
+//  MOFSPickerView.m
 //  MOFSPickerManager
 //
-//  Created by lzqhoh@163.com on 16/8/26.
+//  Created by luoyuan on 16/8/30.
 //  Copyright © 2016年 luoyuan. All rights reserved.
 //
 
-#import "MOFSDatePicker.h"
+#import "MOFSPickerView.h"
 
-@interface MOFSDatePicker()
+#define UISCREEN_WIDTH  [UIScreen mainScreen].bounds.size.width
+#define UISCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
+@interface MOFSPickerView() <UIPickerViewDelegate,UIPickerViewDataSource>
 
 @property (nonatomic, strong) NSMutableDictionary *recordDic;
+@property (nonatomic, strong) NSMutableArray *dataArr;
 @property (nonatomic, strong) UIView *bgView;
+
+@property (nonatomic, assign) NSInteger selectedRow;
 
 @end
 
+@implementation MOFSPickerView
 
-@implementation MOFSDatePicker
+- (NSMutableArray *)dataArr {
+    if (!_dataArr) {
+        _dataArr = [NSMutableArray array];
+    }
+    return _dataArr;
+}
 
 - (NSMutableDictionary *)recordDic {
     if (!_recordDic) {
@@ -41,8 +53,10 @@
     self = [super initWithFrame:initialFrame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        self.datePickerMode = UIDatePickerModeDate;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        
+        self.delegate = self;
+        self.dataSource = self;
         
         [self initBgView];
     }
@@ -67,42 +81,34 @@
 
 #pragma mark - Action
 
-- (void)showMOFSDatePickerViewWithTag:(NSInteger)tag firstDate:(NSDate *)date commit:(CommitBlock)commitBlock cancel:(CancelBlock)cancelBlock {
-    
-     NSString *showtagStr = [NSString stringWithFormat:@"%ld",tag];
-    
-    if ([self.recordDic.allKeys containsObject:showtagStr]) {
-        NSDate *date1 = self.recordDic[showtagStr][showtagStr];
-        self.date = date1;
-    } else {
-        if (date) {
-            self.date = date;
-        } else {
-            self.date = [NSDate date];
-        }
+- (void)showMOFSPickerViewWithDataArray:(NSArray *)array commitBlock:(void(^)(NSString *string))commitBlock cancelBlock:(void(^)())cancelBlock {
+    self.dataArr = [NSMutableArray arrayWithArray:array];
+    [self reloadAllComponents];
+    self.selectedRow = 0;
+    NSString *tagStr = [NSString stringWithFormat:@"%ld",(long)self.showTag];
+    if ([self.recordDic.allKeys containsObject:tagStr]) {
+        self.selectedRow = [self.recordDic[tagStr] integerValue];
     }
+    [self selectRow:self.selectedRow inComponent:0 animated:NO];
     
     [self showWithAnimation];
-    __weak typeof(self) weakSelf = self;
     
-    self.toolBar.cancelBlock = ^{
-        [weakSelf hiddenWithAnimation];
+    __weak typeof(self) weakSelf = self;
+    self.toolBar.cancelBlock = ^ {
         if (cancelBlock) {
+            [weakSelf hiddenWithAnimation];
             cancelBlock();
         }
     };
     
-    self.toolBar.commitBlock = ^{
-       
-        NSDictionary *dic = [NSDictionary dictionaryWithObject:weakSelf.date forKey:showtagStr];
-        [weakSelf.recordDic setValue:dic forKey:showtagStr];
-        
+    self.toolBar.commitBlock = ^ {
         [weakSelf hiddenWithAnimation];
         if (commitBlock) {
-            commitBlock(weakSelf.date);
+            NSString *rowStr = [NSString stringWithFormat:@"%ld",(long)weakSelf.selectedRow];
+            [weakSelf.recordDic setValue:rowStr forKey:tagStr];
+            commitBlock(weakSelf.dataArr[weakSelf.selectedRow]);
         }
     };
-
 }
 
 - (void)showWithAnimation {
@@ -140,6 +146,28 @@
     [self.toolBar removeFromSuperview];
     [self.bgView removeFromSuperview];
     [self.containerView removeFromSuperview];
+}
+
+#pragma mark - UIPickerViewDelegate,UIPickerViewDataSource
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.dataArr.count;
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+    return 44;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return self.dataArr[row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    self.selectedRow = row;
 }
 
 

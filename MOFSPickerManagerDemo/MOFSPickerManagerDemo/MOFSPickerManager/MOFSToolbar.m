@@ -10,6 +10,8 @@
 
 #define BAR_COLOR [UIColor colorWithRed:0.090  green:0.463  blue:0.906 alpha:1]
 #define LINE_COLOR [UIColor colorWithRed:0.804  green:0.804  blue:0.804 alpha:1]
+#define UISCREEN_WIDTH  [UIScreen mainScreen].bounds.size.width
+#define UISCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
 @implementation MOFSToolbar
 

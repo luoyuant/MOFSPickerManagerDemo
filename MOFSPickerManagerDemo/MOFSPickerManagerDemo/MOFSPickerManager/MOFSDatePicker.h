@@ -2,7 +2,7 @@
 //  MOFSDatePicker.h
 //  MOFSPickerManager
 //
-//  Created by lzqhoh@163.com on 16/8/26.
+//  Created by luoyuan on 16/8/26.
 //  Copyright © 2016年 luoyuan. All rights reserved.
 //
 

@@ -2,11 +2,15 @@
 //  MOFSAddressPickerView.m
 //  MOFSPickerManager
 //
-//  Created by lzqhoh@163.com on 16/8/31.
+//  Created by luoyuan on 16/8/31.
 //  Copyright © 2016年 luoyuan. All rights reserved.
 //
 
 #import "MOFSAddressPickerView.h"
+#import "GDataXMLNode.h"
+
+#define UISCREEN_WIDTH  [UIScreen mainScreen].bounds.size.width
+#define UISCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
 @interface MOFSAddressPickerView() <UIPickerViewDelegate,UIPickerViewDataSource>
 
@@ -26,6 +30,12 @@
 
 @implementation MOFSAddressPickerView
 
+#pragma mark - setter
+
+- (void)setComponentNumber:(NSInteger)componentNumber {
+    _componentNumber = componentNumber;
+    [self reloadAllComponents];
+}
 
 #pragma mark - create UI
 
@@ -57,12 +67,32 @@
             dispatch_queue_t queue = dispatch_queue_create("my.current.queue", DISPATCH_QUEUE_CONCURRENT);
             dispatch_barrier_async(queue, ^{
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    if (self.componentNumber <= 0) {
+                        self.componentNumber = 3;
+                    }
                     [self reloadAllComponents];
                 });
             });
         });
     }
     return self;
+}
+
+- (void)selectRow:(NSInteger)row inComponent:(NSInteger)component animated:(BOOL)animated {
+    [super selectRow:row inComponent:component animated:animated];
+    switch (component) {
+        case 0:
+            self.selectedIndex_province = row;
+            break;
+        case 1:
+            self.selectedIndex_city = row;
+            break;
+        case 2:
+            self.selectedIndex_area = row;
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)initToolBar {
@@ -110,11 +140,11 @@
                 
                 NSString *address;
                 NSString *zipcode;
-                if (!cityModel) {
+                if (!cityModel || self.numberOfComponents == 1) {
                     address = [NSString stringWithFormat:@"%@",addressModel.name];
                     zipcode = [NSString stringWithFormat:@"%@",addressModel.zipcode];
                 } else {
-                    if (!districtModel) {
+                    if (!districtModel || self.numberOfComponents == 2) {
                         address = [NSString stringWithFormat:@"%@-%@",addressModel.name,cityModel.name];
                         zipcode = [NSString stringWithFormat:@"%@-%@",addressModel.zipcode,cityModel.zipcode];
                     } else {
@@ -183,7 +213,7 @@
         NSArray *arr = [document nodesForXPath:@"root/province" error:nil];
         for (int i = 0; i < arr.count; i++) {
             AddressModel *model = [[AddressModel alloc] initWithXML:arr[i]];
-            
+            model.index = [NSString stringWithFormat:@"%i", i];
             [_dataArr addObject:model];
         }
         self.isGettingData = NO;
@@ -201,8 +231,20 @@
     
     dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
     
-    NSString *valueName = searchType == SearchTypeAddress ? @"name" : @"zipcode";
-    NSString *type  = searchType == SearchTypeAddress ? @"zipcode" : @"name";
+    NSString *valueName = @"";
+    NSString *type = @"";
+    
+    if (searchType == SearchTypeAddressIndex) {
+        valueName = @"index";
+        type = @"name";
+    } else if (searchType == SearchTypeZipcodeIndex) {
+        valueName = @"index";
+        type = @"zipcode";
+    } else {
+        valueName = searchType == SearchTypeAddress ? @"name" : @"zipcode";
+        type = searchType == SearchTypeAddress ? @"zipcode" : @"name";
+    }
+    
     if (self.isGettingData || !self.dataArr || self.dataArr.count == 0) {
         __weak typeof(self) weakSelf = self;
         self.getDataCompleteBlock = ^{
@@ -228,6 +270,10 @@
 
 
 - (NSString *)searchByKey:(NSString *)key valueName:(NSString *)valueName type:(NSString *)type {
+    
+    if ([key isEqualToString:@""] || !key) {
+        return @"";
+    }
     
     NSArray *arr = [key componentsSeparatedByString:@"-"];
     if (arr.count > 3) {
@@ -277,7 +323,7 @@
 #pragma mark - UIPickerViewDelegate,UIPickerViewDataSource
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 3;
+    return self.componentNumber;
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
@@ -331,16 +377,19 @@
             self.selectedIndex_province = row;
             self.selectedIndex_city = 0;
             self.selectedIndex_area = 0;
-            [pickerView reloadComponent:1];
-            [pickerView reloadComponent:2];
-            [pickerView selectRow:0 inComponent:1 animated:NO];
-            [pickerView selectRow:0 inComponent:2 animated:NO];
+            for (int i = 1; i < self.numberOfComponents; i++) {
+                [pickerView reloadComponent:i];
+                [pickerView selectRow:0 inComponent:i animated:NO];
+            }
+            
             break;
         case 1:
             self.selectedIndex_city = row;
             self.selectedIndex_area = 0;
-            [pickerView reloadComponent:2];
-            [pickerView selectRow:0 inComponent:2 animated:NO];
+            for (int i = 2; i < self.numberOfComponents; i++) {
+                [pickerView reloadComponent:i];
+                [pickerView selectRow:0 inComponent:i animated:NO];
+            }
             break;
         case 2:
             self.selectedIndex_area = row;

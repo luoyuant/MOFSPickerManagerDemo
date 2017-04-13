@@ -2,18 +2,19 @@
 //  AddressModel.h
 //  MOFSPickerManager
 //
-//  Created by lzqhoh@163.com on 16/8/31.
+//  Created by luoyuan on 16/8/31.
 //  Copyright © 2016年 luoyuan. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "GDataXMLNode.h"
+//#import "GDataXMLNode.h"
 
-@class CityModel,DistrictModel;
+@class CityModel,DistrictModel,GDataXMLElement;
 @interface AddressModel : NSObject
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *zipcode;
+@property (nonatomic, strong) NSString *index;
 @property (nonatomic, strong) NSMutableArray *list;
 
 - (instancetype)initWithXML:(GDataXMLElement *)xml;
@@ -24,6 +25,7 @@
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *zipcode;
+@property (nonatomic, strong) NSString *index;
 @property (nonatomic, strong) NSMutableArray *list;
 
 - (instancetype)initWithXML:(GDataXMLElement *)xml;
@@ -34,6 +36,7 @@
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *zipcode;
+@property (nonatomic, strong) NSString *index;
 
 - (instancetype)initWithXML:(GDataXMLElement *)xml;
 
