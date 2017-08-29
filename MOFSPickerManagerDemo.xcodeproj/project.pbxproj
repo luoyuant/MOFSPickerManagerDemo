@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF8ACDA51F555930006C456A /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDA41F555930006C456A /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BFE28A971D7D9B7400C87B7D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28A961D7D9B7400C87B7D /* main.m */; };
 		BFE28A9A1D7D9B7400C87B7D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28A991D7D9B7400C87B7D /* AppDelegate.m */; };
 		BFE28A9D1D7D9B7400C87B7D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28A9C1D7D9B7400C87B7D /* ViewController.m */; };
@@ -21,7 +22,6 @@
 		BFE28AD81D7D9BB500C87B7D /* MOFSPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28AD01D7D9BB500C87B7D /* MOFSPickerView.m */; };
 		BFE28AD91D7D9BB500C87B7D /* MOFSAddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28AD21D7D9BB500C87B7D /* MOFSAddressPickerView.m */; };
 		BFE28ADA1D7D9BB500C87B7D /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28AD41D7D9BB500C87B7D /* AddressModel.m */; };
-		BFE28ADE1D7D9C6700C87B7D /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28ADD1D7D9C6700C87B7D /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BFE28AE01D7D9D7D00C87B7D /* province_data.xml in Resources */ = {isa = PBXBuildFile; fileRef = BFE28ADF1D7D9D7D00C87B7D /* province_data.xml */; };
 		BFE28AE21D7D9ED700C87B7D /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE28AE11D7D9ED700C87B7D /* libxml2.2.tbd */; };
 /* End PBXBuildFile section */
@@ -44,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BF8ACDA31F555930006C456A /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
+		BF8ACDA41F555930006C456A /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		BFE28A921D7D9B7400C87B7D /* MOFSPickerManagerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MOFSPickerManagerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE28A961D7D9B7400C87B7D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BFE28A981D7D9B7400C87B7D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -72,8 +74,6 @@
 		BFE28AD21D7D9BB500C87B7D /* MOFSAddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOFSAddressPickerView.m; sourceTree = "<group>"; };
 		BFE28AD31D7D9BB500C87B7D /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
 		BFE28AD41D7D9BB500C87B7D /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
-		BFE28ADC1D7D9C6700C87B7D /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
-		BFE28ADD1D7D9C6700C87B7D /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		BFE28ADF1D7D9D7D00C87B7D /* province_data.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = province_data.xml; sourceTree = "<group>"; };
 		BFE28AE11D7D9ED700C87B7D /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -104,6 +104,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BF8ACDA11F555930006C456A /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				BF8ACDA21F555930006C456A /* GDataXMLNode */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		BF8ACDA21F555930006C456A /* GDataXMLNode */ = {
+			isa = PBXGroup;
+			children = (
+				BF8ACDA31F555930006C456A /* GDataXMLNode.h */,
+				BF8ACDA41F555930006C456A /* GDataXMLNode.m */,
+			);
+			path = GDataXMLNode;
+			sourceTree = "<group>";
+		};
 		BFE28A891D7D9B7400C87B7D = {
 			isa = PBXGroup;
 			children = (
@@ -127,7 +144,6 @@
 		BFE28A941D7D9B7400C87B7D /* MOFSPickerManagerDemo */ = {
 			isa = PBXGroup;
 			children = (
-				BFE28ADB1D7D9C5900C87B7D /* GDataXMLNode */,
 				BFE28AC81D7D9B9900C87B7D /* MOFSPickerManager */,
 				BFE28A981D7D9B7400C87B7D /* AppDelegate.h */,
 				BFE28A991D7D9B7400C87B7D /* AppDelegate.m */,
@@ -185,17 +201,9 @@
 				BFE28AD31D7D9BB500C87B7D /* AddressModel.h */,
 				BFE28AD41D7D9BB500C87B7D /* AddressModel.m */,
 				BFE28ADF1D7D9D7D00C87B7D /* province_data.xml */,
+				BF8ACDA11F555930006C456A /* Support Files */,
 			);
 			path = MOFSPickerManager;
-			sourceTree = "<group>";
-		};
-		BFE28ADB1D7D9C5900C87B7D /* GDataXMLNode */ = {
-			isa = PBXGroup;
-			children = (
-				BFE28ADC1D7D9C6700C87B7D /* GDataXMLNode.h */,
-				BFE28ADD1D7D9C6700C87B7D /* GDataXMLNode.m */,
-			);
-			path = GDataXMLNode;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -337,7 +345,7 @@
 				BFE28A9A1D7D9B7400C87B7D /* AppDelegate.m in Sources */,
 				BFE28AD81D7D9BB500C87B7D /* MOFSPickerView.m in Sources */,
 				BFE28AD91D7D9BB500C87B7D /* MOFSAddressPickerView.m in Sources */,
-				BFE28ADE1D7D9C6700C87B7D /* GDataXMLNode.m in Sources */,
+				BF8ACDA51F555930006C456A /* GDataXMLNode.m in Sources */,
 				BFE28ADA1D7D9BB500C87B7D /* AddressModel.m in Sources */,
 				BFE28A971D7D9B7400C87B7D /* main.m in Sources */,
 			);
