@@ -91,7 +91,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "MOFSPickerManager", "MOFSPickerManagerDemo/**/*.{h,m}"
+  s.source_files  = "MOFSPickerManagerDemo/MOFSPickerManager/**/*.{h,m}"
   s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
@@ -120,8 +120,8 @@ Pod::Spec.new do |s|
   # s.framework  = "SomeFramework"
   # s.frameworks = "SomeFramework", "AnotherFramework"
 
-  s.library   = "xml2.2.tbd"
-  # s.libraries = "iconv", "xml2"
+  #s.library   = "xml2.2.tbd"
+  s.libraries = "xml2.2.tbd", "xml2"
 
 
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -130,11 +130,13 @@ Pod::Spec.new do |s|
   #  where they will only apply to your library. If you depend on other Podspecs
   #  you can include multiple dependencies to ensure it works.
 
-  # s.requires_arc = true
+  # s.requires_arc = false
+  # s.requires_arc = ['MOFSPicker/**/*.{h,m}']
+
+
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2.2" }
-  s.xcconfig = { "OTHER_LINKER_FLAGS" => "-lxml2" }
-  #s.dependency "GDataXML"
+  s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2", "OTHER_LINKER_FLAGS" => "-lxml2" }
+  # s.dependency "GDataXML"
 
 end
