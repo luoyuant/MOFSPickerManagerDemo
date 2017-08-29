@@ -109,14 +109,12 @@
 			children = (
 				BF8ACDC51F557A54006C456A /* AddressModel.h */,
 				BF8ACDC61F557A54006C456A /* AddressModel.m */,
-				BF8ACDC71F557A54006C456A /* GDataXMLNode */,
 				BF8ACDC81F557A54006C456A /* GDataXMLNode.h */,
 				BF8ACDC91F557A54006C456A /* GDataXMLNode.m */,
 				BF8ACDCA1F557A54006C456A /* MOFSAddressPickerView.h */,
 				BF8ACDCB1F557A54006C456A /* MOFSAddressPickerView.m */,
 				BF8ACDCC1F557A54006C456A /* MOFSDatePicker.h */,
 				BF8ACDCD1F557A54006C456A /* MOFSDatePicker.m */,
-				BF8ACDCE1F557A54006C456A /* MOFSPicker */,
 				BF8ACDCF1F557A54006C456A /* MOFSPickerManager.h */,
 				BF8ACDD01F557A54006C456A /* MOFSPickerManager.m */,
 				BF8ACDD11F557A54006C456A /* MOFSPickerView.h */,
@@ -126,20 +124,6 @@
 				BF8ACDD51F557A54006C456A /* province_data.xml */,
 			);
 			path = MOFSPickerManager;
-			sourceTree = "<group>";
-		};
-		BF8ACDC71F557A54006C456A /* GDataXMLNode */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = GDataXMLNode;
-			sourceTree = "<group>";
-		};
-		BF8ACDCE1F557A54006C456A /* MOFSPicker */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MOFSPicker;
 			sourceTree = "<group>";
 		};
 		BFE28A891D7D9B7400C87B7D = {
