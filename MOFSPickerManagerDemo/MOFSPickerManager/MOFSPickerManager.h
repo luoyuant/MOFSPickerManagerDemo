@@ -113,7 +113,7 @@ typedef void (^PickerViewCancelBlock)();
  *  @param commitBlock commitBlock
  *  @param cancelBlock cancelBlock
  */
-- (void)showMOFSAddressPickerWithDefaultAddress:(NSString *)address numberOfComponents:(NSInteger)numberOfComponents title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)())cancelBlock;
+- (void)showMOFSAddressPickerWithDefaultAddress:(NSString *)address title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)())cancelBlock;
 
 /**
  *  show addressPicker with your custom title, cancelTitle, commitTitle
@@ -125,7 +125,7 @@ typedef void (^PickerViewCancelBlock)();
  *  @param commitBlock commitBlock
  *  @param cancelBlock cancelBlock
  */
-- (void)showMOFSAddressPickerWithDefaultZipcode:(NSString *)zipcode numberOfComponents:(NSInteger)numberOfComponents title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)())cancelBlock;
+- (void)showMOFSAddressPickerWithDefaultZipcode:(NSString *)zipcode title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)())cancelBlock;
 
 /**
  *  searchAddressByZipcode

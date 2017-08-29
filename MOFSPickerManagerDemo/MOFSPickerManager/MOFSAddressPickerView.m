@@ -30,12 +30,6 @@
 
 @implementation MOFSAddressPickerView
 
-#pragma mark - setter
-
-- (void)setComponentNumber:(NSInteger)componentNumber {
-    _componentNumber = componentNumber;
-    [self reloadAllComponents];
-}
 
 #pragma mark - create UI
 
@@ -67,9 +61,6 @@
             dispatch_queue_t queue = dispatch_queue_create("my.current.queue", DISPATCH_QUEUE_CONCURRENT);
             dispatch_barrier_async(queue, ^{
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if (self.componentNumber <= 0) {
-                        self.componentNumber = 3;
-                    }
                     [self reloadAllComponents];
                 });
             });
@@ -83,9 +74,15 @@
     switch (component) {
         case 0:
             self.selectedIndex_province = row;
+            self.selectedIndex_city = 0;
+            self.selectedIndex_area = 0;
+            [self reloadComponent:1];
+            [self reloadComponent:2];
             break;
         case 1:
             self.selectedIndex_city = row;
+            self.selectedIndex_area = 0;
+            [self reloadComponent:2];
             break;
         case 2:
             self.selectedIndex_area = row;
@@ -140,11 +137,11 @@
                 
                 NSString *address;
                 NSString *zipcode;
-                if (!cityModel || self.numberOfComponents == 1) {
+                if (!cityModel) {
                     address = [NSString stringWithFormat:@"%@",addressModel.name];
                     zipcode = [NSString stringWithFormat:@"%@",addressModel.zipcode];
                 } else {
-                    if (!districtModel || self.numberOfComponents == 2) {
+                    if (!districtModel) {
                         address = [NSString stringWithFormat:@"%@-%@",addressModel.name,cityModel.name];
                         zipcode = [NSString stringWithFormat:@"%@-%@",addressModel.zipcode,cityModel.zipcode];
                     } else {
@@ -323,7 +320,7 @@
 #pragma mark - UIPickerViewDelegate,UIPickerViewDataSource
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return self.componentNumber;
+    return 3;
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
@@ -377,19 +374,16 @@
             self.selectedIndex_province = row;
             self.selectedIndex_city = 0;
             self.selectedIndex_area = 0;
-            for (int i = 1; i < self.numberOfComponents; i++) {
-                [pickerView reloadComponent:i];
-                [pickerView selectRow:0 inComponent:i animated:NO];
-            }
-            
+            [pickerView reloadComponent:1];
+            [pickerView reloadComponent:2];
+            [pickerView selectRow:0 inComponent:1 animated:NO];
+            [pickerView selectRow:0 inComponent:2 animated:NO];
             break;
         case 1:
             self.selectedIndex_city = row;
             self.selectedIndex_area = 0;
-            for (int i = 2; i < self.numberOfComponents; i++) {
-                [pickerView reloadComponent:i];
-                [pickerView selectRow:0 inComponent:i animated:NO];
-            }
+            [pickerView reloadComponent:2];
+            [pickerView selectRow:0 inComponent:2 animated:NO];
             break;
         case 2:
             self.selectedIndex_area = row;

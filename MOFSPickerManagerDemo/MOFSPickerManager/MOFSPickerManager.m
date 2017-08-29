@@ -182,8 +182,7 @@
     }];
 }
 
-- (void)showMOFSAddressPickerWithDefaultAddress:(NSString *)address numberOfComponents:(NSInteger)numberOfComponents title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void (^)(NSString *, NSString *))commitBlock cancelBlock:(void (^)())cancelBlock {
-    self.addressPicker.componentNumber = numberOfComponents;
+- (void)showMOFSAddressPickerWithDefaultAddress:(NSString *)address title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)())cancelBlock {
     self.addressPicker.toolBar.titleBarTitle = title;
     self.addressPicker.toolBar.cancelBarTitle = cancelTitle;
     self.addressPicker.toolBar.commitBarTitle = commitTitle;
@@ -197,51 +196,36 @@
             cancelBlock();
         }
     }];
-    
+
     if (address == nil || [address isEqualToString:@""]) {
         return;
     }
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self searchIndexByAddress:address block:^(NSString *address) {
-            if (![address containsString:@"error"]) {
-                NSArray *indexArr = [address componentsSeparatedByString:@"-"];
-                for (int i = 0; i < indexArr.count; i++) {
-                    @try {
-                        
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            if (i < self.addressPicker.numberOfComponents) {
-                                
-                                [self.addressPicker selectRow:[indexArr[i] integerValue] inComponent:i animated:NO];
-                            }
-                            
-                            
-                            if (i < indexArr.count - 1) {
-                                
-                                if (i + 1 < self.addressPicker.numberOfComponents) {
-                                    [self.addressPicker reloadComponent:i + 1];
-                                }
-                                
-                            }
-                        });
-                        
-                    } @catch (NSException *exception) {
-                        
-                    } @finally {
-                        
-                    }
+    [self searchIndexByAddress:address block:^(NSString *address) {
+        if (![address containsString:@"error"]) {
+            NSArray *indexArr = [address componentsSeparatedByString:@"-"];
+            for (int i = 0; i < indexArr.count; i++) {
+                @try {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.addressPicker selectRow:[indexArr[i] integerValue] inComponent:i animated:NO];
+                        if (i < indexArr.count - 1) {
+                            [self.addressPicker reloadComponent:i + 1];
+                        }
+                    });
+                   
+                } @catch (NSException *exception) {
+                    
+                } @finally {
                     
                 }
+                
             }
-        }];
-
-    });
-    
+        }
+    }];
     
 }
 
-- (void)showMOFSAddressPickerWithDefaultZipcode:(NSString *)zipcode numberOfComponents:(NSInteger)numberOfComponents title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void (^)(NSString *, NSString *))commitBlock cancelBlock:(void (^)())cancelBlock {
-    self.addressPicker.componentNumber = numberOfComponents;
+- (void)showMOFSAddressPickerWithDefaultZipcode:(NSString *)zipcode title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void (^)(NSString *, NSString *))commitBlock cancelBlock:(void (^)())cancelBlock {
     self.addressPicker.toolBar.titleBarTitle = title;
     self.addressPicker.toolBar.cancelBarTitle = cancelTitle;
     self.addressPicker.toolBar.commitBarTitle = commitTitle;
@@ -256,44 +240,27 @@
         }
     }];
     
-    if (zipcode == nil || [zipcode isEqualToString:@""]) {
+    if (zipcode == nil || [zipcode  isEqual: @""]) {
         return;
     }
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self searchIndexByZipCode:zipcode block:^(NSString *address) {
-            if (![address containsString:@"error"]) {
-                NSArray *indexArr = [address componentsSeparatedByString:@"-"];
-                for (int i = 0; i < indexArr.count; i++) {
-                    @try {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            if (i < self.addressPicker.numberOfComponents) {
-                                
-                                [self.addressPicker selectRow:[indexArr[i] integerValue] inComponent:i animated:NO];
-                            }
-                            
-                            
-                            if (i < indexArr.count - 1) {
-                                
-                                if (i + 1 < self.addressPicker.numberOfComponents) {
-                                    [self.addressPicker reloadComponent:i + 1];
-                                }
-                                
-                            }
-                            
-                        });
-                    } @catch (NSException *exception) {
-                        
-                    } @finally {
-                        
-                    }
+    [self searchIndexByZipCode:zipcode block:^(NSString *address) {
+        if (![address containsString:@"error"]) {
+            NSArray *indexArr = [address componentsSeparatedByString:@"-"];
+            for (int i = 0; i < indexArr.count; i++) {
+                @try {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.addressPicker selectRow:[indexArr[i] integerValue] inComponent:i animated:NO];
+                    });
+                } @catch (NSException *exception) {
+                    
+                } @finally {
                     
                 }
+                
             }
-        }];
-
-    });
-    
+        }
+    }];
     
 }
 
