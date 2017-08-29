@@ -491,7 +491,7 @@
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = MOFSPickerManagerDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lxml2";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = memoriesofsnows.MOFSPickerManagerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -506,7 +506,7 @@
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = MOFSPickerManagerDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lxml2";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = memoriesofsnows.MOFSPickerManagerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -541,6 +541,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = MOFSPickerManagerDemoUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_BUNDLE_IDENTIFIER = memoriesofsnows.MOFSPickerManagerDemoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = MOFSPickerManagerDemo;
@@ -552,6 +553,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = MOFSPickerManagerDemoUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_BUNDLE_IDENTIFIER = memoriesofsnows.MOFSPickerManagerDemoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = MOFSPickerManagerDemo;

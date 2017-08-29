@@ -130,11 +130,22 @@ Pod::Spec.new do |s|
   #  where they will only apply to your library. If you depend on other Podspecs
   #  you can include multiple dependencies to ensure it works.
 
-  s.requires_arc = false
-  s.requires_arc = ['MOFSPicker/**/*.{h,m}']
+  s.requires_arc = true
+  non_arc_files = 'MOFSPickerManagerDemo/GDataXMLNode/**/*.{h,m}'
+
+  s.exclude_files = non_arc_files
+
+  s.subspec 'no-arc' do |sp|
+
+  sp.source_files = non_arc_files
+
+  sp.requires_arc = false
+
+end
+  # s.requires_arc = ['MOFSPickerManagerDemo/MOFSPickerManager/**/*.{h,m}']
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2", "OTHER_LINKER_FLAGS" => "-lxml2" }
+  s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2", "OTHER_LINKER_FLAGS" => "-ObjC", "WEAK_REFERENCES_IN_MANUAL_RETAIN_RELEASE" => "Yes" }
   # s.dependency "GDataXML"
 
 end
