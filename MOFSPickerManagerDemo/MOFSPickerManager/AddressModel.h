@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-//#import "GDataXMLNode.h"
+#import "GDataXMLNode.h"
 
 @class CityModel,DistrictModel,GDataXMLElement;
 @interface AddressModel : NSObject

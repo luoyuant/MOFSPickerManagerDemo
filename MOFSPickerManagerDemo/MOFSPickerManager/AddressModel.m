@@ -7,7 +7,6 @@
 //
 
 #import "AddressModel.h"
-#import "GDataXMLNode.h"
 
 @implementation AddressModel
 
