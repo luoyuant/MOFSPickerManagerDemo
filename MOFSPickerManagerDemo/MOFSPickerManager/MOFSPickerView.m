@@ -93,7 +93,7 @@
     
     [self showWithAnimation];
     
-    __weak typeof(self) weakSelf = self;
+    __weak __typeof(self) weakSelf = self;
     self.toolBar.cancelBlock = ^ {
         if (cancelBlock) {
             [weakSelf hiddenWithAnimation];
