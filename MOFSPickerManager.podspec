@@ -121,7 +121,7 @@ Pod::Spec.new do |s|
   # s.frameworks = "SomeFramework", "AnotherFramework"
 
   #s.library   = "xml2.2.tbd"
-  s.libraries = "xml2.2", "xml2"
+  s.libraries = "xml2"
 
 
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -132,6 +132,7 @@ Pod::Spec.new do |s|
 
   s.requires_arc = false
   s.requires_arc = ["MOFSPickerManagerDemo/MOFSPickerManager/**/*.{h,m}"]
+  s.module_name = "MOFSPickerManager"
   # non_arc_files = 'MOFSPickerManagerDemo/GDataXMLNode/**/*.{h,m}'
 
   # s.exclude_files = non_arc_files
@@ -148,5 +149,6 @@ Pod::Spec.new do |s|
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2", "OTHER_LINKER_FLAGS" => "-ObjC", "WEAK_REFERENCES_IN_MANUAL_RETAIN_RELEASE" => "Yes" }
   # s.dependency "GDataXML"
+  # "ALLOW_NON-MODULAR_INCLUDES_IN_FRAMEWORK_MODULES" => "YES"
 
 end
