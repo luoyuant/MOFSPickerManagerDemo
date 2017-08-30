@@ -1,4 +1,9 @@
 #iOS PickerView整合，一行代码调用（省市区三级联动+日期选择+普通选择）
+
+支持CocoaPods安装，
+
+pod 'MOFSPickerManager'即可
+
 # 预览图
 
 ![image](https://github.com/memoriesofsnows/MOFSPickerManagerDemo/blob/master/images/tap9.gif)
