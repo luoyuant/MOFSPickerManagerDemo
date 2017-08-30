@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
     iOS PickerView整合，一行代码调用（省市区三级联动+日期选择+普通选择）
                    DESC
 
-  s.homepage     = "http://www.jianshu.com/u/f4284f2cc646"
+  s.homepage     = "https://github.com/memoriesofsnows/MOFSPickerManagerDemo.git"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -39,8 +39,8 @@ Pod::Spec.new do |s|
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
 
-  s.license      = "MIT"
-  #s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
+  # s.license      = "MIT"
+  s.license      = { :type => "MIT", :file => "LICENSE" }
 
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
