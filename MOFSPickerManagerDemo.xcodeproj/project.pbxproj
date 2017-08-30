@@ -44,7 +44,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		BF7622EE1F5649BA00456B1B /* MOFSPickersManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOFSPickersManager.h; sourceTree = "<group>"; };
 		BF8ACDC51F557A54006C456A /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
 		BF8ACDC61F557A54006C456A /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
 		BF8ACDCA1F557A54006C456A /* MOFSAddressPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOFSAddressPickerView.h; sourceTree = "<group>"; };
@@ -121,7 +120,6 @@
 				BF8ACDD31F557A54006C456A /* MOFSToolbar.h */,
 				BF8ACDD41F557A54006C456A /* MOFSToolbar.m */,
 				BF8ACDD51F557A54006C456A /* province_data.xml */,
-				BF7622EE1F5649BA00456B1B /* MOFSPickersManager.h */,
 			);
 			path = MOFSPickerManager;
 			sourceTree = "<group>";
