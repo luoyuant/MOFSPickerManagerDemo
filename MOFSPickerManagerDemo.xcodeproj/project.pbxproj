@@ -509,7 +509,7 @@
 				INFOPLIST_FILE = MOFSPickerManagerDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = memoriesofsnow.com;
+				PRODUCT_BUNDLE_IDENTIFIER = com.f598.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -525,7 +525,7 @@
 				INFOPLIST_FILE = MOFSPickerManagerDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = memoriesofsnow.com;
+				PRODUCT_BUNDLE_IDENTIFIER = com.f598.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
