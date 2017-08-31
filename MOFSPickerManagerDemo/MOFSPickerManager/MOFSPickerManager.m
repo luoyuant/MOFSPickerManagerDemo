@@ -208,9 +208,6 @@
                 @try {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self.addressPicker selectRow:[indexArr[i] integerValue] inComponent:i animated:NO];
-                        if (i < indexArr.count - 1) {
-                            [self.addressPicker reloadComponent:i + 1];
-                        }
                     });
                    
                 } @catch (NSException *exception) {
