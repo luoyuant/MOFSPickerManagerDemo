@@ -7,7 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0365F4E49ABA374DA515FF5E /* libPods-MOFSPickerManagerDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AA25D57630D4791A3CBB3A4 /* libPods-MOFSPickerManagerDemo.a */; };
+		BF8ACDD61F557A54006C456A /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDC61F557A54006C456A /* AddressModel.m */; };
+		BF8ACDD81F557A54006C456A /* MOFSAddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDCB1F557A54006C456A /* MOFSAddressPickerView.m */; };
+		BF8ACDD91F557A54006C456A /* MOFSDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDCD1F557A54006C456A /* MOFSDatePicker.m */; };
+		BF8ACDDA1F557A54006C456A /* MOFSPickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDD01F557A54006C456A /* MOFSPickerManager.m */; };
+		BF8ACDDB1F557A54006C456A /* MOFSPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDD21F557A54006C456A /* MOFSPickerView.m */; };
+		BF8ACDDC1F557A54006C456A /* MOFSToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDD41F557A54006C456A /* MOFSToolbar.m */; };
+		BF8ACDDD1F557A54006C456A /* province_data.xml in Resources */ = {isa = PBXBuildFile; fileRef = BF8ACDD51F557A54006C456A /* province_data.xml */; };
+		BF8ACDE11F557D8C006C456A /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDE01F557D8C006C456A /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BFE28A971D7D9B7400C87B7D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28A961D7D9B7400C87B7D /* main.m */; };
 		BFE28A9A1D7D9B7400C87B7D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28A991D7D9B7400C87B7D /* AppDelegate.m */; };
 		BFE28A9D1D7D9B7400C87B7D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28A9C1D7D9B7400C87B7D /* ViewController.m */; };
@@ -37,9 +44,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2AA25D57630D4791A3CBB3A4 /* libPods-MOFSPickerManagerDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MOFSPickerManagerDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		61E1B8DBE6A9B2EDDDFCF155 /* Pods-MOFSPickerManagerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MOFSPickerManagerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MOFSPickerManagerDemo/Pods-MOFSPickerManagerDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		9B68E77B5B771CDE2EC8025A /* Pods-MOFSPickerManagerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MOFSPickerManagerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MOFSPickerManagerDemo/Pods-MOFSPickerManagerDemo.release.xcconfig"; sourceTree = "<group>"; };
+		BF8ACDC51F557A54006C456A /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
+		BF8ACDC61F557A54006C456A /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
+		BF8ACDCA1F557A54006C456A /* MOFSAddressPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOFSAddressPickerView.h; sourceTree = "<group>"; };
+		BF8ACDCB1F557A54006C456A /* MOFSAddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOFSAddressPickerView.m; sourceTree = "<group>"; };
+		BF8ACDCC1F557A54006C456A /* MOFSDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOFSDatePicker.h; sourceTree = "<group>"; };
+		BF8ACDCD1F557A54006C456A /* MOFSDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOFSDatePicker.m; sourceTree = "<group>"; };
+		BF8ACDCF1F557A54006C456A /* MOFSPickerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOFSPickerManager.h; sourceTree = "<group>"; };
+		BF8ACDD01F557A54006C456A /* MOFSPickerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOFSPickerManager.m; sourceTree = "<group>"; };
+		BF8ACDD11F557A54006C456A /* MOFSPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOFSPickerView.h; sourceTree = "<group>"; };
+		BF8ACDD21F557A54006C456A /* MOFSPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOFSPickerView.m; sourceTree = "<group>"; };
+		BF8ACDD31F557A54006C456A /* MOFSToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOFSToolbar.h; sourceTree = "<group>"; };
+		BF8ACDD41F557A54006C456A /* MOFSToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOFSToolbar.m; sourceTree = "<group>"; };
+		BF8ACDD51F557A54006C456A /* province_data.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = province_data.xml; sourceTree = "<group>"; };
+		BF8ACDDF1F557D8C006C456A /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
+		BF8ACDE01F557D8C006C456A /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		BFE28A921D7D9B7400C87B7D /* MOFSPickerManagerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MOFSPickerManagerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE28A961D7D9B7400C87B7D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BFE28A981D7D9B7400C87B7D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -65,7 +84,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFE28AE21D7D9ED700C87B7D /* libxml2.2.tbd in Frameworks */,
-				0365F4E49ABA374DA515FF5E /* libPods-MOFSPickerManagerDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,21 +104,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		26FE9A686058E9D1C3165D37 /* Frameworks */ = {
+		BF8ACDC41F557A54006C456A /* MOFSPickerManager */ = {
 			isa = PBXGroup;
 			children = (
-				2AA25D57630D4791A3CBB3A4 /* libPods-MOFSPickerManagerDemo.a */,
+				BF8ACDC51F557A54006C456A /* AddressModel.h */,
+				BF8ACDC61F557A54006C456A /* AddressModel.m */,
+				BF8ACDCA1F557A54006C456A /* MOFSAddressPickerView.h */,
+				BF8ACDCB1F557A54006C456A /* MOFSAddressPickerView.m */,
+				BF8ACDCC1F557A54006C456A /* MOFSDatePicker.h */,
+				BF8ACDCD1F557A54006C456A /* MOFSDatePicker.m */,
+				BF8ACDCF1F557A54006C456A /* MOFSPickerManager.h */,
+				BF8ACDD01F557A54006C456A /* MOFSPickerManager.m */,
+				BF8ACDD11F557A54006C456A /* MOFSPickerView.h */,
+				BF8ACDD21F557A54006C456A /* MOFSPickerView.m */,
+				BF8ACDD31F557A54006C456A /* MOFSToolbar.h */,
+				BF8ACDD41F557A54006C456A /* MOFSToolbar.m */,
+				BF8ACDD51F557A54006C456A /* province_data.xml */,
 			);
-			name = Frameworks;
+			path = MOFSPickerManager;
 			sourceTree = "<group>";
 		};
-		813F99B161D36A12AA929F8A /* Pods */ = {
+		BF8ACDDE1F557D8C006C456A /* GDataXMLNode */ = {
 			isa = PBXGroup;
 			children = (
-				61E1B8DBE6A9B2EDDDFCF155 /* Pods-MOFSPickerManagerDemo.debug.xcconfig */,
-				9B68E77B5B771CDE2EC8025A /* Pods-MOFSPickerManagerDemo.release.xcconfig */,
+				BF8ACDDF1F557D8C006C456A /* GDataXMLNode.h */,
+				BF8ACDE01F557D8C006C456A /* GDataXMLNode.m */,
 			);
-			name = Pods;
+			path = GDataXMLNode;
 			sourceTree = "<group>";
 		};
 		BFE28A891D7D9B7400C87B7D = {
@@ -110,8 +140,6 @@
 				BFE28AAE1D7D9B7400C87B7D /* MOFSPickerManagerDemoTests */,
 				BFE28AB91D7D9B7400C87B7D /* MOFSPickerManagerDemoUITests */,
 				BFE28A931D7D9B7400C87B7D /* Products */,
-				813F99B161D36A12AA929F8A /* Pods */,
-				26FE9A686058E9D1C3165D37 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +156,8 @@
 		BFE28A941D7D9B7400C87B7D /* MOFSPickerManagerDemo */ = {
 			isa = PBXGroup;
 			children = (
+				BF8ACDC41F557A54006C456A /* MOFSPickerManager */,
+				BF8ACDDE1F557D8C006C456A /* GDataXMLNode */,
 				BFE28A981D7D9B7400C87B7D /* AppDelegate.h */,
 				BFE28A991D7D9B7400C87B7D /* AppDelegate.m */,
 				BFE28A9B1D7D9B7400C87B7D /* ViewController.h */,
@@ -175,12 +205,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BFE28ABF1D7D9B7400C87B7D /* Build configuration list for PBXNativeTarget "MOFSPickerManagerDemo" */;
 			buildPhases = (
-				2832E3B4EF28F158C69CA05C /* [CP] Check Pods Manifest.lock */,
 				BFE28A8E1D7D9B7400C87B7D /* Sources */,
 				BFE28A8F1D7D9B7400C87B7D /* Frameworks */,
 				BFE28A901D7D9B7400C87B7D /* Resources */,
-				634A82824F97C5C13FC731F0 /* [CP] Embed Pods Frameworks */,
-				66F80E7C6C492672EC67CD38 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -278,6 +305,7 @@
 				BFE28AA51D7D9B7400C87B7D /* LaunchScreen.storyboard in Resources */,
 				BFE28AA21D7D9B7400C87B7D /* Assets.xcassets in Resources */,
 				BFE28AA01D7D9B7400C87B7D /* Main.storyboard in Resources */,
+				BF8ACDDD1F557A54006C456A /* province_data.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,63 +325,19 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		2832E3B4EF28F158C69CA05C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MOFSPickerManagerDemo-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		634A82824F97C5C13FC731F0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MOFSPickerManagerDemo/Pods-MOFSPickerManagerDemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		66F80E7C6C492672EC67CD38 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MOFSPickerManagerDemo/Pods-MOFSPickerManagerDemo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		BFE28A8E1D7D9B7400C87B7D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF8ACDDC1F557A54006C456A /* MOFSToolbar.m in Sources */,
+				BF8ACDD91F557A54006C456A /* MOFSDatePicker.m in Sources */,
+				BF8ACDDB1F557A54006C456A /* MOFSPickerView.m in Sources */,
+				BF8ACDD81F557A54006C456A /* MOFSAddressPickerView.m in Sources */,
+				BF8ACDD61F557A54006C456A /* AddressModel.m in Sources */,
 				BFE28A9D1D7D9B7400C87B7D /* ViewController.m in Sources */,
+				BF8ACDDA1F557A54006C456A /* MOFSPickerManager.m in Sources */,
+				BF8ACDE11F557D8C006C456A /* GDataXMLNode.m in Sources */,
 				BFE28A9A1D7D9B7400C87B7D /* AppDelegate.m in Sources */,
 				BFE28A971D7D9B7400C87B7D /* main.m in Sources */,
 			);
@@ -500,7 +484,6 @@
 		};
 		BFE28AC01D7D9B7400C87B7D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 61E1B8DBE6A9B2EDDDFCF155 /* Pods-MOFSPickerManagerDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -508,15 +491,14 @@
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = MOFSPickerManagerDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = memoriesofsnow.com;
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = memoriesofsnows.MOFSPickerManagerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		BFE28AC11D7D9B7400C87B7D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9B68E77B5B771CDE2EC8025A /* Pods-MOFSPickerManagerDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -524,8 +506,8 @@
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = MOFSPickerManagerDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = memoriesofsnow.com;
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = memoriesofsnows.MOFSPickerManagerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
