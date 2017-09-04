@@ -91,7 +91,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "MOFSPickerManagerDemo/MOFSPickerManager/**/*.{h,m,xml}", "MOFSPickerManagerDemo/GDataXMLNode/**/*.{h,m}"
+  s.source_files  = "MOFSPickerManagerDemo/MOFSPickerManager/**/*.{h,m}", "MOFSPickerManagerDemo/GDataXMLNode/**/*.{h,m}"
   s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
@@ -107,6 +107,7 @@ Pod::Spec.new do |s|
 
   # s.resource  = "icon.png"
   # s.resources = "Resources/*.png"
+  s.resources = "MOFSPickerManagerDemo/MOFSPickerManager/**/*.{xml}"
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
@@ -131,7 +132,7 @@ Pod::Spec.new do |s|
   #  you can include multiple dependencies to ensure it works.
 
   s.requires_arc = false
-  s.requires_arc = ["MOFSPickerManagerDemo/MOFSPickerManager/**/*.{h,m,xml}"]
+  s.requires_arc = ["MOFSPickerManagerDemo/MOFSPickerManager/**/*.{h,m}"]
   s.module_name = "MOFSPickerManager"
   # non_arc_files = 'MOFSPickerManagerDemo/GDataXMLNode/**/*.{h,m}'
 
