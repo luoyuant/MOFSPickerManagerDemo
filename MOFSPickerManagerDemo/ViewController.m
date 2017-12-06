@@ -42,8 +42,9 @@
             
         }];
     } else if (lb.tag == 3) {
-        [[MOFSPickerManager shareManger] showMOFSAddressPickerWithDefaultAddress:@"广西壮族自治区-玉林市" title:@"" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString *address, NSString *zipcode) {
-            
+        //[MOFSPickerManager shareManger].addressPicker.numberOfSection = 2;
+        [[MOFSPickerManager shareManger] showMOFSAddressPickerWithDefaultAddress:@"广西壮族自治区-玉林市-容县" title:@"" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString *address, NSString *zipcode) {
+            lb.text = address;
         } cancelBlock:^{
             
         }];

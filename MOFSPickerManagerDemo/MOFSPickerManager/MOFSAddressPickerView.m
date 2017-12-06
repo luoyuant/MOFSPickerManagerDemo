@@ -22,14 +22,27 @@
 @property (nonatomic, assign) NSInteger selectedIndex_area;
 
 @property (nonatomic, assign) BOOL isGettingData;
-@property (nonatomic, strong) void (^getDataCompleteBlock)();
+@property (nonatomic, strong) void (^getDataCompleteBlock)(void);
 
 @property (nonatomic, strong) dispatch_semaphore_t semaphore;
+@property (nonatomic, assign) BOOL isSection; //0 < numberOfSection <= 3
 
 @end
 
 @implementation MOFSAddressPickerView
 
+#pragma mark - setter
+
+- (void)setNumberOfSection:(NSInteger)numberOfSection {
+    if (numberOfSection <= 0 || numberOfSection > 3) {
+        _numberOfSection = 3;
+    } else {
+        _numberOfSection = numberOfSection;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self reloadAllComponents];
+    });
+}
 
 #pragma mark - create UI
 
@@ -70,19 +83,28 @@
 }
 
 - (void)selectRow:(NSInteger)row inComponent:(NSInteger)component animated:(BOOL)animated {
+    if (component >= self.numberOfComponents) {
+        return;
+    }
     [super selectRow:row inComponent:component animated:animated];
     switch (component) {
         case 0:
             self.selectedIndex_province = row;
             self.selectedIndex_city = 0;
             self.selectedIndex_area = 0;
-            [self reloadComponent:1];
-            [self reloadComponent:2];
+            if (self.numberOfSection > 1) {
+                [self reloadComponent:1];
+            }
+            if (self.numberOfSection > 2) {
+                [self reloadComponent:2];
+            }
             break;
         case 1:
             self.selectedIndex_city = row;
             self.selectedIndex_area = 0;
-            [self reloadComponent:2];
+            if (self.numberOfSection > 2) {
+                [self reloadComponent:2];
+            }
             break;
         case 2:
             self.selectedIndex_area = row;
@@ -110,7 +132,10 @@
 
 #pragma mark - Action
 
-- (void)showMOFSAddressPickerCommitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)())cancelBlock {
+- (void)showMOFSAddressPickerCommitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)(void))cancelBlock {
+    if (self.numberOfSection <= 0 || self.numberOfComponents > 3) {
+        self.numberOfSection = 3;
+    }
     [self showWithAnimation];
     
     __weak typeof(self) weakSelf = self;
@@ -137,11 +162,11 @@
                 
                 NSString *address;
                 NSString *zipcode;
-                if (!cityModel) {
+                if (!cityModel || weakSelf.numberOfComponents == 1) {
                     address = [NSString stringWithFormat:@"%@",addressModel.name];
                     zipcode = [NSString stringWithFormat:@"%@",addressModel.zipcode];
                 } else {
-                    if (!districtModel) {
+                    if (!districtModel || weakSelf.numberOfComponents == 2) {
                         address = [NSString stringWithFormat:@"%@-%@",addressModel.name,cityModel.name];
                         zipcode = [NSString stringWithFormat:@"%@-%@",addressModel.zipcode,cityModel.zipcode];
                     } else {
@@ -320,7 +345,7 @@
 #pragma mark - UIPickerViewDelegate,UIPickerViewDataSource
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 3;
+    return self.numberOfSection;
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
@@ -374,16 +399,22 @@
             self.selectedIndex_province = row;
             self.selectedIndex_city = 0;
             self.selectedIndex_area = 0;
-            [pickerView reloadComponent:1];
-            [pickerView reloadComponent:2];
-            [pickerView selectRow:0 inComponent:1 animated:NO];
-            [pickerView selectRow:0 inComponent:2 animated:NO];
+            if (self.numberOfSection > 1) {
+                [pickerView reloadComponent:1];
+                [pickerView selectRow:0 inComponent:1 animated:NO];
+            }
+            if (self.numberOfSection > 2) {
+                [pickerView reloadComponent:2];
+                [pickerView selectRow:0 inComponent:2 animated:NO];
+            }
             break;
         case 1:
             self.selectedIndex_city = row;
             self.selectedIndex_area = 0;
-            [pickerView reloadComponent:2];
-            [pickerView selectRow:0 inComponent:2 animated:NO];
+            if (self.numberOfSection > 2) {
+                [pickerView reloadComponent:2];
+                [pickerView selectRow:0 inComponent:2 animated:NO];
+            }
             break;
         case 2:
             self.selectedIndex_area = row;

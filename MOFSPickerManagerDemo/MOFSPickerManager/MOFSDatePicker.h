@@ -10,7 +10,7 @@
 #import "MOFSToolbar.h"
 
 typedef void (^CommitBlock)(NSDate *date);
-typedef void (^CancelBlock)();
+typedef void (^CancelBlock)(void);
 
 @interface MOFSDatePicker : UIDatePicker
 

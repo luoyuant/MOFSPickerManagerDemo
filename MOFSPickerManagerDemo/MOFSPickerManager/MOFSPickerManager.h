@@ -12,10 +12,10 @@
 #import "MOFSAddressPickerView.h"
 
 typedef void (^DatePickerCommitBlock)(NSDate *date);
-typedef void (^DatePickerCancelBlock)();
+typedef void (^DatePickerCancelBlock)(void);
 
 typedef void (^PickerViewCommitBlock)(NSString *string);
-typedef void (^PickerViewCancelBlock)();
+typedef void (^PickerViewCancelBlock)(void);
 
 @interface MOFSPickerManager : NSObject
 
@@ -101,7 +101,7 @@ typedef void (^PickerViewCancelBlock)();
  *  @param commitBlock commitBlock
  *  @param cancelBlock cancelBlock
  */
-- (void)showMOFSAddressPickerWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)())cancelBlock;
+- (void)showMOFSAddressPickerWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)(void))cancelBlock;
 
 /**
  *  show addressPicker with your custom title, cancelTitle, commitTitle
@@ -113,7 +113,7 @@ typedef void (^PickerViewCancelBlock)();
  *  @param commitBlock commitBlock
  *  @param cancelBlock cancelBlock
  */
-- (void)showMOFSAddressPickerWithDefaultAddress:(NSString *)address title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)())cancelBlock;
+- (void)showMOFSAddressPickerWithDefaultAddress:(NSString *)address title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)(void))cancelBlock;
 
 /**
  *  show addressPicker with your custom title, cancelTitle, commitTitle
@@ -125,7 +125,7 @@ typedef void (^PickerViewCancelBlock)();
  *  @param commitBlock commitBlock
  *  @param cancelBlock cancelBlock
  */
-- (void)showMOFSAddressPickerWithDefaultZipcode:(NSString *)zipcode title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)())cancelBlock;
+- (void)showMOFSAddressPickerWithDefaultZipcode:(NSString *)zipcode title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)(void))cancelBlock;
 
 /**
  *  searchAddressByZipcode

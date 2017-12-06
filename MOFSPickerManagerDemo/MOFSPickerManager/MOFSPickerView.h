@@ -15,6 +15,6 @@
 @property (nonatomic, strong) MOFSToolbar *toolBar;
 @property (nonatomic, strong) UIView *containerView;
 
-- (void)showMOFSPickerViewWithDataArray:(NSArray *)array commitBlock:(void(^)(NSString *string))commitBlock cancelBlock:(void(^)())cancelBlock;
+- (void)showMOFSPickerViewWithDataArray:(NSArray *)array commitBlock:(void(^)(NSString *string))commitBlock cancelBlock:(void(^)(void))cancelBlock;
 
 @end

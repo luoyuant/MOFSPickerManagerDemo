@@ -44,7 +44,7 @@
  */
 @property (nonatomic, strong) UIColor *titleBarTextColor;
 
-@property (nonatomic, strong) void (^cancelBlock)();
-@property (nonatomic, strong) void (^commitBlock)();
+@property (nonatomic, strong) void (^cancelBlock)(void);
+@property (nonatomic, strong) void (^commitBlock)(void);
 
 @end

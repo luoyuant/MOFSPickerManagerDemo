@@ -81,7 +81,7 @@
 
 #pragma mark - Action
 
-- (void)showMOFSPickerViewWithDataArray:(NSArray *)array commitBlock:(void(^)(NSString *string))commitBlock cancelBlock:(void(^)())cancelBlock {
+- (void)showMOFSPickerViewWithDataArray:(NSArray *)array commitBlock:(void(^)(NSString *string))commitBlock cancelBlock:(void(^)(void))cancelBlock {
     self.dataArr = [NSMutableArray arrayWithArray:array];
     [self reloadAllComponents];
     self.selectedRow = 0;

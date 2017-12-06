@@ -167,7 +167,7 @@
 
 //===============================addressPicker===================================//
 
-- (void)showMOFSAddressPickerWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)())cancelBlock {
+- (void)showMOFSAddressPickerWithTitle:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)(void))cancelBlock {
     self.addressPicker.toolBar.titleBarTitle = title;
     self.addressPicker.toolBar.cancelBarTitle = cancelTitle;
     self.addressPicker.toolBar.commitBarTitle = commitTitle;
@@ -182,7 +182,7 @@
     }];
 }
 
-- (void)showMOFSAddressPickerWithDefaultAddress:(NSString *)address title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)())cancelBlock {
+- (void)showMOFSAddressPickerWithDefaultAddress:(NSString *)address title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)(void))cancelBlock {
     self.addressPicker.toolBar.titleBarTitle = title;
     self.addressPicker.toolBar.cancelBarTitle = cancelTitle;
     self.addressPicker.toolBar.commitBarTitle = commitTitle;
@@ -206,10 +206,9 @@
             NSArray *indexArr = [address componentsSeparatedByString:@"-"];
             for (int i = 0; i < indexArr.count; i++) {
                 @try {
-                    dispatch_async(dispatch_get_main_queue(), ^{
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [self.addressPicker selectRow:[indexArr[i] integerValue] inComponent:i animated:NO];
                     });
-                   
                 } @catch (NSException *exception) {
                     
                 } @finally {
@@ -222,7 +221,7 @@
     
 }
 
-- (void)showMOFSAddressPickerWithDefaultZipcode:(NSString *)zipcode title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void (^)(NSString *, NSString *))commitBlock cancelBlock:(void (^)())cancelBlock {
+- (void)showMOFSAddressPickerWithDefaultZipcode:(NSString *)zipcode title:(NSString *)title cancelTitle:(NSString *)cancelTitle commitTitle:(NSString *)commitTitle commitBlock:(void (^)(NSString *, NSString *))commitBlock cancelBlock:(void (^)(void))cancelBlock {
     self.addressPicker.toolBar.titleBarTitle = title;
     self.addressPicker.toolBar.cancelBarTitle = cancelTitle;
     self.addressPicker.toolBar.commitBarTitle = commitTitle;
