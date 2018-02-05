@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "MOFSPickerManager"
-  s.version      = "1.0.7"
+  s.version      = "1.0.8"
   s.summary      = "PickerManager for iOS"
 
   # This description is used to generate tags and improve search results.

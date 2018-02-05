@@ -17,11 +17,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [[MOFSPickerManager shareManger] searchAddressByZipcode:@"450000-450900-450921" block:^(NSString *address) {
         
         NSLog(@"%@",address);
         
     }];
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 
