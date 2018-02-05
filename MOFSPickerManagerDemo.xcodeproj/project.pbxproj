@@ -14,7 +14,6 @@
 		BF8ACDDB1F557A54006C456A /* MOFSPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDD21F557A54006C456A /* MOFSPickerView.m */; };
 		BF8ACDDC1F557A54006C456A /* MOFSToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDD41F557A54006C456A /* MOFSToolbar.m */; };
 		BF8ACDDD1F557A54006C456A /* province_data.xml in Resources */ = {isa = PBXBuildFile; fileRef = BF8ACDD51F557A54006C456A /* province_data.xml */; };
-		BF8ACDE11F557D8C006C456A /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDE01F557D8C006C456A /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BFE28A971D7D9B7400C87B7D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28A961D7D9B7400C87B7D /* main.m */; };
 		BFE28A9A1D7D9B7400C87B7D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28A991D7D9B7400C87B7D /* AppDelegate.m */; };
 		BFE28A9D1D7D9B7400C87B7D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28A9C1D7D9B7400C87B7D /* ViewController.m */; };
@@ -23,7 +22,6 @@
 		BFE28AA51D7D9B7400C87B7D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFE28AA31D7D9B7400C87B7D /* LaunchScreen.storyboard */; };
 		BFE28AB01D7D9B7400C87B7D /* MOFSPickerManagerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28AAF1D7D9B7400C87B7D /* MOFSPickerManagerDemoTests.m */; };
 		BFE28ABB1D7D9B7400C87B7D /* MOFSPickerManagerDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28ABA1D7D9B7400C87B7D /* MOFSPickerManagerDemoUITests.m */; };
-		BFE28AE21D7D9ED700C87B7D /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE28AE11D7D9ED700C87B7D /* libxml2.2.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,8 +55,6 @@
 		BF8ACDD31F557A54006C456A /* MOFSToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOFSToolbar.h; sourceTree = "<group>"; };
 		BF8ACDD41F557A54006C456A /* MOFSToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOFSToolbar.m; sourceTree = "<group>"; };
 		BF8ACDD51F557A54006C456A /* province_data.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = province_data.xml; sourceTree = "<group>"; };
-		BF8ACDDF1F557D8C006C456A /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
-		BF8ACDE01F557D8C006C456A /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		BFE28A921D7D9B7400C87B7D /* MOFSPickerManagerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MOFSPickerManagerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE28A961D7D9B7400C87B7D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BFE28A981D7D9B7400C87B7D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -83,7 +79,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BFE28AE21D7D9ED700C87B7D /* libxml2.2.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,15 +119,6 @@
 			path = MOFSPickerManager;
 			sourceTree = "<group>";
 		};
-		BF8ACDDE1F557D8C006C456A /* GDataXMLNode */ = {
-			isa = PBXGroup;
-			children = (
-				BF8ACDDF1F557D8C006C456A /* GDataXMLNode.h */,
-				BF8ACDE01F557D8C006C456A /* GDataXMLNode.m */,
-			);
-			path = GDataXMLNode;
-			sourceTree = "<group>";
-		};
 		BFE28A891D7D9B7400C87B7D = {
 			isa = PBXGroup;
 			children = (
@@ -157,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				BF8ACDC41F557A54006C456A /* MOFSPickerManager */,
-				BF8ACDDE1F557D8C006C456A /* GDataXMLNode */,
 				BFE28A981D7D9B7400C87B7D /* AppDelegate.h */,
 				BFE28A991D7D9B7400C87B7D /* AppDelegate.m */,
 				BFE28A9B1D7D9B7400C87B7D /* ViewController.h */,
@@ -338,7 +323,6 @@
 				BF8ACDD61F557A54006C456A /* AddressModel.m in Sources */,
 				BFE28A9D1D7D9B7400C87B7D /* ViewController.m in Sources */,
 				BF8ACDDA1F557A54006C456A /* MOFSPickerManager.m in Sources */,
-				BF8ACDE11F557D8C006C456A /* GDataXMLNode.m in Sources */,
 				BFE28A9A1D7D9B7400C87B7D /* AppDelegate.m in Sources */,
 				BFE28A971D7D9B7400C87B7D /* main.m in Sources */,
 			);
@@ -502,7 +486,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = P266DRY53J;
-				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = MOFSPickerManagerDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -522,7 +506,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = P266DRY53J;
-				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = MOFSPickerManagerDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

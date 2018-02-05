@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "MOFSPickerManager"
-  s.version      = "1.0.6"
+  s.version      = "1.0.7"
   s.summary      = "PickerManager for iOS"
 
   # This description is used to generate tags and improve search results.
@@ -91,7 +91,10 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "MOFSPickerManagerDemo/MOFSPickerManager/**/*.{h,m}", "MOFSPickerManagerDemo/GDataXMLNode/**/*.{h,m}"
+  #-------------------------------1.0.7版本去掉 2018-02-05-----------------------
+  # s.source_files  = "MOFSPickerManagerDemo/MOFSPickerManager/**/*.{h,m}", "MOFSPickerManagerDemo/GDataXMLNode/**/*.{h,m}"
+  #-----------------------------------------------------------------------------
+  s.source_files  = "MOFSPickerManagerDemo/MOFSPickerManager/**/*.{h,m}"
   s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
@@ -122,8 +125,10 @@ Pod::Spec.new do |s|
   # s.frameworks = "SomeFramework", "AnotherFramework"
 
   #s.library   = "xml2.2.tbd"
-  s.libraries = "xml2"
 
+  #-------------------------------1.0.7版本去掉 2018-02-05-----------------------
+  # s.libraries = "xml2"
+  #-----------------------------------------------------------------------------
 
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -131,9 +136,12 @@ Pod::Spec.new do |s|
   #  where they will only apply to your library. If you depend on other Podspecs
   #  you can include multiple dependencies to ensure it works.
 
-  s.requires_arc = false
-  s.requires_arc = ["MOFSPickerManagerDemo/MOFSPickerManager/**/*.{h,m}"]
-  s.module_name = "MOFSPickerManager"
+  #-------------------------------1.0.7版本去掉 2018-02-05-----------------------
+  # s.requires_arc = false
+  # s.requires_arc = ["MOFSPickerManagerDemo/MOFSPickerManager/**/*.{h,m}"]
+  # s.module_name = "MOFSPickerManager"
+  #-----------------------------------------------------------------------------
+
   # non_arc_files = 'MOFSPickerManagerDemo/GDataXMLNode/**/*.{h,m}'
 
   # s.exclude_files = non_arc_files
@@ -148,7 +156,11 @@ Pod::Spec.new do |s|
   # s.requires_arc = ['MOFSPickerManagerDemo/MOFSPickerManager/**/*.{h,m}']
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2", "OTHER_LINKER_FLAGS" => "-ObjC", "WEAK_REFERENCES_IN_MANUAL_RETAIN_RELEASE" => "Yes" }
+
+  #-------------------------------1.0.7版本去掉 2018-02-05-----------------------
+  #s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2", "OTHER_LINKER_FLAGS" => "-ObjC", "WEAK_REFERENCES_IN_MANUAL_RETAIN_RELEASE" => "Yes" }
+  #-----------------------------------------------------------------------------
+
   # s.dependency "GDataXML"
   # "ALLOW_NON-MODULAR_INCLUDES_IN_FRAMEWORK_MODULES" => "YES"
 
