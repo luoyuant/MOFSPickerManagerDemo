@@ -225,6 +225,14 @@
 - (void)getData {
     self.isGettingData = YES;
     NSString *path = [[NSBundle mainBundle] pathForResource:@"province_data" ofType:@"xml"];
+    if (path == nil) {
+        for (NSBundle *bundle in [NSBundle allFrameworks]) {
+            path = [bundle pathForResource:@"province_data" ofType:@"xml"];
+            if (path != nil) {
+                break;
+            }
+        }
+    }
     if (!_dataArr) {
         _dataArr = [NSMutableArray array];
     }
