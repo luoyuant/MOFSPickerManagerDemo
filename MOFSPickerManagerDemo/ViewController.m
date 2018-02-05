@@ -18,15 +18,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[MOFSPickerManager shareManger] searchAddressByZipcode:@"450000-450900-450921" block:^(NSString *address) {
-        
-        NSLog(@"%@",address);
-        
-    }];
-    [NSBundle mainBundle];
-//    [self presentViewController:[ViewController new] animated:true completion:^{
-//
-//    }]
     // Do any additional setup after loading the view, typically from a nib.
 }
 

@@ -63,7 +63,6 @@
     self = [super initWithFrame:initialFrame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         
         self.delegate = self;
         self.dataSource = self;
@@ -116,8 +115,8 @@
 }
 
 - (void)initToolBar {
-    self.toolBar = [[MOFSToolbar alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 44)];
-    self.toolBar.translucent = NO;
+    self.toolBar = [[MOFSToolView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 44)];
+    self.toolBar.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)initContainerView {
@@ -233,6 +232,15 @@
             }
         }
     }
+    
+    if (path == nil) {
+        self.isGettingData = NO;
+        if (self.getDataCompleteBlock) {
+            self.getDataCompleteBlock();
+        }
+        return;
+    }
+    
     if (!_dataArr) {
         _dataArr = [NSMutableArray array];
     }

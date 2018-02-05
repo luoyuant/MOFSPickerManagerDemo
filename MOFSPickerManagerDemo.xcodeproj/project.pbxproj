@@ -12,7 +12,6 @@
 		BF8ACDD91F557A54006C456A /* MOFSDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDCD1F557A54006C456A /* MOFSDatePicker.m */; };
 		BF8ACDDA1F557A54006C456A /* MOFSPickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDD01F557A54006C456A /* MOFSPickerManager.m */; };
 		BF8ACDDB1F557A54006C456A /* MOFSPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDD21F557A54006C456A /* MOFSPickerView.m */; };
-		BF8ACDDC1F557A54006C456A /* MOFSToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDD41F557A54006C456A /* MOFSToolbar.m */; };
 		BF8ACDDD1F557A54006C456A /* province_data.xml in Resources */ = {isa = PBXBuildFile; fileRef = BF8ACDD51F557A54006C456A /* province_data.xml */; };
 		BFE28A971D7D9B7400C87B7D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28A961D7D9B7400C87B7D /* main.m */; };
 		BFE28A9A1D7D9B7400C87B7D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28A991D7D9B7400C87B7D /* AppDelegate.m */; };
@@ -22,6 +21,7 @@
 		BFE28AA51D7D9B7400C87B7D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFE28AA31D7D9B7400C87B7D /* LaunchScreen.storyboard */; };
 		BFE28AB01D7D9B7400C87B7D /* MOFSPickerManagerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28AAF1D7D9B7400C87B7D /* MOFSPickerManagerDemoTests.m */; };
 		BFE28ABB1D7D9B7400C87B7D /* MOFSPickerManagerDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28ABA1D7D9B7400C87B7D /* MOFSPickerManagerDemoUITests.m */; };
+		BFE93D09202859D800D4A531 /* MOFSToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE93D08202859D800D4A531 /* MOFSToolView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,8 +52,6 @@
 		BF8ACDD01F557A54006C456A /* MOFSPickerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOFSPickerManager.m; sourceTree = "<group>"; };
 		BF8ACDD11F557A54006C456A /* MOFSPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOFSPickerView.h; sourceTree = "<group>"; };
 		BF8ACDD21F557A54006C456A /* MOFSPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOFSPickerView.m; sourceTree = "<group>"; };
-		BF8ACDD31F557A54006C456A /* MOFSToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOFSToolbar.h; sourceTree = "<group>"; };
-		BF8ACDD41F557A54006C456A /* MOFSToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOFSToolbar.m; sourceTree = "<group>"; };
 		BF8ACDD51F557A54006C456A /* province_data.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = province_data.xml; sourceTree = "<group>"; };
 		BFE28A921D7D9B7400C87B7D /* MOFSPickerManagerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MOFSPickerManagerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE28A961D7D9B7400C87B7D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -72,6 +70,8 @@
 		BFE28ABA1D7D9B7400C87B7D /* MOFSPickerManagerDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MOFSPickerManagerDemoUITests.m; sourceTree = "<group>"; };
 		BFE28ABC1D7D9B7400C87B7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BFE28AE11D7D9ED700C87B7D /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
+		BFE93D07202859D800D4A531 /* MOFSToolView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOFSToolView.h; sourceTree = "<group>"; };
+		BFE93D08202859D800D4A531 /* MOFSToolView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MOFSToolView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,8 +112,8 @@
 				BF8ACDD01F557A54006C456A /* MOFSPickerManager.m */,
 				BF8ACDD11F557A54006C456A /* MOFSPickerView.h */,
 				BF8ACDD21F557A54006C456A /* MOFSPickerView.m */,
-				BF8ACDD31F557A54006C456A /* MOFSToolbar.h */,
-				BF8ACDD41F557A54006C456A /* MOFSToolbar.m */,
+				BFE93D07202859D800D4A531 /* MOFSToolView.h */,
+				BFE93D08202859D800D4A531 /* MOFSToolView.m */,
 				BF8ACDD51F557A54006C456A /* province_data.xml */,
 			);
 			path = MOFSPickerManager;
@@ -316,9 +316,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF8ACDDC1F557A54006C456A /* MOFSToolbar.m in Sources */,
 				BF8ACDD91F557A54006C456A /* MOFSDatePicker.m in Sources */,
 				BF8ACDDB1F557A54006C456A /* MOFSPickerView.m in Sources */,
+				BFE93D09202859D800D4A531 /* MOFSToolView.m in Sources */,
 				BF8ACDD81F557A54006C456A /* MOFSAddressPickerView.m in Sources */,
 				BF8ACDD61F557A54006C456A /* AddressModel.m in Sources */,
 				BFE28A9D1D7D9B7400C87B7D /* ViewController.m in Sources */,

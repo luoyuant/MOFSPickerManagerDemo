@@ -1,18 +1,18 @@
 //
-//  MOFSToolbar.h
-//  MOFSPickerManager
+//  MOFSToolView.h
+//  MOFSPickerManagerDemo
 //
-//  Created by luoyuan on 16/8/24.
-//  Copyright © 2016年 luoyuan. All rights reserved.
+//  Created by 罗源 on 2018/2/5.
+//  Copyright © 2018年 luoyuan. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface MOFSToolbar : UIToolbar
+@interface MOFSToolView : UIView
 
-@property (nonatomic, strong) UIBarButtonItem *cancelBar;
-@property (nonatomic, strong) UIBarButtonItem *commitBar;
-@property (nonatomic, strong) UIBarButtonItem *titleBar;
+@property (nonatomic, strong) UILabel *cancelBar;
+@property (nonatomic, strong) UILabel *commitBar;
+@property (nonatomic, strong) UILabel *titleBar;
 
 /**
  default Title: "取消"
