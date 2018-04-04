@@ -258,15 +258,15 @@
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary<NSString *,NSString *> *)attributeDict {
     if ([elementName isEqualToString:@"province"]) {
         AddressModel *model = [[AddressModel alloc] initWithDictionary:attributeDict];
-        model.index = [NSString stringWithFormat:@"%ld", (long)self.dataArr.count];
+        model.index = [NSString stringWithFormat:@"%lu", (unsigned long)self.dataArr.count];
         [self.dataArr addObject:model];
     } else if ([elementName isEqualToString:@"city"]) {
         CityModel *model = [[CityModel alloc] initWithDictionary:attributeDict];
-        model.index = [NSString stringWithFormat:@"%ld", (long)self.dataArr.lastObject.list.count];
+        model.index = [NSString stringWithFormat:@"%lu", (unsigned long)self.dataArr.lastObject.list.count];
         [self.dataArr.lastObject.list addObject:model];
     } else if ([elementName isEqualToString:@"district"]) {
         DistrictModel *model = [[DistrictModel alloc] initWithDictionary:attributeDict];
-        model.index = [NSString stringWithFormat:@"%ld", (long)self.dataArr.lastObject.list.lastObject.list.count];
+        model.index = [NSString stringWithFormat:@"%lu", (unsigned long)self.dataArr.lastObject.list.lastObject.list.count];
         [self.dataArr.lastObject.list.lastObject.list addObject: model];
     }
 }

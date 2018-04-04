@@ -88,7 +88,7 @@
     self.dataArr = [NSMutableArray arrayWithArray:array];
     [self reloadAllComponents];
     self.selectedRow = 0;
-    NSString *tagStr = [NSString stringWithFormat:@"%lu",self.showTag];
+    NSString *tagStr = [NSString stringWithFormat:@"%ld",(long)self.showTag];
     if ([self.recordDic.allKeys containsObject:tagStr]) {
         self.selectedRow = [self.recordDic[tagStr] integerValue];
     }

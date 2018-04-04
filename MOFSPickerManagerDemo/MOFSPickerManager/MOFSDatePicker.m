@@ -71,7 +71,7 @@
 
 - (void)showMOFSDatePickerViewWithTag:(NSInteger)tag firstDate:(NSDate *)date commit:(CommitBlock)commitBlock cancel:(CancelBlock)cancelBlock {
     
-     NSString *showtagStr = [NSString stringWithFormat:@"%zd",tag];
+     NSString *showtagStr = [NSString stringWithFormat:@"%ld",(long)tag];
     
     if ([self.recordDic.allKeys containsObject:showtagStr]) {
         NSDate *date1 = self.recordDic[showtagStr][showtagStr];
