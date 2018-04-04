@@ -34,7 +34,7 @@
         [MOFSPickerManager shareManger].datePicker.toolBar.cancelBarTintColor = [UIColor redColor];
         [MOFSPickerManager shareManger].datePicker.toolBar.titleBarTitle = @"选择日期";
         [MOFSPickerManager shareManger].datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
-        [[MOFSPickerManager shareManger] showDatePickerWithTitle:@"Chose your date of birth" cancelTitle:@"Cancel" commitTitle:@"Confirm" firstDate:nil minDate:nil maxDate:nil datePickerMode:UIDatePickerModeDateAndTime tag:1 commitBlock:^(NSDate *date) {
+        [[MOFSPickerManager shareManger] showDatePickerWithTitle:@"Chose your date of birth" cancelTitle:@"Cancel" commitTitle:@"Confirm" firstDate:nil minDate:nil maxDate:nil datePickerMode:UIDatePickerModeDate tag:1 commitBlock:^(NSDate *date) {
             
         } cancelBlock:^{
             
@@ -45,14 +45,14 @@
 //
 //        }];
     } else if (lb.tag == 2) {
-        NSString *str_a = @"疾风剑豪";
-        str_a.mofs_key = @"自定义id";
-        [[MOFSPickerManager shareManger] showPickerViewWithDataArray:@[str_a,@"刀锋意志",@"诡术妖姬",@"狂战士"] tag:1 title:@"选择英雄" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString *string) {
-            lb.text = string;
-            NSLog(@"%@-%@",string, string.mofs_key);
-        } cancelBlock:^{
-
-        }];
+//        NSString *str_a = @"疾风剑豪";
+//        str_a.mofs_key = @"自定义id";
+//        [[MOFSPickerManager shareManger] showPickerViewWithDataArray:@[str_a,@"刀锋意志",@"诡术妖姬",@"狂战士"] tag:1 title:@"选择英雄" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString *string) {
+//            lb.text = string;
+//            NSLog(@"%@-%@",string, string.mofs_key);
+//        } cancelBlock:^{
+//
+//        }];
         
         Model *a = [Model new];
         a.age = 17;
