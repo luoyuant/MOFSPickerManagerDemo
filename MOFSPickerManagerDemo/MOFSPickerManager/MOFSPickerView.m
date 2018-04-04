@@ -88,7 +88,7 @@
     self.dataArr = [NSMutableArray arrayWithArray:array];
     [self reloadAllComponents];
     self.selectedRow = 0;
-    NSString *tagStr = [NSString stringWithFormat:@"%zd",self.showTag];
+    NSString *tagStr = [NSString stringWithFormat:@"%lu",self.showTag];
     if ([self.recordDic.allKeys containsObject:tagStr]) {
         self.selectedRow = [self.recordDic[tagStr] integerValue];
     }
@@ -107,7 +107,7 @@
     self.toolBar.commitBlock = ^ {
         [weakSelf hiddenWithAnimation];
         if (commitBlock) {
-            NSString *rowStr = [NSString stringWithFormat:@"%zd",weakSelf.selectedRow];
+            NSString *rowStr = [NSString stringWithFormat:@"%lu",weakSelf.selectedRow];
             [weakSelf.recordDic setValue:rowStr forKey:tagStr];
             commitBlock(weakSelf.dataArr[weakSelf.selectedRow]);
         }
@@ -124,7 +124,7 @@
     
     [self reloadAllComponents];
     self.selectedRow = 0;
-    NSString *tagStr = [NSString stringWithFormat:@"%zd",self.showTag];
+    NSString *tagStr = [NSString stringWithFormat:@"%lu",self.showTag];
     if ([self.recordDic.allKeys containsObject:tagStr]) {
         self.selectedRow = [self.recordDic[tagStr] integerValue];
     }

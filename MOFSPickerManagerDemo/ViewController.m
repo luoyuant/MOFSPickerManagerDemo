@@ -54,27 +54,27 @@
 
         }];
         
-//        Model *a = [Model new];
-//        a.age = 17;
-//        a.name = @"疾风剑豪";
-//        a.userId = 0001;
-//
-//        Model *b = [Model new];
-//        b.age = 18;
-//        b.name = @"刀锋意志";
-//        b.userId = 0002;
-//
-//        Model *c = [Model new];
-//        c.age = 22;
-//        c.name = @"诡术妖姬";
-//        c.userId = 0003;
-//
-//        [[MOFSPickerManager shareManger] showPickerViewWithCustomDataArray:@[a, b, c] keyMapper:@"name" tag:1 title:@"选择英雄" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(id model) {
-//            Model *m = (Model *)model;
-//            NSLog(@"%@-%zd", m.name, m.userId);
-//        } cancelBlock:^{
-//
-//        }];
+        Model *a = [Model new];
+        a.age = 17;
+        a.name = @"疾风剑豪";
+        a.userId = 0001;
+
+        Model *b = [Model new];
+        b.age = 18;
+        b.name = @"刀锋意志";
+        b.userId = 0002;
+
+        Model *c = [Model new];
+        c.age = 22;
+        c.name = @"诡术妖姬";
+        c.userId = 0003;
+
+        [[MOFSPickerManager shareManger] showPickerViewWithCustomDataArray:@[a, b, c] keyMapper:@"name" tag:1 title:@"选择英雄" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(id model) {
+            Model *m = (Model *)model;
+            NSLog(@"%@-%zd", m.name, m.userId);
+        } cancelBlock:^{
+
+        }];
         
     } else if (lb.tag == 3) {
         //[MOFSPickerManager shareManger].addressPicker.numberOfSection = 2;
