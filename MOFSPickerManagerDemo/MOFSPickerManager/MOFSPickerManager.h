@@ -15,6 +15,7 @@ typedef void (^DatePickerCommitBlock)(NSDate * _Nonnull date);
 typedef void (^DatePickerCancelBlock)(void);
 
 typedef void (^PickerViewCommitBlock)(NSString * _Nonnull string);
+typedef void (^PickerViewCustomCommitBlock)(id model);
 typedef void (^PickerViewCancelBlock)(void);
 
 @interface MOFSPickerManager : NSObject
@@ -86,9 +87,10 @@ typedef void (^PickerViewCancelBlock)(void);
 
 // ================================pickerView===================================//
 
-- (void)showPickerViewWithDataArray:(NSArray *_Nullable)array tag:(NSInteger)tag title:(NSString *_Nullable)title cancelTitle:(NSString *_Nullable)cancelTitle commitTitle:(NSString *_Nullable)commitTitle commitBlock:(PickerViewCommitBlock _Nullable )commitBlock cancelBlock:(PickerViewCancelBlock _Nullable )cancelBlock;
+- (void)showPickerViewWithDataArray:(NSArray<NSString *> *_Nullable)array tag:(NSInteger)tag title:(NSString *_Nullable)title cancelTitle:(NSString *_Nullable)cancelTitle commitTitle:(NSString *_Nullable)commitTitle commitBlock:(PickerViewCommitBlock _Nullable )commitBlock cancelBlock:(PickerViewCancelBlock _Nullable )cancelBlock;
 
 
+- (void)showPickerViewWithCustomDataArray:(NSArray *_Nullable)array keyMapper:(NSString *)keyMapper tag:(NSInteger)tag title:(NSString *_Nullable)title cancelTitle:(NSString *_Nullable)cancelTitle commitTitle:(NSString *_Nullable)commitTitle commitBlock:(PickerViewCustomCommitBlock _Nullable)commitBlock cancelBlock:(PickerViewCancelBlock _Nullable )cancelBlock;
 
 //===============================addressPicker===================================//
 

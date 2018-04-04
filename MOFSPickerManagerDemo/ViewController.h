@@ -8,8 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@class Model;
+
 @interface ViewController : UIViewController
 
 
 @end
 
+@interface Model : NSObject
+
+@property (nonatomic, assign) NSInteger age;
+@property (nonatomic, assign) NSInteger userId;
+@property (nonatomic, copy) NSString *name;
+
+@end

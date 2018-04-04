@@ -15,6 +15,16 @@
 @property (nonatomic, strong) MOFSToolView *toolBar;
 @property (nonatomic, strong) UIView *containerView;
 
-- (void)showMOFSPickerViewWithDataArray:(NSArray *)array commitBlock:(void(^)(NSString *string))commitBlock cancelBlock:(void(^)(void))cancelBlock;
+- (void)showMOFSPickerViewWithDataArray:(NSArray<NSString *> *)array commitBlock:(void(^)(NSString *string))commitBlock cancelBlock:(void(^)(void))cancelBlock;
+
+- (void)showMOFSPickerViewWithCustomDataArray:(NSArray<NSString *> *)array keyMapper:(NSString *)keyMapper commitBlock:(void(^)(id model))commitBlock cancelBlock:(void(^)(void))cancelBlock;
+
+@end
+
+
+@interface NSString (MOFSPickerView)
+
+@property (nonatomic, copy) NSString *mofs_key;
+@property (nonatomic, assign) NSInteger mofs_int_key; 
 
 @end
