@@ -78,12 +78,17 @@
         
     } else if (lb.tag == 3) {
         //[MOFSPickerManager shareManger].addressPicker.numberOfSection = 2;
-        [[MOFSPickerManager shareManger] showMOFSAddressPickerWithDefaultAddress:@"广西壮族自治区-玉林市-容县" title:@"选择地址" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString *address, NSString *zipcode) {
-            lb.text = address;
+//        [[MOFSPickerManager shareManger] showMOFSAddressPickerWithDefaultAddress:@"广西壮族自治区-玉林市-容县" title:@"选择地址" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString *address, NSString *zipcode) {
+//            lb.text = address;
+//        } cancelBlock:^{
+//
+//        }];
+
+        [[MOFSPickerManager shareManger] showMOFSAddressPickerWithDefaultZipcode:@"450000-450900-450921" title:@"选择地址" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString * _Nullable address, NSString * _Nullable zipcode) {
+            NSLog(@"%@", zipcode);
         } cancelBlock:^{
             
         }];
-
         
     }
     

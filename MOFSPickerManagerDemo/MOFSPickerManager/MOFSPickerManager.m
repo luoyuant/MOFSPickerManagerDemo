@@ -215,7 +215,8 @@
     }
     
     [self searchIndexByAddress:address block:^(NSString *address) {
-        if (![address containsString:@"error"]) {
+        BOOL flag = [address rangeOfString:@"error"].location == NSNotFound;
+        if (flag) {
             NSArray *indexArr = [address componentsSeparatedByString:@"-"];
             for (int i = 0; i < indexArr.count; i++) {
                 @try {
@@ -254,7 +255,8 @@
     }
     
     [self searchIndexByZipCode:zipcode block:^(NSString *address) {
-        if (![address containsString:@"error"]) {
+        BOOL flag = [address rangeOfString:@"error"].location == NSNotFound;
+        if (flag) {
             NSArray *indexArr = [address componentsSeparatedByString:@"-"];
             for (int i = 0; i < indexArr.count; i++) {
                 @try {
