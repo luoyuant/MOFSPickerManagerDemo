@@ -31,10 +31,10 @@
     NSDateFormatter *df = [NSDateFormatter new];
     df.dateFormat = @"yyyy-MM-dd";
     if (lb.tag == 1) {
-        [MOFSPickerManager shareManger].datePicker.toolBar.cancelBarTintColor = [UIColor redColor];
+        [MOFSPickerManager shareManger].datePicker.toolBar.cancelBar.textColor = [UIColor redColor];
         [MOFSPickerManager shareManger].datePicker.toolBar.titleBarTitle = @"选择日期";
         [MOFSPickerManager shareManger].datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
-        [[MOFSPickerManager shareManger] showDatePickerWithTitle:@"Chose your date of birth" cancelTitle:@"Cancel" commitTitle:@"Confirm" firstDate:nil minDate:nil maxDate:nil datePickerMode:UIDatePickerModeDate tag:1 commitBlock:^(NSDate *date) {
+        [[MOFSPickerManager shareManger] showDatePickerWithTitle:@"Chose your birthday" cancelTitle:@"Cancel" commitTitle:@"Confirm" firstDate:nil minDate:nil maxDate:nil datePickerMode:UIDatePickerModeDate tag:1 commitBlock:^(NSDate *date) {
             
         } cancelBlock:^{
             
@@ -71,6 +71,7 @@
 
         [[MOFSPickerManager shareManger] showPickerViewWithCustomDataArray:@[a, b, c] keyMapper:@"name" tag:1 title:@"选择英雄" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(id model) {
             Model *m = (Model *)model;
+            lb.text = m.name;
             NSLog(@"%@-%zd", m.name, m.userId);
         } cancelBlock:^{
 
@@ -85,6 +86,7 @@
 //        }];
 
         [[MOFSPickerManager shareManger] showMOFSAddressPickerWithDefaultZipcode:@"450000-450900-450921" title:@"选择地址" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString * _Nullable address, NSString * _Nullable zipcode) {
+            lb.text = address;
             NSLog(@"%@", zipcode);
         } cancelBlock:^{
             

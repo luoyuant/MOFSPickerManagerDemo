@@ -26,7 +26,6 @@
 @property (nonatomic, strong) void (^getDataCompleteBlock)(void);
 
 @property (nonatomic, strong) dispatch_semaphore_t semaphore;
-@property (nonatomic, assign) BOOL isSection; //0 < numberOfSection <= 3
 
 @end
 
@@ -135,6 +134,11 @@
 - (void)showMOFSAddressPickerCommitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)(void))cancelBlock {
     if (self.numberOfSection <= 0 || self.numberOfComponents > 3) {
         self.numberOfSection = 3;
+    }
+    
+    if ([self numberOfRowsInComponent:0] > 0) {
+        //iOS 10及以上需要添加 这一行代码，否则第一次不显示中间两条分割线
+        [self selectRow:[self selectedRowInComponent:0] inComponent:0 animated:NO];
     }
     [self showWithAnimation];
     
@@ -380,7 +384,7 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-     AddressModel *addressModel;
+    AddressModel *addressModel;
     if (self.dataArr.count > 0) {
         addressModel = self.dataArr[self.selectedIndex_province];
     }
