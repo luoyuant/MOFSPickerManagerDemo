@@ -31,19 +31,25 @@
     NSDateFormatter *df = [NSDateFormatter new];
     df.dateFormat = @"yyyy-MM-dd";
     if (lb.tag == 1) {
-        [MOFSPickerManager shareManger].datePicker.toolBar.cancelBar.textColor = [UIColor redColor];
-        [MOFSPickerManager shareManger].datePicker.toolBar.titleBarTitle = @"选择日期";
-        [MOFSPickerManager shareManger].datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
-        [[MOFSPickerManager shareManger] showDatePickerWithTitle:@"Chose your birthday" cancelTitle:@"Cancel" commitTitle:@"Confirm" firstDate:nil minDate:nil maxDate:nil datePickerMode:UIDatePickerModeDate tag:1 commitBlock:^(NSDate *date) {
-            
-        } cancelBlock:^{
-            
-        }];
-//        [[MOFSPickerManager shareManger] showDatePickerWithTag:1 commitBlock:^(NSDate *date) {
-//            lb.text = [df stringFromDate:date];
+        
+        //单例方法
+//        [MOFSPickerManager shareManger].datePicker.toolBar.cancelBar.textColor = [UIColor redColor];
+//        [MOFSPickerManager shareManger].datePicker.toolBar.titleBarTitle = @"选择日期";
+//        [MOFSPickerManager shareManger].datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
+//        [[MOFSPickerManager shareManger] showDatePickerWithTitle:@"Chose your birthday" cancelTitle:@"Cancel" commitTitle:@"Confirm" firstDate:nil minDate:nil maxDate:nil datePickerMode:UIDatePickerModeDate tag:0 commitBlock:^(NSDate *date) {
+//
 //        } cancelBlock:^{
 //
 //        }];
+        
+        //自行创建实例方法
+        MOFSDatePicker *p = [MOFSDatePicker new];
+        [p showMOFSDatePickerViewWithFirstDate:nil commit:^(NSDate *date) {
+            
+        } cancel:^{
+            
+        }];
+
     } else if (lb.tag == 2) {
 //        NSString *str_a = @"疾风剑豪";
 //        str_a.mofs_key = @"自定义id";
@@ -69,12 +75,22 @@
         c.name = @"诡术妖姬";
         c.userId = 0003;
 
-        [[MOFSPickerManager shareManger] showPickerViewWithCustomDataArray:@[a, b, c] keyMapper:@"name" tag:1 title:@"选择英雄" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(id model) {
-            Model *m = (Model *)model;
-            lb.text = m.name;
-            NSLog(@"%@-%zd", m.name, m.userId);
+        //单例方法
+//        [[MOFSPickerManager shareManger] showPickerViewWithCustomDataArray:@[a, b, c] keyMapper:@"name" title:@"选择英雄" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(id model) {
+//            Model *m = (Model *)model;
+//            lb.text = m.name;
+//            NSLog(@"%@-%zd", m.name, m.userId);
+//        } cancelBlock:^{
+//
+//        }];
+        
+        //自行创建实例方法
+        MOFSPickerView *p = [MOFSPickerView new];
+        p.toolBar.titleBarTitle = @"";
+        [p showMOFSPickerViewWithCustomDataArray:@[a, b, c] keyMapper:@"name" commitBlock:^(id model) {
+            
         } cancelBlock:^{
-
+            
         }];
         
     } else if (lb.tag == 3) {

@@ -89,8 +89,11 @@
     [self reloadAllComponents];
     self.selectedRow = 0;
     NSString *tagStr = [NSString stringWithFormat:@"%ld",(long)self.showTag];
-    if ([self.recordDic.allKeys containsObject:tagStr]) {
-        self.selectedRow = [self.recordDic[tagStr] integerValue];
+    if (self.needTag)
+    {
+        if ([self.recordDic.allKeys containsObject:tagStr]) {
+            self.selectedRow = [self.recordDic[tagStr] integerValue];
+        } 
     }
     [self selectRow:self.selectedRow inComponent:0 animated:NO];
     
@@ -114,7 +117,7 @@
     };
 }
 
-- (void)showMOFSPickerViewWithCustomDataArray:(NSArray<NSString *> *)array keyMapper:(NSString *)keyMapper commitBlock:(void (^)(id))commitBlock cancelBlock:(void (^)(void))cancelBlock {
+- (void)showMOFSPickerViewWithCustomDataArray:(NSArray *)array keyMapper:(NSString *)keyMapper commitBlock:(void (^)(id))commitBlock cancelBlock:(void (^)(void))cancelBlock {
     self.keyMapper = keyMapper;
     if (keyMapper == nil) {
         self.dataArr = [NSMutableArray array];
@@ -125,8 +128,11 @@
     [self reloadAllComponents];
     self.selectedRow = 0;
     NSString *tagStr = [NSString stringWithFormat:@"%ld",(long)self.showTag];
-    if ([self.recordDic.allKeys containsObject:tagStr]) {
-        self.selectedRow = [self.recordDic[tagStr] integerValue];
+    if (self.needTag)
+    {
+        if ([self.recordDic.allKeys containsObject:tagStr]) {
+            self.selectedRow = [self.recordDic[tagStr] integerValue];
+        }
     }
     [self selectRow:self.selectedRow inComponent:0 animated:NO];
     

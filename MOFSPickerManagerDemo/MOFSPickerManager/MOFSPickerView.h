@@ -11,13 +11,14 @@
 
 @interface MOFSPickerView : UIPickerView
 
+@property (nonatomic, assign) BOOL needTag; 
 @property (nonatomic, assign) NSInteger showTag;
 @property (nonatomic, strong) MOFSToolView *toolBar;
 @property (nonatomic, strong) UIView *containerView;
 
 - (void)showMOFSPickerViewWithDataArray:(NSArray<NSString *> *)array commitBlock:(void(^)(NSString *string))commitBlock cancelBlock:(void(^)(void))cancelBlock;
 
-- (void)showMOFSPickerViewWithCustomDataArray:(NSArray<NSString *> *)array keyMapper:(NSString *)keyMapper commitBlock:(void(^)(id model))commitBlock cancelBlock:(void(^)(void))cancelBlock;
+- (void)showMOFSPickerViewWithCustomDataArray:(NSArray *)array keyMapper:(NSString *)keyMapper commitBlock:(void(^)(id model))commitBlock cancelBlock:(void(^)(void))cancelBlock;
 
 @end
 

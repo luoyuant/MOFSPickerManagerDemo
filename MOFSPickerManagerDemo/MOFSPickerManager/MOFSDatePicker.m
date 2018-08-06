@@ -69,9 +69,31 @@
 
 #pragma mark - Action
 
+- (void)showMOFSDatePickerViewWithFirstDate:(NSDate *)date commit:(CommitBlock)commitBlock cancel:(CancelBlock)cancelBlock
+{
+   
+    [self showWithAnimation];
+    __weak __typeof(self) weakSelf = self;
+    
+    self.toolBar.cancelBlock = ^{
+        [weakSelf hiddenWithAnimation];
+        if (cancelBlock) {
+            cancelBlock();
+        }
+    };
+    
+    self.toolBar.commitBlock = ^{
+           
+        [weakSelf hiddenWithAnimation];
+        if (commitBlock) {
+            commitBlock(weakSelf.date);
+        }
+    };
+}
+
 - (void)showMOFSDatePickerViewWithTag:(NSInteger)tag firstDate:(NSDate *)date commit:(CommitBlock)commitBlock cancel:(CancelBlock)cancelBlock {
     
-     NSString *showtagStr = [NSString stringWithFormat:@"%ld",(long)tag];
+    NSString *showtagStr = [NSString stringWithFormat:@"%ld",(long)tag];
     
     if ([self.recordDic.allKeys containsObject:showtagStr]) {
         NSDate *date1 = self.recordDic[showtagStr][showtagStr];
