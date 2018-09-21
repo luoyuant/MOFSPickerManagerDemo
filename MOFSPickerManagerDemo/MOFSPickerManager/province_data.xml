@@ -1,4 +1,4 @@
-﻿<root>
+<root>
   <province name="北京市" zipcode="110000">
     <city name="北京市" zipcode="110100">
       <district name="东城区" zipcode="110101"/>
@@ -328,7 +328,7 @@
       <district name="新绛县" zipcode="140825" />
       <district name="绛县" zipcode="140826" />
       <district name="垣曲县" zipcode="140827" />
-      <district name="夏县" zipcode=" 140828" />
+      <district name="夏县" zipcode="140828" />
       <district name="平陆县" zipcode="140829" />
       <district name="芮城县" zipcode="140830" />
       <district name="永济市" zipcode="140881" />
@@ -531,7 +531,7 @@
       <district name="法库县" zipcode="210124" />
       <district name="新民市" zipcode="210181" />
     </city>
-    <city name="大连市" zipcode=" 210200">
+    <city name="大连市" zipcode="210200">
       <district name="中山区" zipcode="210202" />
       <district name="西岗区" zipcode="210203" />
       <district name="沙河口区" zipcode="210204" />
@@ -544,7 +544,7 @@
       <district name="普兰店市" zipcode="210282" />
       <district name="庄河市" zipcode="210283" />
     </city>
-    <city name="鞍山市" zipcode=" 210301">
+    <city name="鞍山市" zipcode="210301">
       <district name="铁东区" zipcode="210302" />
       <district name="铁西区" zipcode="210303" />
       <district name="立山区" zipcode="210304" />
@@ -553,7 +553,7 @@
       <district name="岫岩满族自治县" zipcode="210323" />
       <district name="海城市" zipcode="210381" />
     </city>
-    <city name="抚顺市" zipcode="  210400">
+    <city name="抚顺市" zipcode="210400">
       <district name="新抚区" zipcode="210402" />
       <district name="东洲区" zipcode="210403" />
       <district name="望花区" zipcode="210404" />
@@ -562,7 +562,7 @@
       <district name="新宾满族自治县" zipcode="210422" />
       <district name="清原满族自治县" zipcode="210423" />
     </city>
-    <city name="本溪市" zipcode=" 210500">
+    <city name="本溪市" zipcode="210500">
       <district name="平山区" zipcode="210502" />
       <district name="溪湖区" zipcode="210503" />
       <district name="明山区" zipcode="210504" />
@@ -570,7 +570,7 @@
       <district name="本溪满族自治县" zipcode="210521" />
       <district name="桓仁满族自治县" zipcode="210522" />
     </city>
-    <city name="丹东市" zipcode=" 210600">
+    <city name="丹东市" zipcode="210600">
       <district name="元宝区" zipcode="210602" />
       <district name="振兴区" zipcode="210603" />
       <district name="振安区" zipcode="210604" />
@@ -578,7 +578,7 @@
       <district name="东港市" zipcode="210681" />
       <district name="凤城市" zipcode="210682" />
     </city>
-    <city name="锦州市" zipcode=" 210700">
+    <city name="锦州市" zipcode="210700">
       <district name="古塔区" zipcode="210702" />
       <district name="凌河区" zipcode="210703" />
       <district name="太和区" zipcode="210711" />
@@ -590,7 +590,7 @@
       <district name="凌海市" zipcode="210781" />
       <district name="北镇市" zipcode="210782" />
     </city>
-    <city name="营口市" zipcode=" 210800">
+    <city name="营口市" zipcode="210800">
       <district name="站前区" zipcode="210802" />
       <district name="西市区" zipcode="210803" />
       <district name="鲅鱼圈区" zipcode="210804" />
@@ -598,7 +598,7 @@
       <district name="盖州市" zipcode="210881" />
       <district name="大石桥市" zipcode="210882" />
     </city>
-    <city name="阜新市" zipcode="  210900">
+    <city name="阜新市" zipcode="210900">
       <district name="海州区" zipcode="210902" />
       <district name="新邱区" zipcode="210903" />
       <district name="太平区" zipcode="210904" />
@@ -607,7 +607,7 @@
       <district name="阜新蒙古族自治县" zipcode="210921" />
       <district name="彰武县" zipcode="210922" />
     </city>
-    <city name="辽阳市" zipcode=" 211000">
+    <city name="辽阳市" zipcode="211000">
       <district name="白塔区" zipcode="211002" />
       <district name="文圣区" zipcode="211003" />
       <district name="宏伟区" zipcode="211004" />
@@ -616,13 +616,13 @@
       <district name="辽阳县" zipcode="211021" />
       <district name="灯塔市" zipcode="211081" />
     </city>
-    <city name="盘锦市" zipcode=" 211100">
+    <city name="盘锦市" zipcode="211100">
       <district name="双台子区" zipcode="211102" />
       <district name="兴隆台区" zipcode="211103" />
       <district name="大洼县" zipcode="211121" />
       <district name="盘山县" zipcode="211122" />
     </city>
-    <city name="铁岭市" zipcode=" 211200">
+    <city name="铁岭市" zipcode="211200">
       <district name="银州区" zipcode="211202" />
       <district name="清河区" zipcode="211204" />
       <district name="铁岭县" zipcode="211221" />
@@ -631,9 +631,9 @@
       <district name="调兵山市" zipcode="211281" />
       <district name="开原市" zipcode ="211282" />
     </city>
-    <city name="朝阳市" zipcode="  211300">
+    <city name="朝阳市" zipcode="211300">
       <district name="双塔区" zipcode="211302" />
-      <district name="龙城区" zipcode=" 211303" />
+      <district name="龙城区" zipcode="211303" />
       <district name="朝阳县" zipcode="211321" />
       <district name="建平县" zipcode="211322" />
       <district name="喀喇沁左翼蒙古族自治县" zipcode="211224" />
@@ -642,7 +642,7 @@
     </city>
     <city name="葫芦岛市" zipcode="211400">
       <district name="连山区" zipcode="211402" />
-      <district name="龙港区" zipcode=" 211403" />
+      <district name="龙港区" zipcode="211403" />
       <district name="南票区" zipcode="211404" />
       <district name="绥中县" zipcode="211421" />
       <district name="建昌县" zipcode="211422" />
@@ -799,7 +799,7 @@
       <district name="宝清县" zipcode="230523" />
       <district name="饶河县" zipcode="230524" />
     </city>
-    <city name="大庆市" zipcode=" 230600">
+    <city name="大庆市" zipcode="230600">
       <district name="萨尔图区" zipcode="230602" />
       <district name="龙凤区" zipcode="230603" />
       <district name="让胡路区" zipcode="230604" />
@@ -827,7 +827,7 @@
       <district name="乌伊岭区" zipcode="230714" />
       <district name="红星区" zipcode="230715" />
       <district name="上甘岭区" zipcode="230716" />
-      <district name="嘉荫县" zipcode=" 230722" />
+      <district name="嘉荫县" zipcode="230722" />
       <district name="铁力市 " zipcode="230781" />
     </city>
     <city name="佳木斯市" zipcode="230800">
