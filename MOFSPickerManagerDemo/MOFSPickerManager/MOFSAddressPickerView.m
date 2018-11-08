@@ -44,6 +44,12 @@
     });
 }
 
+#pragma mark - getter
+
+- (NSMutableArray<AddressModel *> *)addressDataArray {
+    return _dataArr;
+}
+
 #pragma mark - create UI
 
 - (instancetype)initWithFrame:(CGRect)frame {
