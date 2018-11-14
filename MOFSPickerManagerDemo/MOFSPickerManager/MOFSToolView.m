@@ -35,7 +35,6 @@
         
         _titleBar = [UILabel new];
         _titleBar.font = [UIFont systemFontOfSize:14];
-        _titleBar.text = @"标题";
         _titleBar.textAlignment = NSTextAlignmentCenter;
         _titleBar.textColor = LINE_COLOR;
         [self addSubview:_titleBar];
