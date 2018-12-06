@@ -74,7 +74,7 @@
     self.containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, UISCREEN_HEIGHT)];
     self.containerView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
     self.containerView.userInteractionEnabled = YES;
-    [self.containerView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenWithAnimation)]];
+    [self.containerView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(containerViewClickedAction)]];
 }
 
 - (void)initBgView {
@@ -176,6 +176,13 @@
     } completion:^(BOOL finished) {
         [self hiddenViews];
     }];
+}
+
+- (void)containerViewClickedAction {
+    if (self.containerViewClickedBlock) {
+        self.containerViewClickedBlock();
+    }
+    [self hiddenWithAnimation];
 }
 
 - (void)addViews {

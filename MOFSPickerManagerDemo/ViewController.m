@@ -33,22 +33,22 @@
     if (lb.tag == 1) {
         
         //单例方法
-//        [MOFSPickerManager shareManger].datePicker.toolBar.cancelBar.textColor = [UIColor redColor];
-//        [MOFSPickerManager shareManger].datePicker.toolBar.titleBarTitle = @"选择日期";
-//        [MOFSPickerManager shareManger].datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
-//        [[MOFSPickerManager shareManger] showDatePickerWithTitle:@"Chose your birthday" cancelTitle:@"Cancel" commitTitle:@"Confirm" firstDate:nil minDate:nil maxDate:nil datePickerMode:UIDatePickerModeDate tag:0 commitBlock:^(NSDate *date) {
-//
-//        } cancelBlock:^{
-//
-//        }];
+        [MOFSPickerManager shareManger].datePicker.toolBar.cancelBar.textColor = [UIColor redColor];
+        [MOFSPickerManager shareManger].datePicker.toolBar.titleBarTitle = @"选择日期";
+        [MOFSPickerManager shareManger].datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
+        [[MOFSPickerManager shareManger] showDatePickerWithTitle:@"Chose your birthday" cancelTitle:@"Cancel" commitTitle:@"Confirm" firstDate:nil minDate:nil maxDate:nil datePickerMode:UIDatePickerModeDate tag:0 commitBlock:^(NSDate *date) {
+            NSLog(@"%@", [df stringFromDate:date]);
+        } cancelBlock:^{
+
+        }];
         
         //自行创建实例方法
-        MOFSDatePicker *p = [MOFSDatePicker new];
-        [p showMOFSDatePickerViewWithFirstDate:nil commit:^(NSDate *date) {
-            
-        } cancel:^{
-            
-        }];
+//        MOFSDatePicker *p = [MOFSDatePicker new];
+//        [p showMOFSDatePickerViewWithFirstDate:nil commit:^(NSDate *date) {
+//
+//        } cancel:^{
+//
+//        }];
 
     } else if (lb.tag == 2) {
 //        NSString *str_a = @"疾风剑豪";

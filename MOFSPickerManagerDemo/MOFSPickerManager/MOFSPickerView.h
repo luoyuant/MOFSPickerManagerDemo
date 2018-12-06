@@ -15,6 +15,7 @@
 @property (nonatomic, assign) NSInteger showTag;
 @property (nonatomic, strong) MOFSToolView *toolBar;
 @property (nonatomic, strong) UIView *containerView;
+@property (nonatomic, strong) void (^containerViewClickedBlock)(void);
 
 - (void)showMOFSPickerViewWithDataArray:(NSArray<NSString *> *)array commitBlock:(void(^)(NSString *string))commitBlock cancelBlock:(void(^)(void))cancelBlock;
 
