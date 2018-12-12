@@ -245,7 +245,7 @@
 		BFE28A8A1D7D9B7400C87B7D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = luoyuan;
 				TargetAttributes = {
 					BFE28A911D7D9B7400C87B7D = {

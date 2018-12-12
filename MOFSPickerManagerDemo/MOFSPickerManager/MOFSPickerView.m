@@ -242,7 +242,7 @@
     if (!pickerLabel){
         pickerLabel = [[UILabel alloc] init];;
         pickerLabel.textAlignment = NSTextAlignmentCenter;
-        pickerLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightSemibold];
+        pickerLabel.font = [UIFont systemFontOfSize:16];
         pickerLabel.textColor = [UIColor colorWithRed:12.f/255.f green:14.f/255.f blue:14.f/255.f alpha:1];
     }
     
