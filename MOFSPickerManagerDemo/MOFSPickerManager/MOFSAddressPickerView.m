@@ -33,6 +33,13 @@
 
 #pragma mark - setter
 
+- (void)setAttributes:(NSDictionary<NSAttributedStringKey,id> *)attributes {
+    _attributes = attributes;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self reloadAllComponents];
+    });
+}
+
 - (void)setNumberOfSection:(NSInteger)numberOfSection {
     if (numberOfSection <= 0 || numberOfSection > 3) {
         _numberOfSection = 3;
@@ -439,6 +446,22 @@
     } else {
         return nil;
     }
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    UILabel* pickerLabel = (UILabel*)view;
+    if (!pickerLabel){
+        pickerLabel = [[UILabel alloc] init];;
+        pickerLabel.textAlignment = NSTextAlignmentCenter;
+        pickerLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightSemibold];
+        pickerLabel.textColor = [UIColor colorWithRed:12.f/255.f green:14.f/255.f blue:14.f/255.f alpha:1];
+    }
+    
+    NSString *text = [self pickerView:pickerView titleForRow:row forComponent:component];
+    
+    pickerLabel.attributedText = [[NSAttributedString alloc] initWithString:text attributes:_attributes];
+    
+    return pickerLabel;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {

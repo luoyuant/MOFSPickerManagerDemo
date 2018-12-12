@@ -17,6 +17,8 @@
 @property (nonatomic, strong) UIView *containerView;
 @property (nonatomic, strong) void (^containerViewClickedBlock)(void);
 
+@property (nonatomic, strong) NSDictionary<NSAttributedStringKey, id> *attributes;
+
 - (void)showMOFSPickerViewWithDataArray:(NSArray<NSString *> *)array commitBlock:(void(^)(NSString *string))commitBlock cancelBlock:(void(^)(void))cancelBlock;
 
 - (void)showMOFSPickerViewWithCustomDataArray:(NSArray *)array keyMapper:(NSString *)keyMapper commitBlock:(void(^)(id model))commitBlock cancelBlock:(void(^)(void))cancelBlock;

@@ -27,6 +27,8 @@ typedef NS_ENUM(NSInteger, SearchType) {
 @property (nonatomic, strong) void (^containerViewClickedBlock)(void);
 @property (nonatomic, assign) NSInteger numberOfSection;
 
+@property (nonatomic, strong) NSDictionary<NSAttributedStringKey, id> *attributes;
+
 - (void)showMOFSAddressPickerCommitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)(void))cancelBlock;
 
 - (void)searchType:(SearchType)searchType key:(NSString *)key block:(void(^)(NSString *result))block;
