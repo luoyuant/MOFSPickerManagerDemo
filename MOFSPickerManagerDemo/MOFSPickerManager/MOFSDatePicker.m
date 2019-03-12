@@ -72,6 +72,8 @@
 - (void)showMOFSDatePickerViewWithFirstDate:(NSDate *)date commit:(CommitBlock)commitBlock cancel:(CancelBlock)cancelBlock
 {
    
+    self.date = date;
+    
     [self showWithAnimation];
     __weak __typeof(self) weakSelf = self;
     
