@@ -103,15 +103,26 @@
 //        }];
 
 //        [MOFSPickerManager shareManger].addressPicker.attributes = @{NSFontAttributeName : [UIFont systemFontOfSize:15], NSForegroundColorAttributeName : [UIColor redColor]};
-        [[MOFSPickerManager shareManger] showMOFSAddressPickerWithDefaultZipcode:@"450000-450900-450921" title:@"选择地址" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString * _Nullable address, NSString * _Nullable zipcode) {
-            lb.text = address;
-            NSLog(@"%@", zipcode);
+        
+        
+        
+//        [[MOFSPickerManager shareManger] showMOFSAddressPickerWithDefaultZipcode:@"450000-450900-450921" title:@"选择地址" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString * _Nullable address, NSString * _Nullable zipcode) {
+//            lb.text = address;
+//            NSLog(@"%@", zipcode);
+//
+//        } cancelBlock:^{
+//
+//        }];
+        [[MOFSPickerManager shareManger] showMOFSAddressPickerWithTitle:@"选择地址" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString * _Nullable address, NSString * _Nullable zipcode) {
             
         } cancelBlock:^{
             
         }];
         
-        
+        //修改中间分割线颜色
+//        MOFSAddressPickerView *picker = [MOFSPickerManager shareManger].addressPicker;
+//        [picker.subviews objectAtIndex:1].backgroundColor = [UIColor yellowColor];
+//        [picker.subviews objectAtIndex:2].backgroundColor = [UIColor yellowColor];
         
     }
     

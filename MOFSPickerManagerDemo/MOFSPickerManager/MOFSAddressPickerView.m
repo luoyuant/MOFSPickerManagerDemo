@@ -149,10 +149,9 @@
         self.numberOfSection = 3;
     }
     
-    if ([self numberOfRowsInComponent:0] > 0) {
-        //iOS 10及以上需要添加 这一行代码，否则第一次不显示中间两条分割线
-        [self selectRow:[self selectedRowInComponent:0] inComponent:0 animated:NO];
-    }
+    //iOS 10及以上需要添加 这一行代码，否则第一次不显示中间两条分割线
+    if ([self numberOfRowsInComponent:0] > 0) {}
+    
     [self showWithAnimation];
     
     __weak typeof(self) weakSelf = self;
