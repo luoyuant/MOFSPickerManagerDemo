@@ -22,15 +22,15 @@ typedef NS_ENUM(NSInteger, SearchType) {
 @property (nullable, nonatomic, readonly) NSMutableArray<AddressModel *> *addressDataArray;
 
 @property (nonatomic, assign) NSInteger showTag;
-@property (nonatomic, strong) MOFSToolView *toolBar;
-@property (nonatomic, strong) UIView *containerView;
-@property (nonatomic, strong) void (^containerViewClickedBlock)(void);
+@property (nullable, nonatomic, strong) MOFSToolView *toolBar;
+@property (nullable, nonatomic, strong) UIView *containerView;
+@property (nullable, nonatomic, strong) void (^containerViewClickedBlock)(void);
 @property (nonatomic, assign) NSInteger numberOfSection;
 
-@property (nonatomic, strong) NSDictionary<NSAttributedStringKey, id> *attributes;
+@property (nullable, nonatomic, strong) NSDictionary<NSAttributedStringKey, id> *attributes;
 
-- (void)showMOFSAddressPickerCommitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)(void))cancelBlock;
+- (void)showMOFSAddressPickerCommitBlock:(void(^_Nullable)(NSString * _Nullable address, NSString * _Nullable zipcode))commitBlock cancelBlock:(void(^_Nullable)(void))cancelBlock;
 
-- (void)searchType:(SearchType)searchType key:(NSString *)key block:(void(^)(NSString *result))block;
+- (void)searchType:(SearchType)searchType key:(NSString *_Nullable)key block:(void(^_Nullable)(NSString * _Nullable result))block;
 
 @end
