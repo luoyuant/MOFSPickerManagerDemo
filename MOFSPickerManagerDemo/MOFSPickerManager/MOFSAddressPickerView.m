@@ -246,10 +246,11 @@
 
 - (void)getData {
     self.isGettingData = YES;
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"province_data" ofType:@"xml"];
+    NSString *extName = _usedXML ? @"xml" : @"json";
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"province_data" ofType:extName];
     if (path == nil) {
         for (NSBundle *bundle in [NSBundle allFrameworks]) {
-            path = [bundle pathForResource:@"province_data" ofType:@"xml"];
+            path = [bundle pathForResource:@"province_data" ofType:extName];
             if (path != nil) {
                 break;
             }
@@ -271,10 +272,42 @@
         [_dataArr removeAllObjects];
     }
     
-    self.parser = [[NSXMLParser alloc] initWithData:[NSData dataWithContentsOfFile:path]];
-    self.parser.delegate = self;
-    [self.parser parse];
-    
+    if (_usedXML) {
+        self.parser = [[NSXMLParser alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+        self.parser.delegate = self;
+        [self.parser parse];
+    } else {
+        NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+        if (dict[@"province"] && [dict[@"province"] isKindOfClass:[NSArray class]]) {
+            NSArray *arr = dict[@"province"];
+            for (NSDictionary *provinceJson in arr) {
+                AddressModel *provinceModel = [[AddressModel alloc] initWithDictionary:provinceJson];
+                provinceModel.index = [NSString stringWithFormat:@"%lu", (unsigned long)self.dataArr.count];
+                if (provinceJson[@"city"] && [provinceJson[@"city"] isKindOfClass:[NSArray class]]) {
+                    for (NSDictionary *cityJson in provinceJson[@"city"]) {
+                        CityModel *cityModel = [[CityModel alloc] initWithDictionary:cityJson];
+                        cityModel.index = [NSString stringWithFormat:@"%lu", (unsigned long)provinceModel.list.count];
+                        [provinceModel.list addObject:cityModel];
+                        if (cityJson[@"district"] && [cityJson[@"district"] isKindOfClass:[NSArray class]]) {
+                            for (NSDictionary *districtJson in cityJson[@"district"]) {
+                                DistrictModel *model = [[DistrictModel alloc] initWithDictionary:districtJson];
+                                model.index = [NSString stringWithFormat:@"%lu", (unsigned long)cityModel.list.count];
+                                [cityModel.list addObject:model];
+                            }
+                        }
+                    }
+                }
+                [self.dataArr addObject:provinceModel];
+            }
+        }
+        
+        self.isGettingData = NO;
+        if (self.getDataCompleteBlock) {
+            self.getDataCompleteBlock();
+        }
+        
+    }
 }
 
 

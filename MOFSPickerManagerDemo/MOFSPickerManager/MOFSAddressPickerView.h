@@ -26,6 +26,7 @@ typedef NS_ENUM(NSInteger, SearchType) {
 @property (nullable, nonatomic, strong) UIView *containerView;
 @property (nullable, nonatomic, strong) void (^containerViewClickedBlock)(void);
 @property (nonatomic, assign) NSInteger numberOfSection;
+@property (nonatomic, assign) BOOL usedXML;
 
 @property (nullable, nonatomic, strong) NSDictionary<NSAttributedStringKey, id> *attributes;
 

@@ -110,7 +110,7 @@ Pod::Spec.new do |s|
 
   # s.resource  = "icon.png"
   # s.resources = "Resources/*.png"
-  s.resources = "MOFSPickerManagerDemo/MOFSPickerManager/**/*.{xml}"
+  s.resources = "MOFSPickerManagerDemo/MOFSPickerManager/**/*.{xml}", "MOFSPickerManagerDemo/MOFSPickerManager/**/*.{json}"
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
