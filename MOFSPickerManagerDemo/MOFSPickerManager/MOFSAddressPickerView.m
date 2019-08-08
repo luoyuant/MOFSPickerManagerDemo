@@ -51,6 +51,22 @@
     });
 }
 
+- (void)setUsedXML:(BOOL)usedXML {
+    if (usedXML != _usedXML) {
+        _usedXML = usedXML;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [self getData];
+            dispatch_queue_t queue = dispatch_queue_create("my.current.queue", DISPATCH_QUEUE_CONCURRENT);
+            dispatch_barrier_async(queue, ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self reloadAllComponents];
+                });
+            });
+        });
+    }
+}
+
 #pragma mark - getter
 
 - (NSMutableArray<AddressModel *> *)addressDataArray {
@@ -245,6 +261,9 @@
 #pragma mark - get data
 
 - (void)getData {
+    if (self.isGettingData) {
+        return;
+    }
     self.isGettingData = YES;
     NSString *extName = _usedXML ? @"xml" : @"json";
     NSString *path = [[NSBundle mainBundle] pathForResource:@"province_data" ofType:extName];

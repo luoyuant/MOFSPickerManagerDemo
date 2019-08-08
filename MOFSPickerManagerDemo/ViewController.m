@@ -113,6 +113,7 @@
 //        } cancelBlock:^{
 //
 //        }];
+        [MOFSPickerManager shareManger].addressPicker.usedXML = true;
         [[MOFSPickerManager shareManger] showMOFSAddressPickerWithTitle:@"选择地址" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString * _Nullable address, NSString * _Nullable zipcode) {
             
         } cancelBlock:^{

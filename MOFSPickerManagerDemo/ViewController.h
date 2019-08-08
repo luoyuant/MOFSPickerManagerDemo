@@ -12,6 +12,7 @@
 
 @interface ViewController : UIViewController
 
+//pod trunk push --use-libraries
 
 @end
 

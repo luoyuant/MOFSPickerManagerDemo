@@ -498,7 +498,7 @@
 				DEVELOPMENT_TEAM = P266DRY53J;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = MOFSPickerManagerDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.memoriesofsnow.mofspickermanager;
@@ -518,7 +518,7 @@
 				DEVELOPMENT_TEAM = P266DRY53J;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = MOFSPickerManagerDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.memoriesofsnow.mofspickermanager;
