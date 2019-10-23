@@ -2,13 +2,13 @@
 //  MOFSToolView.m
 //  MOFSPickerManagerDemo
 //
-//  Created by 罗源 on 2018/2/5.
+//  Created by luoyuan on 2018/2/5.
 //  Copyright © 2018年 luoyuan. All rights reserved.
 //
 
 #import "MOFSToolView.h"
 
-#define BAR_COLOR [UIColor colorWithRed:0.090  green:0.463  blue:0.906 alpha:1]
+#define TEXT_COLOR [UIColor colorWithRed:0.090  green:0.463  blue:0.906 alpha:1]
 #define LINE_COLOR [UIColor colorWithRed:0.804  green:0.804  blue:0.804 alpha:1]
 #define UISCREEN_WIDTH  [UIScreen mainScreen].bounds.size.width
 #define UISCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
@@ -23,7 +23,7 @@
         
         _cancelBar = [UILabel new];
         _cancelBar.font = [UIFont systemFontOfSize:14];
-        _cancelBar.textColor = BAR_COLOR;
+        _cancelBar.textColor = TEXT_COLOR;
         _cancelBar.text = @"取消";
         _cancelBar.textAlignment = NSTextAlignmentLeft;
         _cancelBar.userInteractionEnabled = true;
@@ -43,7 +43,7 @@
         
         _commitBar = [UILabel new];
         _commitBar.font = [UIFont systemFontOfSize:14];
-        _commitBar.textColor = BAR_COLOR;
+        _commitBar.textColor = TEXT_COLOR;
         _commitBar.text = @"完成";
         _commitBar.textAlignment = NSTextAlignmentRight;
         _commitBar.userInteractionEnabled = true;

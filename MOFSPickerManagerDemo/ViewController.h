@@ -21,5 +21,6 @@
 @property (nonatomic, assign) NSInteger age;
 @property (nonatomic, assign) NSInteger userId;
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *nickname;
 
 @end

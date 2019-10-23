@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "MOFSPickerManager.h"
+#import "LQYPickerView.h"
 
 @interface ViewController ()
 
@@ -63,16 +64,19 @@
         Model *a = [Model new];
         a.age = 17;
         a.name = @"疾风剑豪";
+        a.nickname = @"托儿所";
         a.userId = 0001;
 
         Model *b = [Model new];
         b.age = 18;
         b.name = @"刀锋意志";
+        b.nickname = @"刀妹";
         b.userId = 0002;
 
         Model *c = [Model new];
         c.age = 22;
         c.name = @"诡术妖姬";
+        c.nickname = @"乐芙兰";
         c.userId = 0003;
 
         //单例方法
@@ -85,14 +89,34 @@
 //        }];
         
         //自行创建实例方法
-        MOFSPickerView *p = [MOFSPickerView new];
-        p.attributes = @{NSFontAttributeName : [UIFont systemFontOfSize:17], NSForegroundColorAttributeName : [UIColor redColor]};
-        p.toolBar.titleBarTitle = @"";
-        [p showMOFSPickerViewWithCustomDataArray:@[a, b, c] keyMapper:@"name" commitBlock:^(id model) {
-            
-        } cancelBlock:^{
-            
-        }];
+//        MOFSPickerView *p = [MOFSPickerView new];
+//        p.attributes = @{NSFontAttributeName : [UIFont systemFontOfSize:17], NSForegroundColorAttributeName : [UIColor redColor]};
+//        p.toolBar.titleBarTitle = @"";
+//        [p showMOFSPickerViewWithCustomDataArray:@[a, b, c] keyMapper:@"name" commitBlock:^(id model) {
+//
+//        } cancelBlock:^{
+//
+//        }];
+        
+        LQYPickerView *p = [LQYPickerView new];
+//        p.dataArray = @[@[a, b, c], @[a, b, c]];
+//        p.dataArray = @[@{@"name" : @"流浪法师", @"age" : @25},@{@"name" : @"流浪法师1", @"age" : @25}, @{@"name" : @"流浪法师2", @"age" : @25}];
+//        p.dataTextKeys = @{@0 : @"name"};
+        
+        p.toolBar.titleBar.text = @"自定义选择";
+//        p.dataArray = @[@{@"name" : @"广西", @"list" : @[@{@"name" : @"南宁", @"list" : @[@"清秀", @"时区"]}, @{@"name" : @"桂林", @"list" : @[a]}]}];
+//        p.dataTextKeys = @{@0 : @"name"};
+        p.dataArray = [MOFSPickerManager shareManger].addressPicker.addressDataArray;
+        p.numberOfSection = 3;
+        p.isDynamic = true;
+        p.dataKeys = @{@0 : @"list", @1 : @"list", @2 : @"list"};
+        p.dataTextKeys = @{@0 : @"name"};
+        
+        [p show];
+        
+        p.commitBlock = ^(NSDictionary<NSNumber *,id> * _Nonnull json) {
+            NSLog(@"%@", json);
+        };
         
     } else if (lb.tag == 3) {
         //[MOFSPickerManager shareManger].addressPicker.numberOfSection = 2;

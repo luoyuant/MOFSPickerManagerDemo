@@ -14,6 +14,7 @@
 		BF8ACDDA1F557A54006C456A /* MOFSPickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDD01F557A54006C456A /* MOFSPickerManager.m */; };
 		BF8ACDDB1F557A54006C456A /* MOFSPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDD21F557A54006C456A /* MOFSPickerView.m */; };
 		BF8ACDDD1F557A54006C456A /* province_data.xml in Resources */ = {isa = PBXBuildFile; fileRef = BF8ACDD51F557A54006C456A /* province_data.xml */; };
+		BFB368AC235EDB6600234759 /* LQYPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFB368AB235EDB6600234759 /* LQYPickerView.m */; };
 		BFE28A971D7D9B7400C87B7D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28A961D7D9B7400C87B7D /* main.m */; };
 		BFE28A9A1D7D9B7400C87B7D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28A991D7D9B7400C87B7D /* AppDelegate.m */; };
 		BFE28A9D1D7D9B7400C87B7D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE28A9C1D7D9B7400C87B7D /* ViewController.m */; };
@@ -55,6 +56,8 @@
 		BF8ACDD11F557A54006C456A /* MOFSPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOFSPickerView.h; sourceTree = "<group>"; };
 		BF8ACDD21F557A54006C456A /* MOFSPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOFSPickerView.m; sourceTree = "<group>"; };
 		BF8ACDD51F557A54006C456A /* province_data.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = province_data.xml; sourceTree = "<group>"; };
+		BFB368AA235EDB6600234759 /* LQYPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LQYPickerView.h; sourceTree = "<group>"; };
+		BFB368AB235EDB6600234759 /* LQYPickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LQYPickerView.m; sourceTree = "<group>"; };
 		BFE28A921D7D9B7400C87B7D /* MOFSPickerManagerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MOFSPickerManagerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE28A961D7D9B7400C87B7D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BFE28A981D7D9B7400C87B7D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -116,6 +119,8 @@
 				BF8ACDD21F557A54006C456A /* MOFSPickerView.m */,
 				BFE93D07202859D800D4A531 /* MOFSToolView.h */,
 				BFE93D08202859D800D4A531 /* MOFSToolView.m */,
+				BFB368AA235EDB6600234759 /* LQYPickerView.h */,
+				BFB368AB235EDB6600234759 /* LQYPickerView.m */,
 				BF8ACDD51F557A54006C456A /* province_data.xml */,
 				BF73464522FBD0C90054281B /* province_data.json */,
 			);
@@ -329,6 +334,7 @@
 				BF8ACDDA1F557A54006C456A /* MOFSPickerManager.m in Sources */,
 				BFE28A9A1D7D9B7400C87B7D /* AppDelegate.m in Sources */,
 				BFE28A971D7D9B7400C87B7D /* main.m in Sources */,
+				BFB368AC235EDB6600234759 /* LQYPickerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
