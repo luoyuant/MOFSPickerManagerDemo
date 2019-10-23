@@ -104,9 +104,9 @@
 //        p.dataTextKeys = @{@0 : @"name"};
         
         p.toolBar.titleBar.text = @"自定义选择";
-//        p.dataArray = @[@{@"name" : @"广西", @"list" : @[@{@"name" : @"南宁", @"list" : @[@"清秀", @"时区"]}, @{@"name" : @"桂林", @"list" : @[a]}]}];
+        p.dataArray = @[@{@"name" : @"广西", @"list" : @[@{@"name" : @"南宁", @"list" : @[@"清秀", @"时区"]}, @{@"name" : @"桂林", @"list" : @[a]}]}];
 //        p.dataTextKeys = @{@0 : @"name"};
-        p.dataArray = [MOFSPickerManager shareManger].addressPicker.addressDataArray;
+//        p.dataArray = [MOFSPickerManager shareManger].addressPicker.addressDataArray;
         p.numberOfSection = 3;
         p.isDynamic = true;
         p.dataKeys = @{@0 : @"list", @1 : @"list", @2 : @"list"};
