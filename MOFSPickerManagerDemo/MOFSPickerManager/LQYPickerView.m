@@ -489,11 +489,10 @@
 
 - (void)show {
     if (!_minimumDate) {
-        _minimumDate = [NSDate dateWithTimeIntervalSince1970:0];
+        self.minimumDate = [NSDate dateWithTimeIntervalSince1970:0];
     }
     if (!_maximumDate) {
-        _maximumDate = [NSDate date];
-        [self getDataArray];
+        self.maximumDate = [NSDate date];
     }
     [super show];
 }
