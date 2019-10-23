@@ -86,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray *dataArray;
 
 
-@property (nonatomic, copy) void (^commitBlock)(NSDictionary<NSNumber *, id> *json);
+@property (nonatomic, copy) void (^commitBlock)(NSDictionary<NSNumber *, id> * _Nullable json);
 
 - (void)show;
 
@@ -94,5 +94,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)dismiss;
 
 @end
+
+/**------------------年月选择器-----------------------*/
+
+@interface LQYYearAndMonthPickerView : LQYPickerView
+
+@property (nullable, nonatomic, strong) NSDate *minimumDate;
+@property (nullable, nonatomic, strong) NSDate *maximumDate;
+
+@end
+
 
 NS_ASSUME_NONNULL_END

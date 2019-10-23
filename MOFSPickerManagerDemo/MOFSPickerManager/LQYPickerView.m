@@ -328,7 +328,6 @@
             }
         }
     }
-    
 }
 
 - (void)show {
@@ -370,6 +369,133 @@
         [self.maskView removeFromSuperview];
         [self.containerView removeFromSuperview];
     }];
+}
+
+@end
+
+
+@implementation LQYYearAndMonthPickerView
+
+#pragma mark - setter
+
+- (void)setMinimumDate:(NSDate *)minimumDate {
+    _minimumDate = minimumDate;
+    [self getDataArray];
+}
+
+- (void)setMaximumDate:(NSDate *)maximumDate {
+    _maximumDate = maximumDate;
+    [self getDataArray];
+}
+
+#pragma mark - init
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.isDynamic = true;
+        self.dataKeys = @{@0 : @"months"};
+        self.dataTextKeys = @{@0 : @"name"};
+        self.numberOfSection = 2;
+    }
+    return self;
+}
+
+#pragma mark - get data
+
+- (void)getDataArray {
+    if (_minimumDate && _maximumDate) {
+        NSComparisonResult result = [_minimumDate compare:_maximumDate];
+        if (result != NSOrderedAscending) {
+            return;
+        }
+        
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            NSDateFormatter *df = [NSDateFormatter new];
+            df.dateFormat = @"yyyy-M";
+            
+            NSString *minimumDateStr = [df stringFromDate:self->_minimumDate];
+            NSString *maximumDateStr = [df stringFromDate:self->_maximumDate];
+            
+            NSArray<NSString *> *minimumDateArr = [minimumDateStr componentsSeparatedByString:@"-"];
+            NSArray<NSString *> *maximumDateArr = [maximumDateStr componentsSeparatedByString:@"-"];
+            
+            NSInteger minimumYear = [minimumDateArr.firstObject integerValue];
+            NSInteger minimumMonth = [minimumDateArr.lastObject integerValue];
+            
+            NSInteger maximumYear = [maximumDateArr.firstObject integerValue];
+            NSInteger maximumMonth = [maximumDateArr.lastObject integerValue];
+            
+            NSMutableArray *arr = [NSMutableArray array];
+            
+            NSMutableArray<NSString *> *minimumMonthArr = [NSMutableArray array];
+            for (NSInteger i = minimumMonth; i <= 12; i++) {
+                [minimumMonthArr addObject:[NSString stringWithFormat:@"%ld月", i]];
+            }
+            
+            NSMutableArray<NSString *> *maximumMonthArr = [NSMutableArray array];
+            for (NSInteger i = 1; i <= maximumMonth; i++) {
+                [maximumMonthArr addObject:[NSString stringWithFormat:@"%ld月", i]];
+            }
+            
+            NSMutableArray<NSString *> *fullMonthArr = [NSMutableArray array];
+            for (NSInteger i = 1; i <= 12; i++) {
+                [fullMonthArr addObject:[NSString stringWithFormat:@"%ld月", i]];
+            }
+            
+            for (NSInteger year = minimumYear; year <= maximumYear; year++) {
+                NSMutableDictionary *json = [NSMutableDictionary dictionaryWithDictionary:@{@"name" : [NSString stringWithFormat:@"%ld年", year], @"months" : fullMonthArr}];
+                if (year == minimumYear) {
+                    json[@"months"] = maximumMonthArr;
+                } else if (year == maximumYear) {
+                    json[@"months"] = maximumMonthArr;
+                }
+                [arr addObject:json];
+            }
+            
+            self.dataArray = arr;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self reloadAllComponents];
+            });
+            
+        });
+        
+    }
+}
+
+#pragma mark - UIPickerViewDelegate, UIPickerViewDataSource
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    self.selectedJson[@(component)] = @(row);
+    if (self.isDynamic) {
+        if (component < self.numberOfSection - 1) {
+            for (NSInteger i = component + 1; i < self.numberOfSection; i++) {
+                NSInteger selectedRow = [self.selectedJson[@(i)] integerValue];
+                [pickerView reloadComponent:i];
+                NSInteger numberOfRows = [self numberOfRowsInComponent:i];
+                if (selectedRow >= numberOfRows) {
+                    NSInteger index = numberOfRows - 1;
+                    self.selectedJson[@(i)] = @(index);
+                }
+                
+            }
+        }
+    }
+}
+
+
+#pragma mark - public method
+
+- (void)show {
+    if (!_minimumDate) {
+        _minimumDate = [NSDate dateWithTimeIntervalSince1970:0];
+    }
+    if (!_maximumDate) {
+        _maximumDate = [NSDate date];
+        [self getDataArray];
+    }
+    [super show];
 }
 
 @end
