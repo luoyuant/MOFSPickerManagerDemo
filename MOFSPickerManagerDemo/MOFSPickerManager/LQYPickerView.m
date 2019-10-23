@@ -446,7 +446,7 @@
             for (NSInteger year = minimumYear; year <= maximumYear; year++) {
                 NSMutableDictionary *json = [NSMutableDictionary dictionaryWithDictionary:@{@"name" : [NSString stringWithFormat:@"%ld年", year], @"months" : fullMonthArr}];
                 if (year == minimumYear) {
-                    json[@"months"] = maximumMonthArr;
+                    json[@"months"] = minimumMonthArr;
                 } else if (year == maximumYear) {
                     json[@"months"] = maximumMonthArr;
                 }
