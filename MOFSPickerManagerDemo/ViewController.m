@@ -35,9 +35,12 @@
         
         //单例方法
         [MOFSPickerManager shareManger].datePicker.toolBar.cancelBar.textColor = [UIColor redColor];
+        NSDateFormatter *df = [NSDateFormatter new];
+        df.dateFormat = @"yyyy-M";
+        NSDate *date = [df dateFromString:@"2015-6"];
         [MOFSPickerManager shareManger].datePicker.toolBar.titleBarTitle = @"选择日期";
         [MOFSPickerManager shareManger].datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
-        [[MOFSPickerManager shareManger] showDatePickerWithTitle:@"Chose your birthday" cancelTitle:@"Cancel" commitTitle:@"Confirm" firstDate:nil minDate:nil maxDate:nil datePickerMode:UIDatePickerModeDate tag:0 commitBlock:^(NSDate *date) {
+        [[MOFSPickerManager shareManger] showDatePickerWithTitle:@"Chose your birthday" cancelTitle:@"Cancel" commitTitle:@"Confirm" firstDate:nil minDate:date maxDate:nil datePickerMode:UIDatePickerModeDate tag:0 commitBlock:^(NSDate *date) {
             NSLog(@"%@", [df stringFromDate:date]);
         } cancelBlock:^{
 
@@ -99,10 +102,11 @@
 //        }];
         
 //        LQYPickerView *p = [LQYPickerView new];
-////        p.dataArray = @[@[a, b, c], @[a, b, c]];
-////        p.dataArray = @[@{@"name" : @"流浪法师", @"age" : @25},@{@"name" : @"流浪法师1", @"age" : @25}, @{@"name" : @"流浪法师2", @"age" : @25}];
-////        p.dataTextKeys = @{@0 : @"name"};
-//
+//        p.dataArray = @[@[a, b, c], @[a, b, c]];
+//        p.dataArray = @[@{@"name" : @"流浪法师", @"age" : @25},@{@"name" : @"流浪法师1", @"age" : @25}, @{@"name" : @"流浪法师2", @"age" : @25}];
+//        p.dataArray = @[@"流浪法师", @"疾风剑豪", @"无双剑姬"];
+//        p.dataTextKeys = @{@0 : @"name"};
+
 //        p.toolBar.titleBar.text = @"自定义选择";
 //        p.dataArray = @[@{@"name" : @"广西", @"list" : @[@{@"name" : @"南宁", @"list" : @[@"清秀", @"时区"]}, @{@"name" : @"桂林", @"list" : @[a]}]}];
 ////        p.dataTextKeys = @{@0 : @"name"};
@@ -119,6 +123,10 @@
 //        };
         
         LQYYearAndMonthPickerView *p = [LQYYearAndMonthPickerView new];
+        NSDateFormatter *df = [NSDateFormatter new];
+        df.dateFormat = @"yyyy-M";
+        NSDate *date = [df dateFromString:@"2015-6"];
+        p.minimumDate = date;
         [p show];
         p.commitBlock = ^(NSDictionary<NSNumber *,id> * _Nonnull json) {
             NSLog(@"%@", json);

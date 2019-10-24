@@ -40,14 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) UIView *parentView;
 
 /**
- * 选中的json
- * key = component, value = row
- * 格式@{@0 : @1, @1 : @3}
- */
-@property (nonatomic, strong, readonly) NSMutableDictionary<NSNumber *, NSNumber *> *selectedJson;
-
-
-/**
  * 是否为动态，即联动
  */
 @property (nonatomic, assign) BOOL isDynamic;
@@ -87,6 +79,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @property (nonatomic, copy) void (^commitBlock)(NSDictionary<NSNumber *, id> * _Nullable json);
+
+/**
+ * 获取某个component下的 数组
+ */
+- (nullable NSArray *)getDataArrayForComponent:(NSInteger)component;
 
 - (void)show;
 

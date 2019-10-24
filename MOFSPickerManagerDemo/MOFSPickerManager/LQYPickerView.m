@@ -28,8 +28,6 @@
 
 @implementation LQYPickerView
 
-@synthesize selectedJson = _selectedJson;
-
 #pragma mark - setter
 
 - (void)setParentView:(UIView *)parentView {
@@ -37,13 +35,6 @@
     if (_parentView) {
         [self updateFrame];
     }
-}
-
-- (void)setDataKeys:(NSDictionary<NSNumber *,NSString *> *)dataKeys {
-    _dataKeys = dataKeys;
-    [_dataKeys enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
-        self.selectedJson[key] = @0;
-    }];
 }
 
 - (void)setDataArray:(NSArray *)dataArray {
@@ -54,13 +45,6 @@
 }
 
 #pragma mark - getter
-
-- (NSMutableDictionary<NSNumber *, NSNumber *> *)selectedJson {
-    if (!_selectedJson) {
-        _selectedJson = [NSMutableDictionary dictionary];
-    }
-    return _selectedJson;
-}
 
 - (LQYPickerViewLayout *)layout {
     if (!_layout) {
@@ -106,9 +90,9 @@
                 NSInteger numberPfComponent = weakSelf.numberOfComponents;;
                 
                 for (NSInteger component = 0; component < numberPfComponent; component++) {
-                    NSInteger row = [weakSelf.selectedJson[@(component)] integerValue];
+                    NSInteger row = [weakSelf selectedRowInComponent:component];
                     if (weakSelf.isDynamic) {
-                        id arr = [weakSelf searchArrayForComponent:component];
+                        id arr = [weakSelf getDataArrayForComponent:component];
                         id obj = arr[row];
                         json[@(component)] = obj;
                     } else {
@@ -159,47 +143,60 @@
 #pragma mark - search data
 
 /**
- * 获取某个component下的 动态 数组
+ * 获取某个component下的 数组
  */
-- (nullable NSArray *)searchArrayForComponent:(NSInteger)component {
-    if (component == 0) {
-        return self.dataArray;
-    }
-    NSInteger index = 1;
-    NSInteger row = [self.selectedJson[@0] integerValue];
-    id obj = nil;
-    if (row < self.dataArray.count) {
-        obj = self.dataArray[row];
-        while (index <= component) {
-            if (!obj) {
-                break;
-            }
-            row = [self.selectedJson[@(index - 1)] integerValue];
-            if ([obj isKindOfClass:[NSArray class]]) {
-                if (row < [obj count]) {
-                    obj = obj[row];
+- (nullable NSArray *)getDataArrayForComponent:(NSInteger)component {
+    if (_isDynamic) {
+        if (component == 0) {
+            return self.dataArray;
+        }
+        NSInteger index = 1;
+        NSInteger row = [self selectedRowInComponent:0];
+        id obj = nil;
+        if (row < self.dataArray.count) {
+            obj = self.dataArray[row];
+            while (index <= component) {
+                if (!obj) {
+                    break;
+                }
+                row = [self selectedRowInComponent:index - 1];
+                if ([obj isKindOfClass:[NSArray class]]) {
+                    if (row < [obj count]) {
+                        obj = obj[row];
+                    } else {
+                        obj = nil;
+                        break;
+                    }
+                } else if ([obj isKindOfClass:[NSDictionary class]] || [obj isKindOfClass:[NSObject class]]) {
+                    obj = [self getArrayForObject:obj inComponent:(index- 1)];
+                    if (!obj) {
+                        break;
+                    }
                 } else {
                     obj = nil;
                     break;
                 }
-            } else if ([obj isKindOfClass:[NSDictionary class]] || [obj isKindOfClass:[NSObject class]]) {
-                obj = [self getArrayForObject:obj inComponent:(index- 1)];
-                if (!obj) {
-                    break;
-                }
-            } else {
-                obj = nil;
-                break;
+                index++;
             }
-            index++;
+        }
+        
+        if (![obj isKindOfClass:[NSArray class]]) {
+            obj = [self getArrayForObject:obj inComponent:component];
+        }
+        
+        return obj;
+    } else {
+        if ([self.dataArray.firstObject isKindOfClass:[NSArray class]]) {
+            if (component < self.dataArray.count) {
+                NSArray *arr = self.dataArray[component];
+                return arr;
+            }
+            return nil;
+        } else {
+            return self.dataArray;
         }
     }
     
-    if (![obj isKindOfClass:[NSArray class]]) {
-        obj = [self getArrayForObject:obj inComponent:component];
-    }
-    
-    return obj;
 }
 
 - (nullable NSArray *)getArrayForObject:(id)obj inComponent:(NSInteger)component {
@@ -264,7 +261,7 @@
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     
     if (_isDynamic) {
-        id obj = [self searchArrayForComponent:component];
+        id obj = [self getDataArrayForComponent:component];
         return [obj isKindOfClass:[NSArray class]] ? [obj count] : 0;
     } else {
         id obj = self.dataArray[component];
@@ -286,18 +283,25 @@
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     
     if (_isDynamic) {
-        id arr = [self searchArrayForComponent:component];
+        id arr = [self getDataArrayForComponent:component];
         id obj = arr[row];
         return [self getTextForComponent:component object:obj];
     } else {
-        if ([self.dataArray.firstObject isKindOfClass:[NSArray class]]) {
-            NSArray *arr = self.dataArray[component];
+        NSArray *arr = [self getDataArrayForComponent:component];
+        if (row < arr.count) {
             id obj = arr[row];
             return [self getTextForComponent:component object:obj];
         } else {
-            id obj = self.dataArray[row];
-            return [self getTextForComponent:component object:obj];
+            return @"undefined";
         }
+//        if ([self.dataArray.firstObject isKindOfClass:[NSArray class]]) {
+//            NSArray *arr = self.dataArray[component];
+//            id obj = arr[row];
+//            return [self getTextForComponent:component object:obj];
+//        } else {
+//            id obj = self.dataArray[row];
+//            return [self getTextForComponent:component object:obj];
+//        }
     }
 }
 
@@ -318,11 +322,9 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    self.selectedJson[@(component)] = @(row);
     if (_isDynamic) {
         if (component < _numberOfSection - 1) {
             for (NSInteger i = component + 1; i < _numberOfSection; i++) {
-                self.selectedJson[@(i)] = @0;
                 [pickerView reloadComponent:i];
                 [pickerView selectRow:0 inComponent:i animated:false];
             }
@@ -374,6 +376,17 @@
 @end
 
 
+
+@interface LQYYearAndMonthPickerView ()
+
+@property (nonatomic, strong) NSMutableArray *minimumMonthArr;
+@property (nonatomic, strong) NSMutableArray *maximumMonthArr;
+@property (nonatomic, strong) NSMutableArray *fullMonthArr;
+
+@property (nonatomic, strong) NSDictionary *selectedMonth;
+
+@end
+
 @implementation LQYYearAndMonthPickerView
 
 #pragma mark - setter
@@ -386,6 +399,18 @@
 - (void)setMaximumDate:(NSDate *)maximumDate {
     _maximumDate = maximumDate;
     [self getDataArray];
+}
+
+#pragma mark - getter
+
+- (NSMutableArray *)fullMonthArr {
+    if (!_fullMonthArr) {
+        _fullMonthArr = [NSMutableArray array];
+        for (NSInteger i = 1; i <= 12; i++) {
+            [_fullMonthArr addObject:@{@"name" : [NSString stringWithFormat:@"%ld月", i], @"value" : @(i)}];
+        }
+    }
+    return _fullMonthArr;
 }
 
 #pragma mark - init
@@ -428,27 +453,22 @@
             
             NSMutableArray *arr = [NSMutableArray array];
             
-            NSMutableArray<NSString *> *minimumMonthArr = [NSMutableArray array];
+            self.minimumMonthArr = [NSMutableArray array];
             for (NSInteger i = minimumMonth; i <= 12; i++) {
-                [minimumMonthArr addObject:[NSString stringWithFormat:@"%ld月", i]];
+                [self.minimumMonthArr addObject:@{@"name" : [NSString stringWithFormat:@"%ld月", i], @"value" : @(i)}];
             }
             
-            NSMutableArray<NSString *> *maximumMonthArr = [NSMutableArray array];
+            self.maximumMonthArr = [NSMutableArray array];
             for (NSInteger i = 1; i <= maximumMonth; i++) {
-                [maximumMonthArr addObject:[NSString stringWithFormat:@"%ld月", i]];
-            }
-            
-            NSMutableArray<NSString *> *fullMonthArr = [NSMutableArray array];
-            for (NSInteger i = 1; i <= 12; i++) {
-                [fullMonthArr addObject:[NSString stringWithFormat:@"%ld月", i]];
+                [self.maximumMonthArr addObject:@{@"name" : [NSString stringWithFormat:@"%ld月", i], @"value" : @(i)}];
             }
             
             for (NSInteger year = minimumYear; year <= maximumYear; year++) {
-                NSMutableDictionary *json = [NSMutableDictionary dictionaryWithDictionary:@{@"name" : [NSString stringWithFormat:@"%ld年", year], @"months" : fullMonthArr}];
+                NSMutableDictionary *json = [NSMutableDictionary dictionaryWithDictionary:@{@"name" : [NSString stringWithFormat:@"%ld年", year], @"value" : @(year), @"months" : self.fullMonthArr}];
                 if (year == minimumYear) {
-                    json[@"months"] = minimumMonthArr;
+                    json[@"months"] = self.minimumMonthArr;
                 } else if (year == maximumYear) {
-                    json[@"months"] = maximumMonthArr;
+                    json[@"months"] = self.maximumMonthArr;
                 }
                 [arr addObject:json];
             }
@@ -457,6 +477,13 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self reloadAllComponents];
+                [self selectRow:([self numberOfRowsInComponent:0] - 1) inComponent:0 animated:false];
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                    [self reloadComponent:1];
+                    [self selectRow:([self numberOfRowsInComponent:1] - 1) inComponent:1 animated:false];
+                    self.selectedMonth = self.maximumMonthArr.lastObject;
+                });
             });
             
         });
@@ -467,21 +494,33 @@
 #pragma mark - UIPickerViewDelegate, UIPickerViewDataSource
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    self.selectedJson[@(component)] = @(row);
-    if (self.isDynamic) {
-        if (component < self.numberOfSection - 1) {
-            for (NSInteger i = component + 1; i < self.numberOfSection; i++) {
-                NSInteger selectedRow = [self.selectedJson[@(i)] integerValue];
-                [pickerView reloadComponent:i];
-                NSInteger numberOfRows = [self numberOfRowsInComponent:i];
-                if (selectedRow >= numberOfRows) {
-                    NSInteger index = numberOfRows - 1;
-                    self.selectedJson[@(i)] = @(index);
-                }
-                
+    if (component == 0) {
+        [pickerView reloadComponent:1];
+        NSArray *arr = [self getDataArrayForComponent:1];
+        NSInteger selectedRow = [self selectedRowInComponent:1];
+        NSDictionary *selectedMonth = arr.lastObject;
+        if (selectedRow < arr.count) {
+            selectedMonth = arr[selectedRow];
+        }
+        NSNumber *oldValue = _selectedMonth[@"value"];
+        NSNumber *newValue = selectedMonth[@"value"];
+        if (![newValue isEqualToNumber:oldValue]) {
+            NSArray *filterArr = [arr filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"self.value == %@", oldValue]]];
+            if (filterArr.firstObject) {
+                NSInteger index = [arr indexOfObject:filterArr.firstObject];
+                [self selectRow:index inComponent:1 animated:false];
+            } else {
+                _selectedMonth = selectedMonth;
             }
         }
+        
+    } else {
+        NSArray *arr = [self getDataArrayForComponent:1];
+        if (row < arr.count) {
+            _selectedMonth = arr[row];
+        }
     }
+    
 }
 
 
