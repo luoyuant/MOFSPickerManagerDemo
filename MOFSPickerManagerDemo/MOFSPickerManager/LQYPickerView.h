@@ -78,6 +78,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray *dataArray;
 
 
+/**
+ * 确认block
+ * json格式为 component : component所选中的数据
+ */
 @property (nonatomic, copy) void (^commitBlock)(NSDictionary<NSNumber *, id> * _Nullable json);
 
 /**

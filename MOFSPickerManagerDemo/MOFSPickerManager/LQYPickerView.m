@@ -91,18 +91,19 @@
                 
                 for (NSInteger component = 0; component < numberPfComponent; component++) {
                     NSInteger row = [weakSelf selectedRowInComponent:component];
+                    
                     if (weakSelf.isDynamic) {
                         id arr = [weakSelf getDataArrayForComponent:component];
                         id obj = arr[row];
-                        json[@(component)] = obj;
+                        json[@(component)] = @{@"row" : @(row), @"data" : obj};
                     } else {
                         if ([weakSelf.dataArray.firstObject isKindOfClass:[NSArray class]]) {
                             NSArray *arr = weakSelf.dataArray[component];
                             id obj = arr[row];
-                            json[@(component)] = obj;
+                            json[@(component)] = @{@"row" : @(row), @"data" : obj};
                         } else {
                             id obj = weakSelf.dataArray[row];
-                            json[@(component)] = obj;
+                            json[@(component)] = @{@"row" : @(row), @"data" : obj};
                         }
                     }
                 }
