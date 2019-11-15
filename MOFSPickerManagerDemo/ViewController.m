@@ -19,6 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -122,15 +124,23 @@
 //            NSLog(@"%@", json);
 //        };
         
-        LQYYearAndMonthPickerView *p = [LQYYearAndMonthPickerView new];
-        NSDateFormatter *df = [NSDateFormatter new];
-        df.dateFormat = @"yyyy-M";
-        NSDate *date = [df dateFromString:@"2015-6"];
-        p.minimumDate = date;
-        [p show];
-        p.commitBlock = ^(NSDictionary<NSNumber *,id> * _Nonnull json) {
-            NSLog(@"%@", json);
-        };
+//        LQYYearAndMonthPickerView *p = [LQYYearAndMonthPickerView new];
+//        NSDateFormatter *df = [NSDateFormatter new];
+//        df.dateFormat = @"yyyy-M";
+//        NSDate *date = [df dateFromString:@"2015-6"];
+//        p.minimumDate = date;
+//        [p show];
+//        p.commitBlock = ^(NSDictionary<NSNumber *,id> * _Nonnull json) {
+//            NSLog(@"%@", json);
+//        };
+        
+        LQYDatePickerView *p = [LQYDatePickerView new];
+        [p showWithCommitBlock:^(NSDateComponents * _Nonnull components) {
+            NSLog(@"%@", components);
+        } cancelBlock:^{
+            NSLog(@"取消");
+        }];
+        
         
     } else if (lb.tag == 3) {
         //[MOFSPickerManager shareManger].addressPicker.numberOfSection = 2;

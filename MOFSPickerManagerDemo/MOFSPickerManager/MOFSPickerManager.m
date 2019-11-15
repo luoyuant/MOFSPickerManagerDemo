@@ -40,6 +40,13 @@
     return _addressPicker;
 }
 
+- (LQYDatePickerView *)lqyDatePicker {
+    if (!_lqyDatePicker) {
+        _lqyDatePicker = [LQYDatePickerView new];
+    }
+    return _lqyDatePicker;
+}
+
 // ================================DatePicker===================================//
 
 - (void)showDatePickerWithTag:(NSInteger)tag commitBlock:(DatePickerCommitBlock)commitBlock cancelBlock:(DatePickerCancelBlock)cancelBlock {

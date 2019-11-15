@@ -10,6 +10,7 @@
 #import "MOFSDatePicker.h"
 #import "MOFSPickerView.h"
 #import "MOFSAddressPickerView.h"
+#import "LQYPickerView.h"
 
 typedef void (^DatePickerCommitBlock)(NSDate * _Nonnull date);
 typedef void (^DatePickerCancelBlock)(void);
@@ -22,11 +23,13 @@ typedef void (^PickerViewCancelBlock)(void);
 
 + (MOFSPickerManager *_Nonnull)shareManger;
 
-@property (nonatomic, strong) MOFSDatePicker * _Nonnull datePicker;
+@property (nonnull, nonatomic, strong) MOFSDatePicker *datePicker;
 
-@property (nonatomic, strong) MOFSPickerView * _Nonnull pickView;
+@property (nonnull, nonatomic, strong) MOFSPickerView *pickView;
 
-@property (nonatomic, strong) MOFSAddressPickerView * _Nonnull addressPicker;
+@property (nonnull, nonatomic, strong) MOFSAddressPickerView *addressPicker;
+
+@property (nonnull, nonatomic, strong) LQYDatePickerView *lqyDatePicker;;
 
 // ================================DatePicker===================================//
 

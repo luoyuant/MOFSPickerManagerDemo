@@ -96,14 +96,64 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-/**------------------年月选择器-----------------------*/
+typedef NS_ENUM(NSUInteger, LQYDateComponent) {
+    LQYDateComponentYear   = 0,
+    LQYDateComponentMonth  = 1,
+    LQYDateComponentDay    = 2,
+    LQYDateComponentHour   = 3,
+    LQYDateComponentMinute = 4,
+    LQYDateComponentSecond = 5
+};
 
-@interface LQYYearAndMonthPickerView : LQYPickerView
+typedef NS_ENUM(NSInteger, LQYFormatType) {
+    LQYFormatTypeBefore = 1, //加在相应字符串前边
+    LQYFormatTypeAfter  = 2, //加在相应字符串后边
+};
 
+@interface LQYDatePickerView : LQYPickerView
+
+/**注意：minimumComponent不是LQYDateComponentYear时，请保持minimumDate、maximumDate前面略去的值一致
+ * 例如 minimumComponent是LQYDateComponentDay，那么请保持最小minimumDate、最大日期maximumDate
+ * 的年份、月份一致
+ * 如果不一致，则以小的minimumDate为准
+ */
+
+/**
+ * 最小日期
+ * 默认：2000-01-01
+ */
 @property (nullable, nonatomic, strong) NSDate *minimumDate;
+
+/**
+ * 最大日期
+ * 默认：当前时间
+ */
 @property (nullable, nonatomic, strong) NSDate *maximumDate;
 
+/**
+ * 显示的最小component
+ * 默认LQYDateComponentYear，从年份开始显示
+ */
+@property (nonatomic, assign) LQYDateComponent minimumComponent;
+
+/**
+ * 显示的最大component
+ * 默认为LQYDateComponentDay，显示到 天 为止
+ */
+@property (nonatomic, assign) LQYDateComponent maximumComponent;
+
+@property (nonatomic, copy) void (^cancelBlock)(void);
+@property (nonatomic, copy) void (^dateCommitBlock)(NSDateComponents *components);
+
+/**
+ * 设置显示时间格式
+ */
+- (void)setDateFormat:(NSString *)dateFormat formatType:(LQYFormatType)formatType component:(LQYDateComponent)component;
+
+- (void)showWithCommitBlock:(void(^)(NSDateComponents *components))commitBlock cancelBlock:(void(^)(void))cancelBlock;
+
 @end
+
 
 
 NS_ASSUME_NONNULL_END
