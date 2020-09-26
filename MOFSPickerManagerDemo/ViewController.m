@@ -38,11 +38,11 @@
         //单例方法
         [MOFSPickerManager shareManger].datePicker.toolBar.cancelBar.textColor = [UIColor redColor];
         NSDateFormatter *df = [NSDateFormatter new];
-        df.dateFormat = @"yyyy-M";
-        NSDate *date = [df dateFromString:@"2015-6"];
+        df.dateFormat = @"yyyy-M-d";
+        NSDate *date = [df dateFromString:@"2015-6-1"];
         [MOFSPickerManager shareManger].datePicker.toolBar.titleBarTitle = @"选择日期";
         [MOFSPickerManager shareManger].datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
-        [[MOFSPickerManager shareManger] showDatePickerWithTitle:@"Chose your birthday" cancelTitle:@"Cancel" commitTitle:@"Confirm" firstDate:nil minDate:date maxDate:nil datePickerMode:UIDatePickerModeDate tag:0 commitBlock:^(NSDate *date) {
+        [[MOFSPickerManager shareManger] showDatePickerWithTitle:@"Chose your birthday" cancelTitle:@"Cancel" commitTitle:@"Confirm" firstDate:date minDate:date maxDate:nil datePickerMode:UIDatePickerModeDate tag:0 commitBlock:^(NSDate *date) {
             NSLog(@"%@", [df stringFromDate:date]);
         } cancelBlock:^{
 

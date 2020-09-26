@@ -43,12 +43,31 @@
     }
     self = [super initWithFrame:initialFrame];
     if (self) {
+        self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
         self.backgroundColor = [UIColor whiteColor];
+        self.tintColor = [UIColor whiteColor];
         self.datePickerMode = UIDatePickerModeDate;
+        self.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+        if (@available(iOS 13.4, *)) {
+            self.preferredDatePickerStyle = UIDatePickerStyleWheels;
+        } else {
+            // Fallback on earlier versions
+        }
         
         [self initBgView];
     }
     return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    CGRect frame = self.frame;
+    frame.origin.x = 0;
+    frame.origin.y = self.bgView.bounds.size.height - frame.size.height;
+    frame.size.width = self.bgView.frame.size.width;
+    self.frame = frame;
+    
 }
 
 - (void)initToolBar {
@@ -65,6 +84,7 @@
 
 - (void)initBgView {
     self.bgView = [[UIView alloc] initWithFrame:CGRectMake(0, UISCREEN_HEIGHT - self.frame.size.height - 44, UISCREEN_WIDTH, self.frame.size.height + self.toolBar.frame.size.height)];
+    self.bgView.backgroundColor = [UIColor whiteColor];
 }
 
 #pragma mark - Action

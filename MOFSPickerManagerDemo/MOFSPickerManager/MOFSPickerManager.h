@@ -29,7 +29,7 @@ typedef void (^PickerViewCancelBlock)(void);
 
 @property (nonnull, nonatomic, strong) MOFSAddressPickerView *addressPicker;
 
-@property (nonnull, nonatomic, strong) LQYDatePickerView *lqyDatePicker;;
+@property (nonnull, nonatomic, strong) LQYDatePickerView *lqyDatePicker;
 
 // ================================DatePicker===================================//
 
