@@ -14,13 +14,17 @@
 
 @interface MOFSPickerView() <UIPickerViewDelegate,UIPickerViewDataSource>
 
-@property (nonatomic, strong) NSMutableDictionary *recordDic;
-@property (nonatomic, strong) NSMutableArray *dataArr;
+@property (nonatomic, strong) NSArray *dataArr;
 @property (nonatomic, strong) UIView *bgView;
 
 @property (nonatomic, assign) NSInteger selectedRow;
 
 @property (nonatomic, copy) NSString *keyMapper; //自定义解析Key
+
+@property (nonatomic, strong) NSMutableDictionary<NSString *, MOFSPickerDelegateObject *> *delegatesDict;
+@property (readwrite, nonatomic, strong) NSLock *lock;
+
+@property (nonatomic, strong) NSString *objectPointer;
 
 @end
 
@@ -37,18 +41,23 @@
 
 #pragma mark - gettter
 
-- (NSMutableArray *)dataArr {
-    if (!_dataArr) {
-        _dataArr = [NSMutableArray array];
+- (NSLock *)lock {
+    if (!_lock) {
+        _lock = [[NSLock alloc] init];
+        _lock.name = @"com.ly.picker.lock";
     }
-    return _dataArr;
+    return _lock;
 }
 
-- (NSMutableDictionary *)recordDic {
-    if (!_recordDic) {
-        _recordDic = [NSMutableDictionary dictionary];
+- (NSMutableDictionary<NSString *, MOFSPickerDelegateObject *> *)delegatesDict {
+    if (!_delegatesDict) {
+        _delegatesDict = [NSMutableDictionary dictionary];
     }
-    return _recordDic;
+    return _delegatesDict;
+}
+
+- (NSString *)objectPointer {
+    return [NSString stringWithFormat:@"%p", self];
 }
 
 #pragma mark - create UI
@@ -79,6 +88,8 @@
 - (void)initToolBar {
     self.toolBar = [[MOFSToolView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 44)];
     self.toolBar.backgroundColor = [UIColor whiteColor];
+    [self.toolBar.cancelBar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelAction)]];
+    [self.toolBar.commitBar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commitAction)]];
 }
 
 - (void)initContainerView {
@@ -94,77 +105,92 @@
 
 #pragma mark - Action
 
-- (void)showMOFSPickerViewWithDataArray:(NSArray<NSString *> *)array commitBlock:(void(^)(NSString *string))commitBlock cancelBlock:(void(^)(void))cancelBlock {
-    self.keyMapper = nil;
-    self.dataArr = [NSMutableArray arrayWithArray:array];
-    [self reloadAllComponents];
-    self.selectedRow = 0;
-    NSString *tagStr = [NSString stringWithFormat:@"%ld",(long)self.showTag];
-    if (self.needTag)
-    {
-        if ([self.recordDic.allKeys containsObject:tagStr]) {
-            self.selectedRow = [self.recordDic[tagStr] integerValue];
-        } 
-    }
-    [self selectRow:self.selectedRow inComponent:0 animated:NO];
-    
-    [self showWithAnimation];
-    
-    __weak __typeof(self) weakSelf = self;
-    self.toolBar.cancelBlock = ^ {
-        if (cancelBlock) {
-            [weakSelf hiddenWithAnimation];
-            cancelBlock();
-        }
-    };
-    
-    self.toolBar.commitBlock = ^ {
-        [weakSelf hiddenWithAnimation];
-        if (commitBlock) {
-            NSString *rowStr = [NSString stringWithFormat:@"%ld",(long)weakSelf.selectedRow];
-            [weakSelf.recordDic setValue:rowStr forKey:tagStr];
-            commitBlock(weakSelf.dataArr[weakSelf.selectedRow]);
-        }
-    };
+/**
+ * 显示选择器
+ * @param array 字符数组
+ * @param title 标题
+ */
+- (void)showWithDataArray:(NSArray<NSString *> * _Nonnull)array
+                    title:(NSString * _Nullable)title
+              commitBlock:(void(^ _Nullable)(id _Nullable model))commitBlock
+              cancelBlock:(void(^ _Nullable)(void))cancelBlock {
+    [self showWithDataArray:array title:title commitTitle:@"确定" cancelTitle:@"取消" commitBlock:commitBlock cancelBlock:cancelBlock];
 }
 
-- (void)showMOFSPickerViewWithCustomDataArray:(NSArray *)array keyMapper:(NSString *)keyMapper commitBlock:(void (^)(id))commitBlock cancelBlock:(void (^)(void))cancelBlock {
-    self.keyMapper = keyMapper;
-    if (keyMapper == nil) {
-        self.dataArr = [NSMutableArray array];
-    } else {
-        self.dataArr = [NSMutableArray arrayWithArray:array];
+/**
+ * 显示选择器
+ * @param array 数据源数组
+ * @param title 标题
+ * @param commitTitle 确定标题
+ * @param cancelTitle 取消标题
+ */
+- (void)showWithDataArray:(NSArray<NSString *> * _Nonnull)array
+                    title:(NSString * _Nullable)title
+              commitTitle:(NSString * _Nullable)commitTitle
+              cancelTitle:(NSString * _Nullable)cancelTitle
+              commitBlock:(void(^ _Nullable)(id _Nullable model))commitBlock
+              cancelBlock:(void(^ _Nullable)(void))cancelBlock {
+    [self showWithDataArray:array keyMapper:nil title:title commitTitle:commitTitle cancelTitle:cancelTitle commitBlock:commitBlock cancelBlock:cancelBlock];
+}
+
+/**
+ * 显示选择器
+ * @param array 数据源数组
+ * @param keyMapper 数据源中的Model或者JSON对应的key
+ * @param title 标题
+ */
+- (void)showWithDataArray:(NSArray * _Nonnull)array
+                keyMapper:(NSString * _Nullable)keyMapper
+                    title:(NSString * _Nullable)title
+              commitBlock:(void(^ _Nullable)(id _Nullable model))commitBlock
+              cancelBlock:(void(^ _Nullable)(void))cancelBlock {
+    [self showWithDataArray:array keyMapper:keyMapper title:title commitTitle:@"确定" cancelTitle:@"取消" commitBlock:commitBlock cancelBlock:cancelBlock];
+}
+
+/**
+ * 显示选择器
+ * @param array 数据源数组
+ * @param keyMapper 数据源中的Model或者JSON对应的key
+ * @param title 标题
+ * @param commitTitle 确定标题
+ * @param cancelTitle 取消标题
+ */
+- (void)showWithDataArray:(NSArray * _Nonnull)array
+                keyMapper:(NSString * _Nullable)keyMapper
+                    title:(NSString * _Nullable)title
+              commitTitle:(NSString * _Nullable)commitTitle
+              cancelTitle:(NSString * _Nullable)cancelTitle
+              commitBlock:(void(^ _Nullable)(id _Nullable model))commitBlock
+              cancelBlock:(void(^ _Nullable)(void))cancelBlock {
+    if (array.count <= 0) {
+        return;
     }
+    self.dataArr = array.copy;
+    self.keyMapper = keyMapper;
+    
+    self.toolBar.titleBarTitle = title;
+    self.toolBar.commitBarTitle = commitTitle;
+    self.toolBar.cancelBarTitle = cancelTitle;
     
     [self reloadAllComponents];
-    self.selectedRow = 0;
-    NSString *tagStr = [NSString stringWithFormat:@"%ld",(long)self.showTag];
-    if (self.needTag)
-    {
-        if ([self.recordDic.allKeys containsObject:tagStr]) {
-            self.selectedRow = [self.recordDic[tagStr] integerValue];
-        }
-    }
-    [self selectRow:self.selectedRow inComponent:0 animated:NO];
+//    self.selectedRow = 0;
+//    if (tag != NSNotFound) {
+//        self.selectedRow = [self.recordDict[@(tag)] integerValue];
+//    }
+//    if (tag > 0) {
+//        @try {
+//            [self selectRow:self.selectedRow inComponent:0 animated:NO];
+//        } @catch (NSException *exception) {
+//
+//        } @finally {
+//
+//        }
+//    }
     
     [self showWithAnimation];
     
-    __weak __typeof(self) weakSelf = self;
-    self.toolBar.cancelBlock = ^ {
-        if (cancelBlock) {
-            [weakSelf hiddenWithAnimation];
-            cancelBlock();
-        }
-    };
-    
-    self.toolBar.commitBlock = ^ {
-        [weakSelf hiddenWithAnimation];
-        if (commitBlock) {
-            NSString *rowStr = [NSString stringWithFormat:@"%ld",(long)weakSelf.selectedRow];
-            [weakSelf.recordDic setValue:rowStr forKey:tagStr];
-            commitBlock(weakSelf.dataArr[weakSelf.selectedRow]);
-        }
-    };
+    MOFSPickerDelegateObject *delegate = [MOFSPickerDelegateObject initWithCancelBlock:cancelBlock commitPickerBlock:commitBlock];
+    [self addDelegate:delegate];
 }
 
 - (void)showWithAnimation {
@@ -209,6 +235,41 @@
     [self.toolBar removeFromSuperview];
     [self.bgView removeFromSuperview];
     [self.containerView removeFromSuperview];
+}
+
+#pragma mark - ToolBar Action
+
+- (void)cancelAction {
+    [self hiddenWithAnimation];
+    MOFSPickerDelegateObject *delegate = self.delegatesDict[self.objectPointer];
+    if (delegate.cancelBlock) {
+        delegate.cancelBlock();
+    }
+    [self removeDelegate:delegate];
+}
+
+- (void)commitAction {
+    [self hiddenWithAnimation];
+    MOFSPickerDelegateObject *delegate = self.delegatesDict[self.objectPointer];
+    if (delegate.commitPickerBlock && self.selectedRow < self.dataArr.count) {
+        delegate.commitPickerBlock(self.dataArr[self.selectedRow]);
+    }
+    
+    [self removeDelegate:delegate];
+}
+
+#pragma mark - delegate
+
+- (void)addDelegate:(MOFSPickerDelegateObject *)delegate {
+    [self.lock lock];
+    self.delegatesDict[self.objectPointer] = delegate;
+    [self.lock unlock];
+}
+
+- (void)removeDelegate:(MOFSPickerDelegateObject *)delegate {
+    [self.lock lock];
+    [self.delegatesDict removeObjectForKey:self.objectPointer];
+    [self.lock unlock];
 }
 
 #pragma mark - UIPickerViewDelegate,UIPickerViewDataSource
@@ -257,27 +318,10 @@
     self.selectedRow = row;
 }
 
+#pragma mark - Dealloc
 
-@end
-
-@implementation NSString (MOFSPickerView)
-
-@dynamic mofs_key, mofs_int_key;
-
-- (void)setMofs_key:(NSString *)mofs_key {
-    objc_setAssociatedObject(self, @selector(mofs_key), mofs_key, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (NSString *)mofs_key {
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setMofs_int_key:(NSInteger)mofs_int_key {
-    objc_setAssociatedObject(self, @selector(mofs_int_key), @(mofs_int_key), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (NSInteger)mofs_int_key {
-    return [objc_getAssociatedObject(self, _cmd) integerValue];
+- (void)dealloc {
+    
 }
 
 @end

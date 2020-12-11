@@ -53,6 +53,10 @@
     return _layout;
 }
 
+- (NSString *)objectPointer {
+    return [NSString stringWithFormat:@"%p", self];
+}
+
 #pragma mark - init
 
 - (instancetype)init {
@@ -70,48 +74,13 @@
         
         _containerView = [UIView new];
         _containerView.backgroundColor = [UIColor whiteColor];
-        [_containerView addSubview:self];
         
         _toolBar = [MOFSToolView new];
         _toolBar.backgroundColor = [UIColor whiteColor];
         [_containerView addSubview:_toolBar];
-        __weak typeof(self) weakSelf = self;
-        _toolBar.cancelBlock = ^{
-            [weakSelf dismiss];
-        };
         
-        _toolBar.commitBlock = ^{
-            [weakSelf dismiss];
-    
-            if (weakSelf.commitBlock) {
-                
-                NSMutableDictionary<NSNumber *, id> *json = [NSMutableDictionary dictionary];
-                
-                NSInteger numberPfComponent = weakSelf.numberOfComponents;;
-                
-                for (NSInteger component = 0; component < numberPfComponent; component++) {
-                    NSInteger row = [weakSelf selectedRowInComponent:component];
-                    
-                    if (weakSelf.isDynamic) {
-                        id arr = [weakSelf getDataArrayForComponent:component];
-                        id obj = arr[row];
-                        json[@(component)] = @{@"row" : @(row), @"data" : obj};
-                    } else {
-                        if ([weakSelf.dataArray.firstObject isKindOfClass:[NSArray class]]) {
-                            NSArray *arr = weakSelf.dataArray[component];
-                            id obj = arr[row];
-                            json[@(component)] = @{@"row" : @(row), @"data" : obj};
-                        } else {
-                            id obj = weakSelf.dataArray[row];
-                            json[@(component)] = @{@"row" : @(row), @"data" : obj};
-                        }
-                    }
-                }
-                
-                weakSelf.commitBlock(json);
-            }
-            
-        };
+        [_toolBar.cancelBar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelAction)]];
+        [_toolBar.commitBar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commitAction)]];
         
         self.delegate = self;
         self.dataSource = self;
@@ -139,6 +108,44 @@
     
     self.frame = CGRectMake(0, self.layout.toolBarHeight, rect.size.width, rect.size.height - self.layout.toolBarHeight);
     
+}
+
+#pragma mark - ToolBar Action
+
+- (void)cancelAction {
+    [self dismiss];
+}
+
+- (void)commitAction {
+    [self dismiss];
+
+    if (self.commitBlock) {
+        
+        NSMutableDictionary<NSNumber *, id> *json = [NSMutableDictionary dictionary];
+        
+        NSInteger numberPfComponent = self.numberOfComponents;;
+        
+        for (NSInteger component = 0; component < numberPfComponent; component++) {
+            NSInteger row = [self selectedRowInComponent:component];
+            
+            if (self.isDynamic) {
+                id arr = [self getDataArrayForComponent:component];
+                id obj = arr[row];
+                json[@(component)] = @{@"row" : @(row), @"data" : obj};
+            } else {
+                if ([self.dataArray.firstObject isKindOfClass:[NSArray class]]) {
+                    NSArray *arr = self.dataArray[component];
+                    id obj = arr[row];
+                    json[@(component)] = @{@"row" : @(row), @"data" : obj};
+                } else {
+                    id obj = self.dataArray[row];
+                    json[@(component)] = @{@"row" : @(row), @"data" : obj};
+                }
+            }
+        }
+        
+        self.commitBlock(json);
+    }
 }
 
 #pragma mark - search data
@@ -336,6 +343,7 @@
     
     [self updateFrame];
     
+    [_containerView addSubview:self];
     [self.parentView addSubview:_maskView];
     [self.parentView addSubview:_containerView];
     
@@ -364,9 +372,16 @@
         self.containerView.frame = frame;
         self.maskView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0];
     } completion:^(BOOL finished) {
+        [self removeFromSuperview];
         [self.maskView removeFromSuperview];
         [self.containerView removeFromSuperview];
     }];
+}
+
+#pragma mark - Dealloc
+
+- (void)dealloc {
+    
 }
 
 @end
@@ -392,6 +407,9 @@
 @property (nonatomic, strong) NSArray<NSNumber *> *unitFlags;
 @property (nonatomic, strong) NSArray<NSString *> *dateComponentKeys;
 
+@property (nonatomic, strong) NSMutableDictionary<NSString *, MOFSPickerDelegateObject *> *delegatesDict;
+@property (readwrite, nonatomic, strong) NSLock *lock;
+
 @end
 
 const NSString *LQYFormatTypeBeforeKey = @"LQYFormatTypeBeforeKey";
@@ -412,6 +430,21 @@ const NSString *LQYFormatTypeAfterKey = @"LQYFormatTypeAfterKey";
 }
 
 #pragma mark - getter
+
+- (NSLock *)lock {
+    if (!_lock) {
+        _lock = [[NSLock alloc] init];
+        _lock.name = @"com.ly.datePicker.lock";
+    }
+    return _lock;
+}
+
+- (NSMutableDictionary<NSString *, MOFSPickerDelegateObject *> *)delegatesDict {
+    if (!_delegatesDict) {
+        _delegatesDict = [NSMutableDictionary dictionary];
+    }
+    return _delegatesDict;
+}
 
 - (NSMutableDictionary<NSString *, NSMutableArray<NSNumber *> *> *)dataJson {
     if (!_dataJson) {
@@ -571,23 +604,45 @@ const NSString *LQYFormatTypeAfterKey = @"LQYFormatTypeAfterKey";
         _minimumComponent = LQYDateComponentYear;
         _maximumComponent = LQYDateComponentDay;
         
-        __weak typeof(self) weakSelf = self;
-        self.toolBar.cancelBlock = ^{
-            [weakSelf dismiss];
-            if (weakSelf.cancelBlock) {
-                weakSelf.cancelBlock();
-            }
-        };
-        self.toolBar.commitBlock = ^{
-            [weakSelf dismiss];
-            if (weakSelf.dateCommitBlock) {
-                weakSelf.dateCommitBlock([weakSelf dateComponentsInComponent:self.numberOfSection - 1]);
-            }
-        };
+        [self.toolBar.cancelBar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelAction)]];
+        [self.toolBar.commitBar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commitAction)]];
         
         [self getDataArray];
     }
     return self;
+}
+
+#pragma mark - ToolBar Action
+
+- (void)cancelAction {
+    [self dismiss];
+    if (self.cancelBlock) {
+        self.cancelBlock();
+    }
+    
+    MOFSPickerDelegateObject *delegate = self.delegatesDict[self.objectPointer];
+    if (delegate) {
+        if (delegate.cancelBlock) {
+            delegate.cancelBlock();
+        }
+        [self removeDelegate:delegate];
+    }
+    
+}
+
+- (void)commitAction {
+    [self dismiss];
+    if (self.dateCommitBlock) {
+        self.dateCommitBlock([self dateComponentsInComponent:self.numberOfSection - 1]);
+    }
+    
+    MOFSPickerDelegateObject *delegate = self.delegatesDict[self.objectPointer];
+    if (delegate) {
+        if (delegate.commitLYQDateBlock) {
+            delegate.commitLYQDateBlock([self dateComponentsInComponent:self.numberOfSection - 1]);
+        }
+        [self removeDelegate:delegate];
+    }
 }
 
 #pragma mark - get data
@@ -916,6 +971,20 @@ const NSString *LQYFormatTypeAfterKey = @"LQYFormatTypeAfterKey";
     }
 }
 
+#pragma mark - delegate
+
+- (void)addDelegate:(MOFSPickerDelegateObject *)delegate {
+    [self.lock lock];
+    self.delegatesDict[self.objectPointer] = delegate;
+    [self.lock unlock];
+}
+
+- (void)removeDelegate:(MOFSPickerDelegateObject *)delegate {
+    [self.lock lock];
+    [self.delegatesDict removeObjectForKey:self.objectPointer];
+    [self.lock unlock];
+}
+
 #pragma mark - public method
 
 - (void)setDateFormat:(NSString *)dateFormat formatType:(LQYFormatType)formatType component:(LQYDateComponent)component {
@@ -933,20 +1002,15 @@ const NSString *LQYFormatTypeAfterKey = @"LQYFormatTypeAfterKey";
 }
 
 - (void)showWithCommitBlock:(void (^)(NSDateComponents * _Nonnull))commitBlock cancelBlock:(void (^)(void))cancelBlock {
-    __weak typeof(self) weakSelf = self;
-    self.toolBar.cancelBlock = ^{
-        [weakSelf dismiss];
-        if (cancelBlock) {
-            cancelBlock();
-        }
-    };
-    self.toolBar.commitBlock = ^{
-        [weakSelf dismiss];
-        if (commitBlock) {
-            commitBlock([weakSelf dateComponentsInComponent:self.numberOfSection - 1]);
-        }
-    };
+    MOFSPickerDelegateObject *delegate = [MOFSPickerDelegateObject initWithCancelBlock:cancelBlock commitLQYDateBlock:commitBlock];
+    [self addDelegate:delegate];
     [self show];
+}
+
+#pragma mark - Dealloc
+
+- (void)dealloc {
+    
 }
 
 @end

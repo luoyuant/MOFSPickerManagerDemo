@@ -11,24 +11,65 @@
 
 @interface MOFSPickerView : UIPickerView
 
-@property (nonatomic, assign) BOOL needTag; 
-@property (nonatomic, assign) NSInteger showTag;
-@property (nonatomic, strong) MOFSToolView *toolBar;
-@property (nonatomic, strong) UIView *containerView;
-@property (nonatomic, strong) void (^containerViewClickedBlock)(void);
+@property (nullable, nonatomic, strong) MOFSToolView *toolBar;
+@property (nullable, nonatomic, strong) UIView *containerView;
+@property (nullable, nonatomic, strong) void (^containerViewClickedBlock)(void);
 
-@property (nonatomic, strong) NSDictionary<NSAttributedStringKey, id> *attributes;
+@property (nullable, nonatomic, strong) NSDictionary<NSAttributedStringKey, id> *attributes;
 
-- (void)showMOFSPickerViewWithDataArray:(NSArray<NSString *> *)array commitBlock:(void(^)(NSString *string))commitBlock cancelBlock:(void(^)(void))cancelBlock;
+/**
+ * 显示选择器
+ * @param array 字符数组
+ * @param title 标题
+ */
+- (void)showWithDataArray:(NSArray<NSString *> * _Nonnull)array
+                    title:(NSString * _Nullable)title
+              commitBlock:(void(^ _Nullable)(id _Nullable model))commitBlock
+              cancelBlock:(void(^ _Nullable)(void))cancelBlock;
 
-- (void)showMOFSPickerViewWithCustomDataArray:(NSArray *)array keyMapper:(NSString *)keyMapper commitBlock:(void(^)(id model))commitBlock cancelBlock:(void(^)(void))cancelBlock;
+/**
+ * 显示选择器
+ * @param array 数据源数组
+ * @param title 标题
+ * @param commitTitle 确定标题
+ * @param cancelTitle 取消标题
+ */
+- (void)showWithDataArray:(NSArray<NSString *> * _Nonnull)array
+                    title:(NSString * _Nullable)title
+              commitTitle:(NSString * _Nullable)commitTitle
+              cancelTitle:(NSString * _Nullable)cancelTitle
+              commitBlock:(void(^ _Nullable)(id _Nullable model))commitBlock
+              cancelBlock:(void(^ _Nullable)(void))cancelBlock;
+
+/**
+ * 显示选择器
+ * @param array 数据源数组
+ * @param keyMapper 数据源中的Model或者JSON对应的key
+ * @param title 标题
+ */
+- (void)showWithDataArray:(NSArray * _Nonnull)array
+                keyMapper:(NSString * _Nullable)keyMapper
+                    title:(NSString * _Nullable)title
+              commitBlock:(void(^ _Nullable)(id _Nullable model))commitBlock
+              cancelBlock:(void(^ _Nullable)(void))cancelBlock;
+
+/**
+ * 显示选择器
+ * @param array 数据源数组
+ * @param keyMapper 数据源中的Model或者JSON对应的key
+ * @param title 标题
+ * @param commitTitle 确定标题
+ * @param cancelTitle 取消标题
+ */
+- (void)showWithDataArray:(NSArray * _Nonnull)array
+                keyMapper:(NSString * _Nullable)keyMapper
+                    title:(NSString * _Nullable)title
+              commitTitle:(NSString * _Nullable)commitTitle
+              cancelTitle:(NSString * _Nullable)cancelTitle
+              commitBlock:(void(^ _Nullable)(id _Nullable model))commitBlock
+              cancelBlock:(void(^ _Nullable)(void))cancelBlock;
+
 
 @end
 
 
-@interface NSString (MOFSPickerView)
-
-@property (nonatomic, copy) NSString *mofs_key;
-@property (nonatomic, assign) NSInteger mofs_int_key; 
-
-@end

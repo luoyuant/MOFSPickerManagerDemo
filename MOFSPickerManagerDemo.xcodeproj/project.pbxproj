@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BF73464622FBD0CA0054281B /* province_data.json in Resources */ = {isa = PBXBuildFile; fileRef = BF73464522FBD0C90054281B /* province_data.json */; };
-		BF8ACDD61F557A54006C456A /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDC61F557A54006C456A /* AddressModel.m */; };
+		BF8ACDD61F557A54006C456A /* MOFSAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDC61F557A54006C456A /* MOFSAddressModel.m */; };
 		BF8ACDD81F557A54006C456A /* MOFSAddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDCB1F557A54006C456A /* MOFSAddressPickerView.m */; };
 		BF8ACDD91F557A54006C456A /* MOFSDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDCD1F557A54006C456A /* MOFSDatePicker.m */; };
 		BF8ACDDA1F557A54006C456A /* MOFSPickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8ACDD01F557A54006C456A /* MOFSPickerManager.m */; };
@@ -45,8 +45,8 @@
 
 /* Begin PBXFileReference section */
 		BF73464522FBD0C90054281B /* province_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = province_data.json; sourceTree = "<group>"; };
-		BF8ACDC51F557A54006C456A /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
-		BF8ACDC61F557A54006C456A /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
+		BF8ACDC51F557A54006C456A /* MOFSAddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOFSAddressModel.h; sourceTree = "<group>"; };
+		BF8ACDC61F557A54006C456A /* MOFSAddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOFSAddressModel.m; sourceTree = "<group>"; };
 		BF8ACDCA1F557A54006C456A /* MOFSAddressPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOFSAddressPickerView.h; sourceTree = "<group>"; };
 		BF8ACDCB1F557A54006C456A /* MOFSAddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOFSAddressPickerView.m; sourceTree = "<group>"; };
 		BF8ACDCC1F557A54006C456A /* MOFSDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOFSDatePicker.h; sourceTree = "<group>"; };
@@ -107,8 +107,8 @@
 		BF8ACDC41F557A54006C456A /* MOFSPickerManager */ = {
 			isa = PBXGroup;
 			children = (
-				BF8ACDC51F557A54006C456A /* AddressModel.h */,
-				BF8ACDC61F557A54006C456A /* AddressModel.m */,
+				BF8ACDC51F557A54006C456A /* MOFSAddressModel.h */,
+				BF8ACDC61F557A54006C456A /* MOFSAddressModel.m */,
 				BF8ACDCA1F557A54006C456A /* MOFSAddressPickerView.h */,
 				BF8ACDCB1F557A54006C456A /* MOFSAddressPickerView.m */,
 				BF8ACDCC1F557A54006C456A /* MOFSDatePicker.h */,
@@ -258,7 +258,7 @@
 				TargetAttributes = {
 					BFE28A911D7D9B7400C87B7D = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = P266DRY53J;
+						DevelopmentTeam = 2K26LU5HS2;
 						ProvisioningStyle = Automatic;
 					};
 					BFE28AAA1D7D9B7400C87B7D = {
@@ -329,7 +329,7 @@
 				BF8ACDDB1F557A54006C456A /* MOFSPickerView.m in Sources */,
 				BFE93D09202859D800D4A531 /* MOFSToolView.m in Sources */,
 				BF8ACDD81F557A54006C456A /* MOFSAddressPickerView.m in Sources */,
-				BF8ACDD61F557A54006C456A /* AddressModel.m in Sources */,
+				BF8ACDD61F557A54006C456A /* MOFSAddressModel.m in Sources */,
 				BFE28A9D1D7D9B7400C87B7D /* ViewController.m in Sources */,
 				BF8ACDDA1F557A54006C456A /* MOFSPickerManager.m in Sources */,
 				BFE28A9A1D7D9B7400C87B7D /* AppDelegate.m in Sources */,
@@ -501,7 +501,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = P266DRY53J;
+				DEVELOPMENT_TEAM = 2K26LU5HS2;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = MOFSPickerManagerDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -521,7 +521,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = P266DRY53J;
+				DEVELOPMENT_TEAM = 2K26LU5HS2;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = MOFSPickerManagerDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

@@ -27,7 +27,6 @@
         _cancelBar.text = @"取消";
         _cancelBar.textAlignment = NSTextAlignmentLeft;
         _cancelBar.userInteractionEnabled = true;
-        [_cancelBar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelAction)]];
         [self addSubview:_cancelBar];
         [_cancelBar setTranslatesAutoresizingMaskIntoConstraints:false];
         [_cancelBar setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
@@ -44,10 +43,9 @@
         _commitBar = [UILabel new];
         _commitBar.font = [UIFont systemFontOfSize:14];
         _commitBar.textColor = TEXT_COLOR;
-        _commitBar.text = @"完成";
+        _commitBar.text = @"确定";
         _commitBar.textAlignment = NSTextAlignmentRight;
         _commitBar.userInteractionEnabled = true;
-        [_commitBar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commitAction)]];
         [self addSubview:_commitBar];
         [_commitBar setTranslatesAutoresizingMaskIntoConstraints:false];
         [_commitBar setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
@@ -96,20 +94,6 @@
     return self;
 }
 
-#pragma mark - Action
-
-- (void)cancelAction {
-    if (self.cancelBlock) {
-        self.cancelBlock();
-    }
-}
-
-- (void)commitAction {
-    if (self.commitBlock) {
-        self.commitBlock();
-    }
-}
-
 #pragma mark - install
 
 - (void)setCancelBarTitle:(NSString *)cancelBarTitle {
@@ -152,6 +136,42 @@
     if (self.titleBar) {
         self.titleBar.textColor = titleBarTextColor;;
     }
+}
+
+@end
+
+
+@implementation MOFSPickerDelegateObject
+
++ (instancetype)initWithCancelBlock:(void (^)(void))cancelBlock commitDateBlock:(void (^)(NSDate *))commitBlock {
+    MOFSPickerDelegateObject *obj = [MOFSPickerDelegateObject new];
+    obj.cancelBlock = cancelBlock;
+    obj.commitDateBlock = commitBlock;
+    return obj;
+}
+
++ (instancetype)initWithCancelBlock:(void (^)(void))cancelBlock commitAddressBlock:(void (^)(MOFSAddressSelectedModel *))commitBlock {
+    MOFSPickerDelegateObject *obj = [MOFSPickerDelegateObject new];
+    obj.cancelBlock = cancelBlock;
+    obj.commitAddressBlock = commitBlock;
+    return obj;
+}
+
+/**
+ * 普通选择器
+ */
++ (instancetype)initWithCancelBlock:(void(^)(void))cancelBlock commitPickerBlock:(void (^)(id obj))commitBlock {
+    MOFSPickerDelegateObject *obj = [MOFSPickerDelegateObject new];
+    obj.cancelBlock = cancelBlock;
+    obj.commitPickerBlock = commitBlock;
+    return obj;
+}
+
++ (instancetype)initWithCancelBlock:(void(^)(void))cancelBlock commitLQYDateBlock:(void (^)(NSDateComponents *dateComponents))commitBlock {
+    MOFSPickerDelegateObject *obj = [MOFSPickerDelegateObject new];
+    obj.cancelBlock = cancelBlock;
+    obj.commitLYQDateBlock = commitBlock;
+    return obj;
 }
 
 @end

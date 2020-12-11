@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSXMLParser *parser;
 
 @property (nonatomic, strong) UIView *bgView;
-@property (nonatomic, strong) NSMutableArray<AddressModel *> *dataArr;
+@property (nonatomic, strong) NSMutableArray<MOFSAddressModel *> *dataArr;
 
 @property (nonatomic, assign) NSInteger selectedIndex_province;
 @property (nonatomic, assign) NSInteger selectedIndex_city;
@@ -26,6 +26,11 @@
 @property (nonatomic, strong) void (^getDataCompleteBlock)(void);
 
 @property (nonatomic, strong) dispatch_semaphore_t semaphore;
+
+@property (nonatomic, strong) NSMutableDictionary<NSString *, MOFSPickerDelegateObject *> *delegatesDict;
+@property (readwrite, nonatomic, strong) NSLock *lock;
+
+@property (nonatomic, strong) NSString *objectPointer;
 
 @end
 
@@ -69,8 +74,27 @@
 
 #pragma mark - getter
 
-- (NSMutableArray<AddressModel *> *)addressDataArray {
+- (NSLock *)lock {
+    if (!_lock) {
+        _lock = [[NSLock alloc] init];
+        _lock.name = @"com.ly.addressPicker.lock";
+    }
+    return _lock;
+}
+
+- (NSMutableDictionary<NSString *, MOFSPickerDelegateObject *> *)delegatesDict {
+    if (!_delegatesDict) {
+        _delegatesDict = [NSMutableDictionary dictionary];
+    }
+    return _delegatesDict;
+}
+
+- (NSMutableArray<MOFSAddressModel *> *)addressDataArray {
     return _dataArr;
+}
+
+- (NSString *)objectPointer {
+    return [NSString stringWithFormat:@"%p", self];
 }
 
 #pragma mark - create UI
@@ -145,6 +169,8 @@
 - (void)initToolBar {
     self.toolBar = [[MOFSToolView alloc] initWithFrame:CGRectMake(0, 0, UISCREEN_WIDTH, 44)];
     self.toolBar.backgroundColor = [UIColor whiteColor];
+    [self.toolBar.cancelBar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelAction)]];
+    [self.toolBar.commitBar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commitAction)]];
 }
 
 - (void)initContainerView {
@@ -158,60 +184,164 @@
     self.bgView = [[UIView alloc] initWithFrame:CGRectMake(0, UISCREEN_HEIGHT - self.frame.size.height - 44, UISCREEN_WIDTH, self.frame.size.height + self.toolBar.frame.size.height)];
 }
 
+#pragma mark - ToolBar Action
+
+- (void)cancelAction {
+    [self hiddenWithAnimation];
+    MOFSPickerDelegateObject *delegate = self.delegatesDict[self.objectPointer];
+    if (delegate.cancelBlock) {
+        delegate.cancelBlock();
+    }
+    
+    [self removeDelegate:delegate];
+}
+
+- (void)commitAction {
+    [self hiddenWithAnimation];
+    MOFSPickerDelegateObject *delegate = self.delegatesDict[self.objectPointer];
+    if (delegate.commitAddressBlock) {
+        
+        if (self.dataArr.count > 0) {
+            MOFSAddressModel *provinceModel = self.dataArr[self.selectedIndex_province];
+            MOFSAddressModel *cityModel;
+            MOFSAddressModel *districtModel;
+            if (provinceModel.list.count > 0 && self.numberOfComponents > 1) {
+                cityModel = provinceModel.list[self.selectedIndex_city];
+            }
+            if (cityModel && cityModel.list.count > 0 && self.numberOfComponents > 2) {
+                districtModel = cityModel.list[self.selectedIndex_area];
+            }
+            
+            MOFSAddressSelectedModel *selectedModel = [MOFSAddressSelectedModel new];
+            selectedModel.provinceName = provinceModel.name;
+            selectedModel.provinceZipcode = provinceModel.zipcode;
+            selectedModel.provinceIndex = provinceModel.index;
+            selectedModel.cityName = cityModel.name;
+            selectedModel.cityZipcode = cityModel.zipcode;
+            selectedModel.cityIndex = cityModel.index;
+            selectedModel.districtName = districtModel.name;
+            selectedModel.districtZipcode = districtModel.zipcode;
+            selectedModel.districtIndex = districtModel.index;
+            
+            delegate.commitAddressBlock(selectedModel);
+        }
+    }
+    [self removeDelegate:delegate];
+}
+
+#pragma mark - delegate
+
+- (void)addDelegate:(MOFSPickerDelegateObject *)delegate {
+    [self.lock lock];
+    self.delegatesDict[self.objectPointer] = delegate;
+    [self.lock unlock];
+}
+
+- (void)removeDelegate:(MOFSPickerDelegateObject *)delegate {
+    [self.lock lock];
+    [self.delegatesDict removeObjectForKey:self.objectPointer];
+    [self.lock unlock];
+}
+
 #pragma mark - Action
 
-- (void)showMOFSAddressPickerCommitBlock:(void(^)(NSString *address, NSString *zipcode))commitBlock cancelBlock:(void(^)(void))cancelBlock {
+/**
+ * 显示选择器
+ * @param title 选择器toolBar中间标题
+ * @param commitTitle 确定标题
+ * @param cancelTitle 取消标题
+ */
+- (void)showWithTitle:(NSString * _Nullable)title
+          commitTitle:(NSString * _Nullable)commitTitle
+          cancelTitle:(NSString * _Nullable)cancelTitle
+          commitBlock:(void (^ _Nullable)(MOFSAddressSelectedModel * _Nullable selectedModel))commitBlock
+          cancelBlock:(void (^ _Nullable)(void))cancelBlock {
+    [self showWithSelectedAddress:nil title:title commitTitle:commitTitle cancelTitle:cancelTitle commitBlock:commitBlock cancelBlock:cancelBlock];
+}
+
+/**
+ * 显示选择器
+ * @param selectedAddress 默认选中的地址
+ * @param title 选择器toolBar中间标题
+ * @param commitTitle 确定标题
+ * @param cancelTitle 取消标题
+ */
+- (void)showWithSelectedAddress:(MOFSAddressSelectedModel * _Nullable)selectedAddress
+                          title:(NSString * _Nullable)title
+                    commitTitle:(NSString * _Nullable)commitTitle
+                    cancelTitle:(NSString * _Nullable)cancelTitle
+                    commitBlock:(void (^ _Nullable)(MOFSAddressSelectedModel * _Nullable selectedModel))commitBlock
+                    cancelBlock:(void (^ _Nullable)(void))cancelBlock {
     if (self.numberOfSection <= 0 || self.numberOfComponents > 3) {
         self.numberOfSection = 3;
     }
+    
+    self.toolBar.titleBarTitle = title;
+    self.toolBar.commitBarTitle = commitTitle;
+    self.toolBar.cancelBarTitle = cancelTitle;
     
     //iOS 10及以上需要添加 这一行代码，否则第一次不显示中间两条分割线
     if ([self numberOfRowsInComponent:0] > 0) {}
     
     [self showWithAnimation];
     
-    __weak typeof(self) weakSelf = self;
-    self.toolBar.cancelBlock = ^ {
-        if (cancelBlock) {
-            [weakSelf hiddenWithAnimation];
-            cancelBlock();
-        }
-    };
+    MOFSPickerDelegateObject *delegate = [MOFSPickerDelegateObject initWithCancelBlock:cancelBlock commitAddressBlock:commitBlock];
+    [self addDelegate:delegate];
     
-    self.toolBar.commitBlock = ^ {
-        if (commitBlock) {
-            [weakSelf hiddenWithAnimation];
-            if (weakSelf.dataArr.count > 0) {
-               AddressModel *addressModel = weakSelf.dataArr[weakSelf.selectedIndex_province];
-                CityModel *cityModel;
-                DistrictModel *districtModel;
-                if (addressModel.list.count > 0) {
-                    cityModel = addressModel.list[weakSelf.selectedIndex_city];
-                }
-                if (cityModel && cityModel.list.count > 0) {
-                    districtModel = cityModel.list[weakSelf.selectedIndex_area];
-                }
-                
-                NSString *address;
-                NSString *zipcode;
-                if (!cityModel || weakSelf.numberOfComponents == 1) {
-                    address = [NSString stringWithFormat:@"%@",addressModel.name];
-                    zipcode = [NSString stringWithFormat:@"%@",addressModel.zipcode];
-                } else {
-                    if (!districtModel || weakSelf.numberOfComponents == 2) {
-                        address = [NSString stringWithFormat:@"%@-%@",addressModel.name,cityModel.name];
-                        zipcode = [NSString stringWithFormat:@"%@-%@",addressModel.zipcode,cityModel.zipcode];
-                    } else {
-                        address = [NSString stringWithFormat:@"%@-%@-%@",addressModel.name,cityModel.name,districtModel.name];
-                        zipcode = [NSString stringWithFormat:@"%@-%@-%@",addressModel.zipcode,cityModel.zipcode,districtModel.zipcode];
-                    }
-                }
-                
-                
-                commitBlock(address, zipcode);
+    if (selectedAddress) {
+        [self searchType:MOFSAddressSearchTypeByAddress keyModel:selectedAddress block:^(MOFSSearchAddressModel * _Nullable result) {
+            if (!result.error) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self selectRow:result.provinceIndex inComponent:0 animated:NO];
+                    [self selectRow:result.cityIndex inComponent:1 animated:NO];
+                    [self selectRow:result.districtIndex inComponent:2 animated:NO];
+                });
             }
-        }
-    };
+        }];
+    }
+    
+}
+
+/**
+ * 显示选择器
+ * @param selectedZipcode 默认选中的地址代码
+ * @param title 选择器toolBar中间标题
+ * @param commitTitle 确定标题
+ * @param cancelTitle 取消标题
+ */
+- (void)showWithSelectedZipcode:(MOFSAddressSelectedModel * _Nullable)selectedZipcode
+                          title:(NSString * _Nullable)title
+                    commitTitle:(NSString * _Nullable)commitTitle
+                    cancelTitle:(NSString * _Nullable)cancelTitle
+                    commitBlock:(void(^ _Nullable)(MOFSAddressSelectedModel * _Nullable selectedModel))commitBlock
+                    cancelBlock:(void(^_Nullable)(void))cancelBlock {
+    if (self.numberOfSection <= 0 || self.numberOfComponents > 3) {
+        self.numberOfSection = 3;
+    }
+    
+    self.toolBar.titleBarTitle = title;
+    self.toolBar.commitBarTitle = commitTitle;
+    self.toolBar.cancelBarTitle = cancelTitle;
+    
+    //iOS 10及以上需要添加 这一行代码，否则第一次不显示中间两条分割线
+    if ([self numberOfRowsInComponent:0] > 0) {}
+    
+    [self showWithAnimation];
+    
+    MOFSPickerDelegateObject *delegate = [MOFSPickerDelegateObject initWithCancelBlock:cancelBlock commitAddressBlock:commitBlock];
+    [self addDelegate:delegate];
+    
+    if (selectedZipcode) {
+        [self searchType:MOFSAddressSearchTypeByZipcode keyModel:selectedZipcode block:^(MOFSSearchAddressModel * _Nullable result) {
+            if (!result.error) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self selectRow:result.provinceIndex inComponent:0 animated:NO];
+                    [self selectRow:result.cityIndex inComponent:1 animated:NO];
+                    [self selectRow:result.districtIndex inComponent:2 animated:NO];
+                });
+            }
+        }];
+    }
 }
 
 - (void)showWithAnimation {
@@ -301,17 +431,17 @@
         if (dict[@"province"] && [dict[@"province"] isKindOfClass:[NSArray class]]) {
             NSArray *arr = dict[@"province"];
             for (NSDictionary *provinceJson in arr) {
-                AddressModel *provinceModel = [[AddressModel alloc] initWithDictionary:provinceJson];
-                provinceModel.index = [NSString stringWithFormat:@"%lu", (unsigned long)self.dataArr.count];
+                MOFSAddressModel *provinceModel = [[MOFSAddressModel alloc] initWithDictionary:provinceJson];
+                provinceModel.index = self.dataArr.count;
                 if (provinceJson[@"city"] && [provinceJson[@"city"] isKindOfClass:[NSArray class]]) {
                     for (NSDictionary *cityJson in provinceJson[@"city"]) {
-                        CityModel *cityModel = [[CityModel alloc] initWithDictionary:cityJson];
-                        cityModel.index = [NSString stringWithFormat:@"%lu", (unsigned long)provinceModel.list.count];
+                        MOFSAddressModel *cityModel = [[MOFSAddressModel alloc] initWithDictionary:cityJson];
+                        cityModel.index = provinceModel.list.count;
                         [provinceModel.list addObject:cityModel];
                         if (cityJson[@"district"] && [cityJson[@"district"] isKindOfClass:[NSArray class]]) {
                             for (NSDictionary *districtJson in cityJson[@"district"]) {
-                                DistrictModel *model = [[DistrictModel alloc] initWithDictionary:districtJson];
-                                model.index = [NSString stringWithFormat:@"%lu", (unsigned long)cityModel.list.count];
+                                MOFSAddressModel *model = [[MOFSAddressModel alloc] initWithDictionary:districtJson];
+                                model.index = cityModel.list.count;
                                 [cityModel.list addObject:model];
                             }
                         }
@@ -332,16 +462,16 @@
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary<NSString *,NSString *> *)attributeDict {
     if ([elementName isEqualToString:@"province"]) {
-        AddressModel *model = [[AddressModel alloc] initWithDictionary:attributeDict];
-        model.index = [NSString stringWithFormat:@"%lu", (unsigned long)self.dataArr.count];
+        MOFSAddressModel *model = [[MOFSAddressModel alloc] initWithDictionary:attributeDict];
+        model.index = self.dataArr.count;
         [self.dataArr addObject:model];
     } else if ([elementName isEqualToString:@"city"]) {
-        CityModel *model = [[CityModel alloc] initWithDictionary:attributeDict];
-        model.index = [NSString stringWithFormat:@"%lu", (unsigned long)self.dataArr.lastObject.list.count];
+        MOFSAddressModel *model = [[MOFSAddressModel alloc] initWithDictionary:attributeDict];
+        model.index = self.dataArr.lastObject.list.count;
         [self.dataArr.lastObject.list addObject:model];
     } else if ([elementName isEqualToString:@"district"]) {
-        DistrictModel *model = [[DistrictModel alloc] initWithDictionary:attributeDict];
-        model.index = [NSString stringWithFormat:@"%lu", (unsigned long)self.dataArr.lastObject.list.lastObject.list.count];
+        MOFSAddressModel *model = [[MOFSAddressModel alloc] initWithDictionary:attributeDict];
+        model.index = self.dataArr.lastObject.list.lastObject.list.count;
         [self.dataArr.lastObject.list.lastObject.list addObject: model];
     }
 }
@@ -355,22 +485,24 @@
 
 #pragma mark - search
 
-- (void)searchType:(SearchType)searchType key:(NSString *)key block:(void(^)(NSString *result))block {
+- (void)searchType:(MOFSAddressSearchType)searchType keyModel:(MOFSAddressSelectedModel *)keyModel block:(void (^)(MOFSSearchAddressModel * _Nullable))block {
     
     dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
     
-    NSString *valueName = @"";
-    NSString *type = @"";
+    NSString *searchKeyName = @"";
     
-    if (searchType == SearchTypeAddressIndex) {
-        valueName = @"index";
-        type = @"name";
-    } else if (searchType == SearchTypeZipcodeIndex) {
-        valueName = @"index";
-        type = @"zipcode";
-    } else {
-        valueName = searchType == SearchTypeAddress ? @"name" : @"zipcode";
-        type = searchType == SearchTypeAddress ? @"zipcode" : @"name";
+    switch (searchType) {
+        case MOFSAddressSearchTypeByAddress:
+            searchKeyName = @"name";
+            break;
+        case MOFSAddressSearchTypeByZipcode:
+            searchKeyName = @"zipcode";
+            break;
+        case MOFSAddressSearchTypeByIndex:
+            searchKeyName = @"index";
+            break;
+        default:
+            break;
     }
     
     if (self.isGettingData || !self.dataArr || self.dataArr.count == 0) {
@@ -379,7 +511,7 @@
             if (block) {
                 
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                    block([weakSelf searchByKey:key valueName:valueName type:type]);
+                    block([weakSelf searchByKeyModel:keyModel searchType:searchType keyName:searchKeyName]);
                 });
                 
                 dispatch_semaphore_signal(weakSelf.semaphore);
@@ -388,7 +520,7 @@
     } else {
         if (block) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                block([self searchByKey:key valueName:valueName type:type]);
+                block([self searchByKeyModel:keyModel searchType:searchType keyName:searchKeyName]);
             });
             dispatch_semaphore_signal(self.semaphore);
         }
@@ -397,54 +529,69 @@
 }
 
 
-- (NSString *)searchByKey:(NSString *)key valueName:(NSString *)valueName type:(NSString *)type {
+- (MOFSSearchAddressModel * _Nullable)searchByKeyModel:(MOFSAddressSelectedModel *)keyModel searchType:(MOFSAddressSearchType)searchType keyName:(NSString *)keyName {
     
-    if ([key isEqualToString:@""] || !key) {
-        return @"";
+    if (!keyModel) {
+        return nil;
+    }
+
+    MOFSSearchAddressModel *resultModel = [MOFSSearchAddressModel new];
+    [resultModel copyModel:keyModel];
+    
+    id provinceValue, cityValue, districtValue;
+    switch (searchType) {
+        case MOFSAddressSearchTypeByAddress:
+            provinceValue = keyModel.provinceName;
+            cityValue = keyModel.cityName;
+            districtValue = keyModel.districtName;
+            break;
+        case MOFSAddressSearchTypeByZipcode:
+            provinceValue = keyModel.provinceZipcode;
+            cityValue = keyModel.cityZipcode;
+            districtValue = keyModel.districtZipcode;
+            break;
+        case MOFSAddressSearchTypeByIndex:
+            provinceValue = @(keyModel.provinceIndex);
+            cityValue = @(keyModel.cityIndex);
+            districtValue = @(keyModel.districtIndex);
+            break;
+        default:
+            break;
     }
     
-    NSArray *arr = [key componentsSeparatedByString:@"-"];
-    if (arr.count > 3) {
-        return @"error0"; //最多只能输入省市区三个部分
-    }
-    AddressModel *addressModel = (AddressModel *)[self searchModelInArr:_dataArr key:arr[0] type:type];
-    if (addressModel) {
-        if (arr.count == 1) { //只输入了省份
-            return [addressModel valueForKey:valueName];
-        }
-        CityModel *cityModel = (CityModel *)[self searchModelInArr:addressModel.list key:arr[1] type:type];
+    MOFSAddressModel *provinceModel = (MOFSAddressModel *)[self searchModelInArr:_dataArr key:keyName value:provinceValue];
+    if (provinceModel) {
+        resultModel.provinceName = provinceModel.name;
+        resultModel.provinceZipcode = provinceModel.zipcode;
+        resultModel.provinceIndex = provinceModel.index;
+        
+        MOFSAddressModel *cityModel = (MOFSAddressModel *)[self searchModelInArr:provinceModel.list key:keyName value:cityValue];
         if (cityModel) {
-            if (arr.count == 2) { //只输入了省份+城市
-                return [NSString stringWithFormat:@"%@-%@",[addressModel valueForKey:valueName],[cityModel valueForKey:valueName]];
-            }
-            DistrictModel *districtModel = (DistrictModel *)[self searchModelInArr:cityModel.list key:arr[2] type:type];
+            resultModel.cityName = cityModel.name;
+            resultModel.cityZipcode = cityModel.zipcode;
+            resultModel.cityIndex = cityModel.index;
+            
+            MOFSAddressModel *districtModel = (MOFSAddressModel *)[self searchModelInArr:cityModel.list key:keyName value:districtValue];
             if (districtModel) {
-                return [NSString stringWithFormat:@"%@-%@-%@",[addressModel valueForKey:valueName],[cityModel valueForKey:valueName],[districtModel valueForKey:valueName]];
+                resultModel.districtName = districtModel.name;
+                resultModel.districtZipcode = districtModel.zipcode;
+                resultModel.districtIndex = districtModel.index;
             } else {
-                return @"error3"; //输入区错误
+                resultModel.error = [NSError errorWithDomain:MOFSSearchErrorDomain code:MOFSSearchErrorCodeDistrictNotFound userInfo:nil];
             }
         } else {
-            return @"error2"; //输入城市错误
+            resultModel.error = [NSError errorWithDomain:MOFSSearchErrorDomain code:MOFSSearchErrorCodeCityNotFound userInfo:nil];
         }
     } else {
-        return @"error1"; //输入省份错误
+        resultModel.error = [NSError errorWithDomain:MOFSSearchErrorDomain code:MOFSSearchErrorCodeProvinceNotFound userInfo:nil];
     }
 
-
+    return resultModel;
 }
 
-- (NSObject *)searchModelInArr:(NSArray *)arr key:(NSString *)key type:(NSString *)type {
-    
-    NSObject *object;
-    
-    for (NSObject *obj in arr) {
-        if ([key isEqualToString:[obj valueForKey:type]]) {
-            object = obj;
-            break;
-        }
-    }
-    
-    return object;
+- (NSObject *)searchModelInArr:(NSArray *)arr key:(NSString *)key value:(id)value {
+    NSArray *filterArr = [arr filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.%@ = %@", key, value]];
+    return filterArr.firstObject;
 }
 
 
@@ -455,20 +602,20 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    AddressModel *addressModel;
+    MOFSAddressModel *provinceModel;
     if (self.dataArr.count > 0) {
-        addressModel = self.dataArr[self.selectedIndex_province];
+        provinceModel = self.dataArr[self.selectedIndex_province];
     }
    
-    CityModel *cityModel;
-    if (addressModel && addressModel.list.count > 0) {
-        cityModel = addressModel.list[self.selectedIndex_city];
+    MOFSAddressModel *cityModel;
+    if (provinceModel && provinceModel.list.count > 0) {
+        cityModel = provinceModel.list[self.selectedIndex_city];
     }
     if (self.dataArr.count != 0) {
         if (component == 0) {
             return self.dataArr.count;
         } else if (component == 1) {
-            return addressModel == nil ? 0 : addressModel.list.count;
+            return provinceModel == nil ? 0 : provinceModel.list.count;
         } else if (component == 2) {
             return cityModel == nil ? 0 : cityModel.list.count;
         } else {
@@ -483,16 +630,16 @@
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     
     if (component == 0) {
-        AddressModel *addressModel = self.dataArr[row];
-        return addressModel.name;
+        MOFSAddressModel *provinceModel = self.dataArr[row];
+        return provinceModel.name;
     } else if (component == 1) {
-        AddressModel *addressModel = self.dataArr[self.selectedIndex_province];
-        CityModel *cityModel = addressModel.list[row];
+        MOFSAddressModel *provinceModel = self.dataArr[self.selectedIndex_province];
+        MOFSAddressModel *cityModel = provinceModel.list[row];
         return cityModel.name;
     } else if (component == 2) {
-        AddressModel *addressModel = self.dataArr[self.selectedIndex_province];
-        CityModel *cityModel = addressModel.list[self.selectedIndex_city];
-        DistrictModel *districtModel = cityModel.list[row];
+        MOFSAddressModel *provinceModel = self.dataArr[self.selectedIndex_province];
+        MOFSAddressModel *cityModel = provinceModel.list[self.selectedIndex_city];
+        MOFSAddressModel *districtModel = cityModel.list[row];
         return districtModel.name;
     } else {
         return nil;
@@ -545,6 +692,8 @@
             break;
     }
 }
+
+#pragma mark - Dealloc
 
 - (void)dealloc {
    

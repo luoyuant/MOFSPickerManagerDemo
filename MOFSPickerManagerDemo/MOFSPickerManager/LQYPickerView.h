@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LQYPickerView : UIPickerView
 
+@property (nonatomic, readonly) NSString *objectPointer;
+
 @property (nonatomic, strong) LQYPickerViewLayout *layout;
 //背景透明度， 默认0.4
 @property (nonatomic, assign) CGFloat maskAlpha;

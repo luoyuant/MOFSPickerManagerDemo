@@ -36,25 +36,30 @@
     if (lb.tag == 1) {
         
         //单例方法
-        [MOFSPickerManager shareManger].datePicker.toolBar.cancelBar.textColor = [UIColor redColor];
-        NSDateFormatter *df = [NSDateFormatter new];
-        df.dateFormat = @"yyyy-M-d";
-        NSDate *date = [df dateFromString:@"2015-6-1"];
-        [MOFSPickerManager shareManger].datePicker.toolBar.titleBarTitle = @"选择日期";
-        [MOFSPickerManager shareManger].datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
-        [[MOFSPickerManager shareManger] showDatePickerWithTitle:@"Chose your birthday" cancelTitle:@"Cancel" commitTitle:@"Confirm" firstDate:date minDate:date maxDate:nil datePickerMode:UIDatePickerModeDate tag:0 commitBlock:^(NSDate *date) {
-            NSLog(@"%@", [df stringFromDate:date]);
-        } cancelBlock:^{
-
-        }];
-        
-        //自行创建实例方法
-//        MOFSDatePicker *p = [MOFSDatePicker new];
-//        [p showMOFSDatePickerViewWithFirstDate:nil commit:^(NSDate *date) {
+//        [MOFSPickerManager shareManger].datePicker.toolBar.cancelBar.textColor = [UIColor redColor];
+//        NSDateFormatter *df = [NSDateFormatter new];
+//        df.dateFormat = @"yyyy-M-d";
+//        NSDate *selectedDate = [df dateFromString:@"2015-6-1"];
+//        [MOFSPickerManager shareManger].datePicker.toolBar.titleBarTitle = @"选择日期";
+//        [MOFSPickerManager shareManger].datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
+//        [[MOFSPickerManager shareManger].datePicker showWithTitle:@"选择日期" commitTitle:@"确定" cancelTitle:@"取消" selectedDate:selectedDate minDate:nil maxDate:nil datePickerMode:UIDatePickerModeDate commitBlock:^(NSDate * _Nullable date) {
+//            NSLog(@"%@", [df stringFromDate:date]);
+//        } cancelBlock:^{
 //
+//        }];
+//        [[MOFSPickerManager shareManger].datePicker showWithSelectedDate:selectedDate commit:^(NSDate * _Nullable date) {
+//            NSLog(@"%@", [df stringFromDate:date]);
 //        } cancel:^{
 //
 //        }];
+        
+        //自行创建实例方法
+        MOFSDatePicker *p = [MOFSDatePicker new];
+        [p showWithSelectedDate:nil commit:^(NSDate * _Nullable date) {
+            NSLog(@"%@", [df stringFromDate:date]);
+        } cancel:^{
+
+        }];
 
     } else if (lb.tag == 2) {
 //        NSString *str_a = @"疾风剑豪";
@@ -85,7 +90,7 @@
         c.userId = 0003;
 
         //单例方法
-//        [[MOFSPickerManager shareManger] showPickerViewWithCustomDataArray:@[a, b, c] keyMapper:@"name" title:@"选择英雄" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(id model) {
+//        [[MOFSPickerManager shareManger].pickView showWithDataArray:@[a, b, c] keyMapper:@"name" title:@"选择英雄" commitBlock:^(id  _Nullable model) {
 //            Model *m = (Model *)model;
 //            lb.text = m.name;
 //            NSLog(@"%@-%zd", m.name, m.userId);
@@ -94,14 +99,16 @@
 //        }];
         
         //自行创建实例方法
-//        MOFSPickerView *p = [MOFSPickerView new];
-//        p.attributes = @{NSFontAttributeName : [UIFont systemFontOfSize:17], NSForegroundColorAttributeName : [UIColor redColor]};
-//        p.toolBar.titleBarTitle = @"";
-//        [p showMOFSPickerViewWithCustomDataArray:@[a, b, c] keyMapper:@"name" commitBlock:^(id model) {
-//
-//        } cancelBlock:^{
-//
-//        }];
+        MOFSPickerView *p = [MOFSPickerView new];
+        p.attributes = @{NSFontAttributeName : [UIFont systemFontOfSize:17], NSForegroundColorAttributeName : [UIColor redColor]};
+        p.toolBar.titleBarTitle = @"";
+        [p showWithDataArray:@[a, b, c] keyMapper:@"name" title:@"选择" commitBlock:^(id  _Nullable model) {
+            Model *m = (Model *)model;
+            lb.text = m.name;
+            NSLog(@"%@-%zd", m.name, m.userId);
+        } cancelBlock:^{
+            
+        }];
         
 //        LQYPickerView *p = [LQYPickerView new];
 //        p.dataArray = @[@[a, b, c], @[a, b, c]];
@@ -134,18 +141,27 @@
 //            NSLog(@"%@", json);
 //        };
         
-        LQYDatePickerView *p = [LQYDatePickerView new];
-        [p showWithCommitBlock:^(NSDateComponents * _Nonnull components) {
-            NSLog(@"%@", components);
-        } cancelBlock:^{
-            NSLog(@"取消");
-        }];
+//        LQYDatePickerView *p = [LQYDatePickerView new];
+//        [p showWithCommitBlock:^(NSDateComponents * _Nonnull components) {
+//            NSLog(@"%@", components);
+//        } cancelBlock:^{
+//            NSLog(@"取消");
+//        }];
         
         
     } else if (lb.tag == 3) {
-        //[MOFSPickerManager shareManger].addressPicker.numberOfSection = 2;
-//        [[MOFSPickerManager shareManger] showMOFSAddressPickerWithDefaultAddress:@"广西壮族自治区-玉林市-容县" title:@"选择地址" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString *address, NSString *zipcode) {
-//            lb.text = address;
+//        [MOFSPickerManager shareManger].addressPicker.numberOfSection = 2;
+//        1.
+//        [[MOFSPickerManager shareManger].addressPicker showWithTitle:@"选择地址" commitTitle:@"确定" cancelTitle:@"取消" commitBlock:^(MOFSAddressSelectedModel * _Nullable selectedModel) {
+//            lb.text = [NSString stringWithFormat:@"%@-%@-%@", selectedModel.provinceName, selectedModel.cityName, selectedModel.districtName];
+//        } cancelBlock:^{
+//
+//        }];
+        
+//        2.
+//        MOFSAddressSelectedModel *model = [MOFSAddressSelectedModel initWithProvinceName:@"广西壮族自治区" cityName:@"玉林市" districtName:@"容县"];
+//        [[MOFSPickerManager shareManger].addressPicker showWithSelectedAddress:model title:@"选择地址" commitTitle:@"确定" cancelTitle:@"取消" commitBlock:^(MOFSAddressSelectedModel * _Nullable selectedModel) {
+//            lb.text = [NSString stringWithFormat:@"%@-%@-%@", selectedModel.provinceName, selectedModel.cityName, selectedModel.districtName];
 //        } cancelBlock:^{
 //
 //        }];
@@ -153,19 +169,24 @@
 //        [MOFSPickerManager shareManger].addressPicker.attributes = @{NSFontAttributeName : [UIFont systemFontOfSize:15], NSForegroundColorAttributeName : [UIColor redColor]};
         
         
-        
-//        [[MOFSPickerManager shareManger] showMOFSAddressPickerWithDefaultZipcode:@"450000-450900-450921" title:@"选择地址" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString * _Nullable address, NSString * _Nullable zipcode) {
-//            lb.text = address;
-//            NSLog(@"%@", zipcode);
+//        [[MOFSPickerManager shareManger].addressPicker showWithSelectedZipcode:[MOFSAddressSelectedModel initWithProvinceZipcode:@"450000" cityZipcode:@"450900" districtZipcode:@"450921"] title:@"选择地址" commitTitle:@"确定" cancelTitle:@"取消" commitBlock:^(MOFSAddressSelectedModel * _Nullable selectedModel) {
+//            lb.text = [NSString stringWithFormat:@"%@-%@-%@", selectedModel.provinceName, selectedModel.cityName, selectedModel.districtName];
+//        } cancelBlock:^{
+//
+//        }];
+
+//        [MOFSPickerManager shareManger].addressPicker.usedXML = true;
+//        [[MOFSPickerManager shareManger] showMOFSAddressPickerWithTitle:@"选择地址" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString * _Nullable address, NSString * _Nullable zipcode) {
 //
 //        } cancelBlock:^{
 //
 //        }];
-        [MOFSPickerManager shareManger].addressPicker.usedXML = true;
-        [[MOFSPickerManager shareManger] showMOFSAddressPickerWithTitle:@"选择地址" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString * _Nullable address, NSString * _Nullable zipcode) {
-            
+        
+        MOFSAddressPickerView *picker = [MOFSAddressPickerView new];
+        [picker showWithTitle:@"请选择地址" commitTitle:@"确定" cancelTitle:@"取消" commitBlock:^(MOFSAddressSelectedModel * _Nullable selectedModel) {
+            lb.text = [NSString stringWithFormat:@"%@-%@-%@", selectedModel.provinceName, selectedModel.cityName, selectedModel.districtName];
         } cancelBlock:^{
-            
+
         }];
         
         //修改中间分割线颜色

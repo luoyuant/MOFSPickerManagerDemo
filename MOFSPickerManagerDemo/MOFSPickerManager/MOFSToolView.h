@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MOFSAddressModel.h"
 
 @interface MOFSToolView : UIView
 
@@ -25,7 +26,7 @@
 @property (nonatomic, strong) UIColor *cancelBarTintColor;
 
 /**
- default Title: "完成"
+ default Title: "确定"
  */
 @property (nonatomic, strong) NSString *commitBarTitle;
 
@@ -44,7 +45,33 @@
  */
 @property (nonatomic, strong) UIColor *titleBarTextColor;
 
-@property (nonatomic, strong) void (^cancelBlock)(void);
-@property (nonatomic, strong) void (^commitBlock)(void);
+@end
+
+
+@interface MOFSPickerDelegateObject : NSObject
+
+@property (nonatomic, copy) void (^cancelBlock)(void);
+
+@property (nonatomic, copy) void (^commitDateBlock)(NSDate *date);
+@property (nonatomic, copy) void (^commitAddressBlock)(MOFSAddressSelectedModel *selectedModel);
+@property (nonatomic, copy) void (^commitPickerBlock)(id obj);
+@property (nonatomic, copy) void (^commitLYQDateBlock)(NSDateComponents *dateComponents);
+
+/**
+ * 日期
+ */
++ (instancetype)initWithCancelBlock:(void(^)(void))cancelBlock commitDateBlock:(void (^)(NSDate * date))commitBlock;
+
+/**
+ * 地址
+ */
++ (instancetype)initWithCancelBlock:(void(^)(void))cancelBlock commitAddressBlock:(void (^)(MOFSAddressSelectedModel *selectedModel))commitBlock;
+
+/**
+ * 普通选择器
+ */
++ (instancetype)initWithCancelBlock:(void(^)(void))cancelBlock commitPickerBlock:(void (^)(id obj))commitBlock;
+
++ (instancetype)initWithCancelBlock:(void(^)(void))cancelBlock commitLQYDateBlock:(void (^)(NSDateComponents *dateComponents))commitBlock;
 
 @end
