@@ -334,11 +334,17 @@
     if (selectedZipcode) {
         [self searchType:MOFSAddressSearchTypeByZipcode keyModel:selectedZipcode block:^(MOFSSearchAddressModel * _Nullable result) {
             if (!result.error) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self selectRow:result.provinceIndex inComponent:0 animated:NO];
-                    [self selectRow:result.cityIndex inComponent:1 animated:NO];
-                    [self selectRow:result.districtIndex inComponent:2 animated:NO];
-                });
+                @try {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self selectRow:result.provinceIndex inComponent:0 animated:NO];
+                        [self selectRow:result.cityIndex inComponent:1 animated:NO];
+                        [self selectRow:result.districtIndex inComponent:2 animated:NO];
+                    });
+                } @catch (NSException *exception) {
+                    
+                } @finally {
+                    
+                }
             }
         }];
     }

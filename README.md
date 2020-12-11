@@ -11,12 +11,14 @@ pod 'MOFSPickerManager'即可
 # 用法
 1.日期选择器调用（有多种调用方式，看demo即可）
 
-    [[MOFSPickerManager shareManger] showDatePickerWithTag:1 commitBlock:^(NSDate *date) {
+```objective-c
+[[MOFSPickerManager shareManger].datePicker showWithTitle:@"选择日期" commitTitle:@"确定" cancelTitle:@"取消" selectedDate:selectedDate minDate:nil maxDate:nil datePickerMode:UIDatePickerModeDate commitBlock:^(NSDate * _Nullable date) {
+    NSLog(@"%@", [df stringFromDate:date]);
+ } cancelBlock:^{
 
-    } cancelBlock:^{
-
-    }];
-
+ }];
+```
+ 
 参数说明
 
 * @param title : 中间标题，一般为nil
@@ -25,31 +27,33 @@ pod 'MOFSPickerManager'即可
 
 * @param commitTitle : 右边标题 “确定”
 
-* @param firstDate :第一次点击的时候显示的日期
+* @param selectedDate : 默认选中日期
 
 * @param minDate : 可选择的最小日期，不限制则为nil
 
 * @param maxDate : 可选择的最大日期，不限制则为nil
 
-* @param tag ： 同一个界面显示多个日期选择器的时候，能够记住每一个选择器最后选择的日期（注意：不要使用相同的tag值）
-
 * @param model : UIDatePickerMode 日期模式，有四种 UIDatePickerModeTime,   UIDatePickerModeDate, UIDatePickerModeDateAndTime, UIDatePickerModeCountDownTimer
 
 2.普通选择器调用
 
-    [[MOFSPickerManager shareManger] showPickerViewWithDataArray:@[@"疾风剑豪",@"刀锋意志",@"诡术妖姬",@"狂战士"] tag:1 title:nil cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString *string) {
-
-    } cancelBlock:^{
-
-    }];
+```objective-c
+[[MOFSPickerManager shareManger].pickView showWithDataArray:@[@"疾风剑豪",@"刀锋意志",@"诡术妖姬",@"狂战士"] title:nil commitBlock:^(id  _Nullable model) {
+            
+} cancelBlock:^{
+            
+}];
+```
 
 3.地址选择器调用
 
-    [[MOFSPickerManager shareManger] showMOFSAddressPickerWithTitle:nil cancelTitle:@"取消" commitTitle:@"完成" commitBlock:^(NSString *address, NSString *zipcode) {
+```objective-c
+[[MOFSPickerManager shareManger].addressPicker showWithTitle:@"选择地址" commitTitle:@"确定" cancelTitle:@"取消" commitBlock:^(MOFSAddressSelectedModel * _Nullable selectedModel) {
+    lb.text = [NSString stringWithFormat:@"%@-%@-%@", selectedModel.provinceName, selectedModel.cityName, selectedModel.districtName];
+} cancelBlock:^{
 
-    } cancelBlock:^{
-
-    }];
+}];
+```
 
 地址选择器附带根据地址查询区域码或者根据区域码查询地址功能：
 
@@ -58,30 +62,26 @@ pod 'MOFSPickerManager'即可
 【注意：一定要用“-”间隔，可查询省份例如传参"450000"；或者省份+城市例如"450000-450900"；也可以查省+市+区例如"450000-450900-450921"
 。根据地址查区域码以此类推。】
 
-①根据区域码查询地址
+①根据区域码查询地址等信息
 
-    [[MOFSPickerManager shareManger] searchAddressByZipcode:@"450000-450900-450921" block:^(NSString *address) {
+```objective-c
+[[MOFSPickerManager shareManger].addressPicker searchType:MOFSAddressSearchTypeByZipcode keyModel:[MOFSAddressSelectedModel initWithProvinceZipcode:@"450000" cityZipcode:@"450900" districtZipcode:@"450921"] block:^(MOFSSearchAddressModel * _Nullable result) {
+            
+}];
+```
 
-    NSLog(@"%@",address);
+②根据地址查询区域码等信息
 
-    }];
-
-②根据地址查询区域码
-
-    [[MOFSPickerManager shareManger] searchZipCodeByAddress:@"河北省-石家庄市-长安区" block:^(NSString *zipcode) {
-
-    NSLog(@"%@",zipcode);
-
-    }];
+```objective-c
+[[MOFSPickerManager shareManger].addressPicker searchType:MOFSAddressSearchTypeByAddress keyModel:[MOFSAddressSelectedModel initWithProvinceName:@"广西壮族自治区" cityName:@"玉林市" districtName:@"容县"] block:^(MOFSSearchAddressModel * _Nullable result) {
+            
+}];
+```
     
     
 #详情请查看http://www.jianshu.com/p/578065eab5ab
     
     
 如果发现有bug，call me！
-
-晚上睡不着？？ call me！
-
-come on！ touch me！！！
 
 luoyuant@163.com

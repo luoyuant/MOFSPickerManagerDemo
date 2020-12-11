@@ -64,9 +64,8 @@
     } else if (lb.tag == 2) {
 //        NSString *str_a = @"疾风剑豪";
 //        str_a.mofs_key = @"自定义id";
-//        [[MOFSPickerManager shareManger] showPickerViewWithDataArray:@[str_a,@"刀锋意志",@"诡术妖姬",@"狂战士"] tag:1 title:@"选择英雄" cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString *string) {
-//            lb.text = string;
-//            NSLog(@"%@-%@",string, string.mofs_key);
+//        [[MOFSPickerManager shareManger].pickView showWithDataArray:@[@"疾风剑豪",@"刀锋意志",@"诡术妖姬",@"狂战士"] title:nil commitBlock:^(id  _Nullable model) {
+//
 //        } cancelBlock:^{
 //
 //        }];
@@ -164,6 +163,10 @@
 //            lb.text = [NSString stringWithFormat:@"%@-%@-%@", selectedModel.provinceName, selectedModel.cityName, selectedModel.districtName];
 //        } cancelBlock:^{
 //
+//        }];
+        
+//        [[MOFSPickerManager shareManger].addressPicker searchType:MOFSAddressSearchTypeByZipcode keyModel:[MOFSAddressSelectedModel initWithProvinceZipcode:@"450000" cityZipcode:@"450900" districtZipcode:@"450921"] block:^(MOFSSearchAddressModel * _Nullable result) {
+//            
 //        }];
 
 //        [MOFSPickerManager shareManger].addressPicker.attributes = @{NSFontAttributeName : [UIFont systemFontOfSize:15], NSForegroundColorAttributeName : [UIColor redColor]};
