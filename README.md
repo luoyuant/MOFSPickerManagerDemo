@@ -1,14 +1,14 @@
-#iOS PickerView整合，一行代码调用（省市区三级联动+日期选择+普通选择）
+# iOS PickerView整合，一行代码调用（省市区三级联动+日期选择+普通选择）
 
 支持CocoaPods安装，
 
 pod 'MOFSPickerManager'即可
 
-# 预览图
+## 预览图
 
 ![image](https://github.com/memoriesofsnows/MOFSPickerManagerDemo/blob/master/images/tap9.gif)
 
-# 用法
+## 用法
 1.日期选择器调用（有多种调用方式，看demo即可）
 
 ```objective-c
@@ -59,9 +59,6 @@ pod 'MOFSPickerManager'即可
 
 用法：
 
-【注意：一定要用“-”间隔，可查询省份例如传参"450000"；或者省份+城市例如"450000-450900"；也可以查省+市+区例如"450000-450900-450921"
-。根据地址查区域码以此类推。】
-
 ①根据区域码查询地址等信息
 
 ```objective-c
@@ -79,7 +76,7 @@ pod 'MOFSPickerManager'即可
 ```
     
     
-#详情请查看http://www.jianshu.com/p/578065eab5ab
+[详情请查看](http://www.jianshu.com/p/578065eab5ab)
     
     
 如果发现有bug，call me！
