@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="EEW-Qd-ywo">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="EEW-Qd-ywo">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -38,13 +36,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择日期" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90T-XB-rAb">
-                                <rect key="frame" x="15" y="124" width="345" height="21"/>
+                                <rect key="frame" x="15" y="104" width="345" height="21"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Kjn-Bw-9tb"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" systemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -56,13 +54,13 @@
                                 </connections>
                             </label>
                             <label opaque="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCy-pS-NWy">
-                                <rect key="frame" x="15" y="195" width="345" height="21"/>
+                                <rect key="frame" x="15" y="175" width="345" height="21"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="Xeu-jd-94w"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" systemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -74,13 +72,13 @@
                                 </connections>
                             </label>
                             <label opaque="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择地址" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pL7-ty-fTD">
-                                <rect key="frame" x="15" y="266" width="345" height="21"/>
+                                <rect key="frame" x="15" y="246" width="345" height="21"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="qlj-5W-KY9"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" systemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -91,16 +89,24 @@
                                     <outletCollection property="gestureRecognizers" destination="p7o-JP-Kum" appends="YES" id="aLv-5x-gLL"/>
                                 </connections>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F1b-Bu-eWO">
+                                <rect key="frame" x="139" y="305" width="97" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="90T-XB-rAb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2Ez-kE-PCJ"/>
                             <constraint firstItem="pL7-ty-fTD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="3TS-Dt-pnq"/>
                             <constraint firstItem="90T-XB-rAb" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="60" id="3at-s7-rZu"/>
+                            <constraint firstItem="F1b-Bu-eWO" firstAttribute="top" secondItem="pL7-ty-fTD" secondAttribute="bottom" constant="38" id="5vS-fb-6ha"/>
+                            <constraint firstItem="F1b-Bu-eWO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="139" id="Fmi-0q-sgo"/>
                             <constraint firstItem="fCy-pS-NWy" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="W7a-5N-wGT"/>
                             <constraint firstItem="pL7-ty-fTD" firstAttribute="top" secondItem="fCy-pS-NWy" secondAttribute="bottom" constant="50" id="b63-FF-3nw"/>
                             <constraint firstItem="fCy-pS-NWy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="phK-EL-NGA"/>
                             <constraint firstItem="fCy-pS-NWy" firstAttribute="top" secondItem="90T-XB-rAb" secondAttribute="bottom" constant="50" id="tCD-w5-uQP"/>
+                            <constraint firstAttribute="trailing" secondItem="F1b-Bu-eWO" secondAttribute="trailing" constant="139" id="w0p-L9-jXe"/>
                             <constraint firstItem="90T-XB-rAb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="wr5-mH-FZV"/>
                             <constraint firstItem="pL7-ty-fTD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zUi-ux-eFk"/>
                         </constraints>
@@ -127,4 +133,9 @@
             <point key="canvasLocation" x="180" y="312"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

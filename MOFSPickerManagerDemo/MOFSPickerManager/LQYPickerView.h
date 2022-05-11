@@ -1,6 +1,6 @@
 //
 //  LQYPickerView.h
-//  MOFSPickerManagerDemo
+//  MOFSPickerManager
 //
 //  Created by luoyuan on 2019/10/22.
 //  Copyright © 2019 luoyuan. All rights reserved.

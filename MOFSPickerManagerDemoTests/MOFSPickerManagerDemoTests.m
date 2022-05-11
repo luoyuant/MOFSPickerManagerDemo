@@ -1,6 +1,6 @@
 //
-//  MOFSPickerManagerDemoTests.m
-//  MOFSPickerManagerDemoTests
+//  MOFSPickerManagerTests.m
+//  MOFSPickerManagerTests
 //
 //  Created by luoyuan on 16/9/5.
 //  Copyright © 2016年 luoyuan. All rights reserved.

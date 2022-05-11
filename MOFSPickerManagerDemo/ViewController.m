@@ -1,6 +1,6 @@
 //
 //  ViewController.m
-//  MOFSPickerManagerDemo
+//  MOFSPickerManager
 //
 //  Created by luoyuan on 16/9/5.
 //  Copyright © 2016年 luoyuan. All rights reserved.
@@ -33,6 +33,7 @@
     UILabel *lb = (UILabel *)(sender.view);
     NSDateFormatter *df = [NSDateFormatter new];
     df.dateFormat = @"yyyy-MM-dd";
+    [self.view endEditing:true];
     if (lb.tag == 1) {
         
         //单例方法
@@ -166,7 +167,7 @@
 //        }];
         
 //        [[MOFSPickerManager shareManger].addressPicker searchType:MOFSAddressSearchTypeByZipcode keyModel:[MOFSAddressSelectedModel initWithProvinceZipcode:@"450000" cityZipcode:@"450900" districtZipcode:@"450921"] block:^(MOFSSearchAddressModel * _Nullable result) {
-//            
+//
 //        }];
 
 //        [MOFSPickerManager shareManger].addressPicker.attributes = @{NSFontAttributeName : [UIFont systemFontOfSize:15], NSForegroundColorAttributeName : [UIColor redColor]};
